@@ -810,12 +810,14 @@ void ang_do_unicode (void) {
   unregister_code (KC_U);
   unregister_code (KC_RSFT);
   unregister_code (KC_RCTL);
+  _delay_ms (100);
 }
 
 void ang_tap (uint16_t codes[]) {
   for (int i = 0; codes[i] != 0; i++) {
     register_code (codes[i]);
     unregister_code (codes[i]);
+    _delay_ms (50);
   }
 }
 
