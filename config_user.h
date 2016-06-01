@@ -24,4 +24,6 @@
 #undef LEADER_TIMEOUT
 #define LEADER_TIMEOUT 1000
 
+#define FORCE_NKRO
+
 #endif
