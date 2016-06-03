@@ -19,6 +19,7 @@ enum {
   EMACS,
   OHLFT,
   OHRGT,
+  CDVRK
 };
 
 /* Macros */
@@ -400,6 +401,52 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                ,KC_NO
                                                                ,KC_NO   ,KC_NO  ,KC_NO
     ),
+
+/* Keymap 8: Capewell-Dvorak
+ *
+ * ,-----------------------------------------------------.           ,-----------------------------------------------------.
+ * |        `~ | 1 F1 | 2 F2 | 3 F3 | 4 F4 | 5 F5 | Plvr |           | Apps | 6 F6 | 7 F7 | 8 F8 | 9 F9 | 0 F10| =     F11 |
+ * |-----------+------+------+------+------+-------------|           |------+------+------+------+------+------+-----------|
+ * |       Tab |   '  |   ,  |   .  |   P  |   Y  |   [  |           |  ]   |   Q  |   F  |   G  |   R  |  K   | /         |
+ * |-----------+------+------+------+------+------|      |           |      |------+------+------+------+------+-----------|
+ * |         - |   O  |   A  |   E  |   I  |   U  |------|           |------|   D  |   H  |   T  |   N  |  S   | \         |
+ * |-----------+------+------+------+------+------|   (  |           |  )   |------+------+------+------+------+-----------|
+ * | Play/Pause|   Z  |   X  |   C  |   V  |   J  |      |           |      |   L  |   M  |   W  |   B  |  ;   |      Stop |
+ * `-----------+------+------+------+------+-------------'           `-------------+------+------+------+------+-----------'
+ *     |  Home | End  | Down |  Up  |   :  |                                       |   -  | Left | Right| PgUp | PgDn  |
+ *     `-----------------------------------'                                       `-----------------------------------'
+ *                                         ,-------------.           ,-------------.
+ *                                         | LAlt | GUI  |           |EMACS | 1HND |
+ *                                  ,------|------|------|           |------+------+------.
+ *                                  |      |      | Ctrl |           | LEAD |      |      |
+ *                                  |Backsp|LShift|------|           |------| Enter| Space|
+ *                                  |      |      | ESC  |           | HUN  |      |      |
+ *                                  `--------------------'           `--------------------'
+ */
+[CDVRK] = KEYMAP(
+// left hand
+ KC_GRV             ,M(KF_1)     ,M(KF_2)     ,M(KF_3),M(KF_4),M(KF_5),M(A_PLVR)
+,KC_TAB             ,KC_QUOT     ,KC_COMM     ,KC_DOT ,KC_P   ,KC_Y   ,KC_LBRC
+,KC_MINS            ,KC_O        ,KC_A        ,KC_E   ,KC_I   ,KC_U
+,KC_MPLY            ,KC_Z        ,KC_X        ,KC_C   ,KC_V   ,KC_J   ,KC_LPRN
+,KC_HOME            ,KC_END      ,KC_DOWN     ,KC_UP  ,KC_COLN
+
+                                                            ,F(F_ALT),F(F_GUI)
+                                                                     ,F(F_CTRL)
+                                                    ,KC_BSPC,F(F_SFT),M(A_ESC)
+
+                                                                // right hand
+                                                               ,KC_APP  ,M(KF_6),M(KF_7),M(KF_8),M(KF_9)     ,M(KF_10)    ,M(KF_11)
+                                                               ,KC_RBRC ,KC_Q   ,KC_F   ,KC_G   ,KC_R        ,KC_K        ,KC_SLSH
+                                                                        ,KC_D   ,KC_H   ,KC_T   ,KC_N        ,KC_S        ,KC_BSLS
+                                                               ,KC_RPRN ,KC_L   ,KC_M   ,KC_W   ,KC_B        ,KC_SCLN     ,KC_MSTP
+                                                                                ,KC_MINS,KC_LEFT,KC_RGHT     ,KC_PGUP     ,KC_PGDN
+
+                                                               ,OSL(EMACS),M(OH_LEFT)
+                                                               ,KC_LEAD
+                                                               ,F(F_HUN),KC_ENT ,KC_SPC
+    ),
+
 
 };
 
@@ -843,6 +890,12 @@ void matrix_scan_user(void) {
   } else if (layer == EMACS) {
     ergodox_right_led_1_on();
     ergodox_right_led_2_on();
+  } else if (layer == CDVRK) {
+    ergodox_right_led_1_on ();
+    ergodox_right_led_2_on ();
+    ergodox_right_led_3_on ();
+
+    ergodox_right_led_2_set (LED_BRIGHTNESS_HI);
   }
 
   if (layer == OHLFT || layer == OHRGT) {
@@ -877,7 +930,7 @@ void matrix_scan_user(void) {
     ergodox_right_led_1_on ();
   } else {
     ergodox_right_led_1_set (LED_BRIGHTNESS_LO);
-    if (layer != OHLFT && layer != EMACS)
+    if (layer != OHLFT && layer != EMACS && layer != CDVRK)
       ergodox_right_led_1_off ();
   }
 
@@ -887,7 +940,7 @@ void matrix_scan_user(void) {
     ergodox_right_led_2_on ();
   } else {
     ergodox_right_led_2_set (LED_BRIGHTNESS_LO);
-    if (layer != OHRGT && layer != HUN && layer != OHLFT && layer != EMACS)
+    if (layer != OHRGT && layer != HUN && layer != OHLFT && layer != EMACS && layer != CDVRK)
       ergodox_right_led_2_off ();
   }
 
@@ -897,7 +950,7 @@ void matrix_scan_user(void) {
     ergodox_right_led_3_on ();
   } else {
     ergodox_right_led_3_set (LED_BRIGHTNESS_LO);
-    if (layer != OHRGT && layer != HUN)
+    if (layer != OHRGT && layer != HUN && layer != CDVRK)
       ergodox_right_led_3_off ();
   }
 
@@ -941,6 +994,13 @@ void matrix_scan_user(void) {
       register_code (KC_UP);
       unregister_code (KC_UP);
       unregister_code (KC_LGUI);
+    }
+
+    SEQ_ONE_KEY (KC_E) {
+      if (layer == CDVRK)
+        layer_move (BASE);
+      else
+        layer_move (CDVRK);
     }
   }
 }

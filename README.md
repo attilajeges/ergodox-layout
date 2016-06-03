@@ -100,6 +100,16 @@ The differences are as follows:
 * The `Apps`/`BASE` key can be used to go back to the base layer, by
   long-tapping it. A short-tap will send the `App` key, as usual.
 
+## Capewell-Dvorak layer
+
+[![Capewell-Dvorak](images/capewel-dvorak-layer.png)](http://www.keyboard-layout-editor.com/#/gists/6ff50bf71248e05aab5b3fec4fae3d08)
+
+Toggled by the `LEAD + E` combo (`E` for experimental), this is a layer I am
+exploring. Some of the keys on Dvorak are not the most convenient, and on this
+layer, I will be playing with ideas to fix these. For now, this is the
+Capewell-Dvorak layout, which fixes some of the issues I see too, but adds its
+own too. This will be tweaked some more in the near-ish future.
+
 # Building
 
 To make my workflow easier, this layout is maintained in
