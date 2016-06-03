@@ -102,7 +102,7 @@ The differences are as follows:
 
 ## Capewell-Dvorak layer
 
-[![Capewell-Dvorak](images/capewel-dvorak-layer.png)](http://www.keyboard-layout-editor.com/#/gists/6ff50bf71248e05aab5b3fec4fae3d08)
+[![Capewell-Dvorak](images/capewell-dvorak-layer.png)](http://www.keyboard-layout-editor.com/#/gists/6ff50bf71248e05aab5b3fec4fae3d08)
 
 Toggled by the `LEAD + E` combo (`E` for experimental), this is a layer I am
 exploring. Some of the keys on Dvorak are not the most convenient, and on this
