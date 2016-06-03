@@ -872,6 +872,8 @@ void ang_tap (uint16_t codes[]) {
   register_code (code); \
   unregister_code (code)
 
+uint8_t is_exp = 0;
+
 // Runs constantly in the background, in a loop.
 void matrix_scan_user(void) {
   uint8_t layer = biton32(layer_state);
@@ -997,10 +999,15 @@ void matrix_scan_user(void) {
     }
 
     SEQ_ONE_KEY (KC_E) {
-      if (layer == CDVRK)
-        layer_move (BASE);
-      else
-        layer_move (CDVRK);
+      if (is_exp == 0) {
+        default_layer_and (0);
+        default_layer_or ((1 << CDVRK));
+        is_exp = 1;
+      } else {
+        is_exp = 0;
+        default_layer_and (0);
+        default_layer_or (1 << BASE);
+      }
     }
   }
 }
