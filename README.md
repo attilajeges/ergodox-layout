@@ -42,8 +42,8 @@ right). The more interesting parts are how certain keys behave:
     - `LEAD l` uses the unicode input method to enter a `λ`.
     - `LEAD s` does a lot of magic to type in a shruggie: `¯\_(ツ)_/¯`
     - `LEAD w m` maximises the currently focused window.
-    - `LEAD e` makes the experimental (Capewell-Dvorak, see below) layer the
-      default.
+    - `LEAD e` makes the experimental
+      ([Capewell-Dvorak](#capewell-dvorak-layer), see below) layer the default.
 
 ## Hungarian layer
 
