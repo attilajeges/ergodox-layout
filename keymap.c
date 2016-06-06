@@ -1003,10 +1003,35 @@ void matrix_scan_user(void) {
         default_layer_and (0);
         default_layer_or ((1 << CDVRK));
         is_exp = 1;
+
+        ergodox_led_all_off ();
+        ergodox_right_led_3_on ();
+        _delay_ms (100);
+        ergodox_right_led_2_on ();
+        _delay_ms (100);
+        ergodox_right_led_3_off ();
+        ergodox_right_led_1_on ();
+        _delay_ms (100);
+        ergodox_right_led_2_off ();
+        _delay_ms (100);
+        ergodox_right_led_1_off ();
       } else {
         is_exp = 0;
         default_layer_and (0);
         default_layer_or (1 << BASE);
+
+        ergodox_led_all_off ();
+        ergodox_right_led_1_on ();
+        _delay_ms (100);
+        ergodox_right_led_2_on ();
+        _delay_ms (100);
+        ergodox_right_led_1_off ();
+        ergodox_right_led_3_on ();
+        _delay_ms (100);
+        ergodox_right_led_2_off ();
+        _delay_ms (100);
+        ergodox_right_led_3_off ();
+
       }
     }
   }
