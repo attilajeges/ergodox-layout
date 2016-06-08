@@ -105,11 +105,13 @@ The differences are as follows:
 
 [![Experimental layer](images/experimental-layer.png)](http://www.keyboard-layout-editor.com/#/gists/6ff50bf71248e05aab5b3fec4fae3d08)
 
-Toggled by the `LEAD + E` combo (`E` for experimental), this is a layer I am
-exploring. Some of the keys on Dvorak are not the most convenient, and on this
-layer, I will be playing with ideas to fix these. For now, this is the
-Capewell-Dvorak layout, which fixes some of the issues I see too, but adds its
-own too. This will be tweaked some more in the near-ish future.
+While using the standard Dvorak layout, I encountered a number of
+inconveniences, and on this layer, I am playing with ideas to make the layout
+feel better. Initially, it was based on [Capewell-Dvorak][cpd], but that too,
+had shortcomings I was not happy with. So now this is something inbetween, with
+own observations thrown in. How it works out in the long run remains to be seen.
+
+ [cpd]: http://www.michaelcapewell.com/projects/keyboard/layout_capewell-dvorak.htm
 
 # Building
 
