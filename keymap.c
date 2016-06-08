@@ -408,11 +408,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------.           ,-----------------------------------------------------.
  * |        `~ | 1 F1 | 2 F2 | 3 F3 | 4 F4 | 5 F5 | Plvr |           | Apps | 6 F6 | 7 F7 | 8 F8 | 9 F9 | 0 F10| =     F11 |
  * |-----------+------+------+------+------+-------------|           |------+------+------+------+------+------+-----------|
- * |       Tab |   '  |   ,  |   .  |   P  |   Y  |   [  |           |  ]   |   Q  |   F  |   G  |   R  |  J   | /         |
+ * |       Tab |   '  |   ,  |   .  |   P  |   Y  |   [  |           |  ]   |   Q  |   F  |   C  |   R  |  J   | /         |
  * |-----------+------+------+------+------+------|      |           |      |------+------+------+------+------+-----------|
  * |         - |   A  |   O  |   E  |   U  |   I  |------|           |------|   D  |   H  |   T  |   N  |  S   | \         |
  * |-----------+------+------+------+------+------|   (  |           |  )   |------+------+------+------+------+-----------|
- * | Play/Pause|   Z  |   K  |   V  |   C  |   X  |      |           |      |   L  |   M  |   W  |   B  |  ;   |      Stop |
+ * | Play/Pause|   Z  |   K  |   V  |   G  |   X  |      |           |      |   L  |   M  |   W  |   B  |  ;   |      Stop |
  * `-----------+------+------+------+------+-------------'           `-------------+------+------+------+------+-----------'
  *     |  Home | End  | Down |  Up  |   :  |                                       |   -  | Left | Right| PgUp | PgDn  |
  *     `-----------------------------------'                                       `-----------------------------------'
@@ -429,7 +429,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  KC_GRV             ,M(KF_1)     ,M(KF_2)     ,M(KF_3),M(KF_4),M(KF_5),M(A_PLVR)
 ,KC_TAB             ,KC_QUOT     ,KC_COMM     ,KC_DOT ,KC_P   ,KC_Y   ,KC_LBRC
 ,KC_MINS            ,KC_A        ,KC_O        ,KC_E   ,KC_U   ,KC_I
-,KC_MPLY            ,KC_Z        ,KC_K        ,KC_V   ,KC_C   ,KC_X   ,KC_LPRN
+,KC_MPLY            ,KC_Z        ,KC_K        ,KC_V   ,KC_G   ,KC_X   ,KC_LPRN
 ,KC_HOME            ,KC_END      ,KC_DOWN     ,KC_UP  ,KC_COLN
 
                                                             ,F(F_ALT),F(F_GUI)
@@ -438,7 +438,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
                                                                 // right hand
                                                                ,KC_APP  ,M(KF_6),M(KF_7),M(KF_8),M(KF_9)     ,M(KF_10)    ,M(KF_11)
-                                                               ,KC_RBRC ,KC_Q   ,KC_F   ,KC_G   ,KC_R        ,KC_J        ,KC_SLSH
+                                                               ,KC_RBRC ,KC_Q   ,KC_F   ,KC_C   ,KC_R        ,KC_J        ,KC_SLSH
                                                                         ,KC_D   ,KC_H   ,KC_T   ,KC_N        ,KC_S        ,KC_BSLS
                                                                ,KC_RPRN ,KC_L   ,KC_M   ,KC_W   ,KC_B        ,KC_SCLN     ,KC_MSTP
                                                                                 ,KC_MINS,KC_LEFT,KC_RGHT     ,KC_PGUP     ,KC_PGDN
