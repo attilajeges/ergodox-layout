@@ -41,6 +41,7 @@ right). The more interesting parts are how certain keys behave:
       does this.
     - `LEAD l` uses the unicode input method to enter a `λ`.
     - `LEAD s` does a lot of magic to type in a shruggie: `¯\_(ツ)_/¯`
+    - `LEAD y` types `\o/`.
     - `LEAD w m` maximises the currently focused window.
     - `LEAD e` makes the [experimental layer](#experimental-layer) the default.
 

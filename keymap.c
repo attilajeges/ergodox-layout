@@ -973,6 +973,11 @@ void matrix_scan_user(void) {
       ang_tap (codes);
     }
 
+    SEQ_ONE_KEY (KC_Y) {
+      uint16_t codes[] = {KC_BSLS, KC_O, KC_SLSH, 0};
+      ang_tap (codes);
+    }
+
     SEQ_ONE_KEY (KC_S) {
       ang_do_unicode (); TAP_ONCE (KC_A); TAP_ONCE (KC_F); TAP_ONCE (KC_SPC);
       TAP_ONCE (KC_BSLS);
