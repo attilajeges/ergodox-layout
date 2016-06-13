@@ -30,6 +30,8 @@ enum {
   // Buttons that do extra stuff
   A_GUI,
   A_ESC,
+  A_MPN,
+  A_COLN,
 
   // Function / number keys
   KF_1, // 1, F1
@@ -134,13 +136,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Base Layer
  *
  * ,-----------------------------------------------------.           ,-----------------------------------------------------.
- * |        `~ | 1 F1 | 2 F2 | 3 F3 | 4 F4 | 5 F5 | Apps |           | Apps | 6 F6 | 7 F7 | 8 F8 | 9 F9 | 0 F10| =     F11 |
+ * |        `~ | 1 F1 | 2 F2 | 3 F3 | 4 F4 | 5 F5 | Apps |           | Apps | 6 F6 | 7 F7 | 8 F8 | 9 F9 | 0 F10|       F11 |
  * |-----------+------+------+------+------+-------------|           |------+------+------+------+------+------+-----------|
- * |       Tab |   '  |   ,  |   .  |   P  |   Y  |   [  |           |  ]   |   F  |   G  |   C  |   R  |  L   | /         |
+ * |       Tab |   '  |   ,  |   .  |   P  |   Y  |   [  |           |  ]   |   F  |   G  |   C  |   R  |  L   | =         |
  * |-----------+------+------+------+------+------|      |           |      |------+------+------+------+------+-----------|
- * |         - |   A  |   O  |   E  |   U  |   I  |------|           |------|   D  |   H  |   T  |   N  |  S   | \         |
+ * | Next/Prev |   A  |   O  |   E  |   U  |   I  |------|           |------|   D  |   H  |   T  |   N  |  S   | \         |
  * |-----------+------+------+------+------+------|   (  |           |  )   |------+------+------+------+------+-----------|
- * | Play/Pause|   ;  |   Q  |   J  |   K  |   X  |      |           |      |   B  |   M  |   W  |   V  |  Z   |      Stop |
+ * | Play/Pause|   /  |   Q  |   J  |   K  |   X  |      |           |      |   B  |   M  |   W  |   V  |  Z   |      Stop |
  * `-----------+------+------+------+------+-------------'           `-------------+------+------+------+------+-----------'
  *     |  Home | End  | Down |  Up  |   :  |                                       |   -  | Left | Right| PgUp | PgDn  |
  *     `-----------------------------------'                                       `-----------------------------------'
@@ -156,17 +158,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // left hand
  KC_GRV             ,M(KF_1)     ,M(KF_2)     ,M(KF_3),M(KF_4),M(KF_5),KC_APP
 ,KC_TAB             ,KC_QUOT     ,KC_COMM     ,KC_DOT ,KC_P   ,KC_Y   ,KC_LBRC
-,KC_MINS            ,KC_A        ,KC_O        ,KC_E   ,KC_U   ,KC_I
-,KC_MPLY            ,KC_SCLN     ,KC_Q        ,KC_J   ,KC_K   ,KC_X   ,KC_LPRN
-,KC_HOME            ,KC_END      ,KC_DOWN     ,KC_UP  ,KC_COLN
+,M(A_MPN)           ,KC_A        ,KC_O        ,KC_E   ,KC_U   ,KC_I
+,KC_MPLY            ,KC_SLSH     ,KC_Q        ,KC_J   ,KC_K   ,KC_X   ,KC_LPRN
+,KC_HOME            ,KC_END      ,KC_DOWN     ,KC_UP  ,M(A_COLN)
 
                                                             ,F(F_ALT),F(F_GUI)
                                                                      ,F(F_CTRL)
                                                     ,KC_BSPC,F(F_SFT),M(A_ESC)
 
                                                                 // right hand
-                                                               ,KC_APP  ,M(KF_6),M(KF_7),M(KF_8),M(KF_9)     ,M(KF_10)    ,M(KF_11)
-                                                               ,KC_RBRC ,KC_F   ,KC_G   ,KC_C   ,KC_R        ,KC_L        ,KC_SLSH
+                                                               ,KC_APP  ,M(KF_6),M(KF_7),M(KF_8),M(KF_9)     ,M(KF_10)    ,KC_F11
+                                                               ,KC_RBRC ,KC_F   ,KC_G   ,KC_C   ,KC_R        ,KC_L        ,KC_EQL
                                                                         ,KC_D   ,KC_H   ,KC_T   ,KC_N        ,KC_S        ,KC_BSLS
                                                                ,KC_RPRN ,KC_B   ,KC_M   ,KC_W   ,KC_V        ,KC_Z        ,KC_MSTP
                                                                                 ,KC_MINS,KC_LEFT,KC_RGHT     ,KC_PGUP     ,KC_PGDN
@@ -406,13 +408,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 8: Experimental layer
  *
  * ,-----------------------------------------------------.           ,-----------------------------------------------------.
- * |        `~ | 1 F1 | 2 F2 | 3 F3 | 4 F4 | 5 F5 | Plvr |           | Apps | 6 F6 | 7 F7 | 8 F8 | 9 F9 | 0 F10| =     F11 |
+ * |        `~ | 1 F1 | 2 F2 | 3 F3 | 4 F4 | 5 F5 | Plvr |           | Apps | 6 F6 | 7 F7 | 8 F8 | 9 F9 | 0 F10|       F11 |
  * |-----------+------+------+------+------+-------------|           |------+------+------+------+------+------+-----------|
- * |       Tab |   '  |   ,  |   .  |   P  |   Y  |   [  |           |  ]   |   Q  |   F  |   C  |   R  |  J   | /         |
+ * |       Tab |   '  |   ,  |   .  |   P  |   Y  |   [  |           |  ]   |   Q  |   F  |   C  |   R  |  J   | =         |
  * |-----------+------+------+------+------+------|      |           |      |------+------+------+------+------+-----------|
- * |         - |   A  |   O  |   E  |   U  |   I  |------|           |------|   D  |   H  |   T  |   N  |  S   | \         |
+ * | Next/Prev |   A  |   O  |   E  |   U  |   I  |------|           |------|   D  |   H  |   T  |   N  |  S   | \         |
  * |-----------+------+------+------+------+------|   (  |           |  )   |------+------+------+------+------+-----------|
- * | Play/Pause|   Z  |   K  |   V  |   G  |   X  |      |           |      |   L  |   M  |   W  |   B  |  ;   |      Stop |
+ * | Play/Pause|   Z  |   K  |   V  |   G  |   X  |      |           |      |   L  |   M  |   W  |   B  |  /   |      Stop |
  * `-----------+------+------+------+------+-------------'           `-------------+------+------+------+------+-----------'
  *     |  Home | End  | Down |  Up  |   :  |                                       |   -  | Left | Right| PgUp | PgDn  |
  *     `-----------------------------------'                                       `-----------------------------------'
@@ -428,19 +430,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // left hand
  KC_GRV             ,M(KF_1)     ,M(KF_2)     ,M(KF_3),M(KF_4),M(KF_5),M(A_PLVR)
 ,KC_TAB             ,KC_QUOT     ,KC_COMM     ,KC_DOT ,KC_P   ,KC_Y   ,KC_LBRC
-,KC_MINS            ,KC_A        ,KC_O        ,KC_E   ,KC_U   ,KC_I
+,M(A_MPN)           ,KC_A        ,KC_O        ,KC_E   ,KC_U   ,KC_I
 ,KC_MPLY            ,KC_Z        ,KC_K        ,KC_V   ,KC_G   ,KC_X   ,KC_LPRN
-,KC_HOME            ,KC_END      ,KC_DOWN     ,KC_UP  ,KC_COLN
+,KC_HOME            ,KC_END      ,KC_DOWN     ,KC_UP  ,M(A_COLN)
 
                                                             ,F(F_ALT),F(F_GUI)
                                                                      ,F(F_CTRL)
                                                     ,KC_BSPC,F(F_SFT),M(A_ESC)
 
                                                                 // right hand
-                                                               ,KC_APP  ,M(KF_6),M(KF_7),M(KF_8),M(KF_9)     ,M(KF_10)    ,M(KF_11)
-                                                               ,KC_RBRC ,KC_Q   ,KC_F   ,KC_C   ,KC_R        ,KC_J        ,KC_SLSH
+                                                               ,KC_APP  ,M(KF_6),M(KF_7),M(KF_8),M(KF_9)     ,M(KF_10)    ,KC_F11
+                                                               ,KC_RBRC ,KC_Q   ,KC_F   ,KC_C   ,KC_R        ,KC_J        ,KC_EQL
                                                                         ,KC_D   ,KC_H   ,KC_T   ,KC_N        ,KC_S        ,KC_BSLS
-                                                               ,KC_RPRN ,KC_L   ,KC_M   ,KC_W   ,KC_B        ,KC_SCLN     ,KC_MSTP
+                                                               ,KC_RPRN ,KC_L   ,KC_M   ,KC_W   ,KC_B        ,KC_SLSH     ,KC_MSTP
                                                                                 ,KC_MINS,KC_LEFT,KC_RGHT     ,KC_PGUP     ,KC_PGDN
 
                                                                ,OSL(EMACS),M(OH_LEFT)
@@ -541,6 +543,47 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
           }
         } else {
           unregister_code (KC_ESC);
+        }
+        break;
+
+      case A_COLN:
+        if (keyboard_report->mods & MOD_BIT(KC_LSFT) ||
+            ((get_oneshot_mods() & MOD_BIT(KC_LSFT)) && !has_oneshot_mods_timed_out())) {
+          int oneshot = ((get_oneshot_mods() & MOD_BIT(KC_LSFT)) && !has_oneshot_mods_timed_out());
+
+          if (record->event.pressed) {
+            if (oneshot)
+              clear_oneshot_mods ();
+            unregister_code (KC_LSFT);
+
+            register_code (KC_SCLN);
+            unregister_code (KC_SCLN);
+            if (!oneshot)
+              register_code (KC_LSFT);
+          }
+        } else {
+          return MACRODOWN (D(RSFT), T(SCLN), U(RSFT), END);
+        }
+        break;
+
+      case A_MPN:
+        if (record->event.pressed) {
+          if (keyboard_report->mods & MOD_BIT(KC_LSFT) ||
+              ((get_oneshot_mods() & MOD_BIT(KC_LSFT)) && !has_oneshot_mods_timed_out())) {
+            int oneshot = ((get_oneshot_mods() & MOD_BIT(KC_LSFT)) && !has_oneshot_mods_timed_out());
+
+            if (oneshot)
+              clear_oneshot_mods ();
+            unregister_code (KC_LSFT);
+
+            register_code (KC_MPRV);
+            unregister_code (KC_MPRV);
+
+            if (!oneshot)
+              register_code (KC_LSFT);
+          } else {
+            return MACRO (T(MNXT), END);
+          }
         }
         break;
 
