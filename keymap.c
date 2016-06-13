@@ -541,6 +541,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
           } else {
             register_code (KC_ESC);
           }
+          layer_off (HUN);
         } else {
           unregister_code (KC_ESC);
         }
