@@ -44,6 +44,8 @@ right). The more interesting parts are how certain keys behave:
     - `LEAD y` types `\o/`.
     - `LEAD w m` maximises the currently focused window.
     - `LEAD e` makes the [experimental layer](#experimental-layer) the default.
+    - `LEAD v` prints the firmware version, the keyboard and the keymap, if
+      compiled with a QMK version that has these available.
 
 ## Hungarian layer
 
