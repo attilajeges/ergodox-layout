@@ -10,11 +10,6 @@
 #include "mousekey.h"
 #include "timer.h"
 
-#if KEYMAP_VERSION == QMK_VERSION
-#undef KEYMAP_VERSION
-#define KEYMAP_VERSION "QMK"
-#endif
-
 /* Layers */
 
 enum {
