@@ -10,8 +10,6 @@
 #include "mousekey.h"
 #include "timer.h"
 
-#define KEYMAP_VERSION "1.2-beta"
-
 /* Layers */
 
 enum {
