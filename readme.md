@@ -10,6 +10,18 @@ history of the layout, see my
 Some of the things in the layout only work when one uses Spacemacs and GNOME
 under Linux. Your mileage may vary.
 
+## Table of Contents
+
+* [Base layer](#base-layer)
+* [Hungarian layer](#hungarian-layer)
+* [Emacs layer](#emacs-layer)
+* [One-handed layer](#one-handed-layer)
+* [Steno layer](#steno-layer)
+* [Experimental layer](#experimental-layer)
+
+* [Building](#building)
+* [License](#license)
+
 ## Base layer
 
 [![Base layer](images/base-layer.png)](http://www.keyboard-layout-editor.com/#/gists/28f7eb305fdbff943613e1dc7aa9e82b)
