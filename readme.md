@@ -159,23 +159,22 @@ $ make KEYMAP=algernon
 
 # Changelog
 
-* v1.1 - 2016-06-14
+## v1.1 - 2016-06-14
 
-  - The keyboard starts in NKRO mode, bootmagic and other things are disabled.
-  - A [Steno](#steno-layer) layer was added, to be used with Plover.
-  - An [experimental](#experimental-layer) layer was added, something halfway
-    between Dvorak and Capewell-Dvorak. A work in progress.
-  - `LEAD y` types `\o/`.
-  - Some keys on the [Base](#base-layer) layer have been moved around:
-    - `?` moved to the left pinky, left of `Q`.
-    - `=` shifted one row down, but `F11` stayed where it was.
-    - `-` on the left half was replaced by `Tab`.
-    - `Tab`'s original position is taken by a `Media Next`/`Media Prev` key.
-    - `:` now inputs `;` when shifted.
-  - `ESC` cancels the [Hungarian](#hungarian-layer) layer too, not just
-    modifiers.
+* The keyboard starts in NKRO mode, bootmagic and other things are disabled.
+* A [Steno](#steno-layer) layer was added, to be used with Plover.
+* An [experimental](#experimental-layer) layer was added, something halfway
+  between Dvorak and Capewell-Dvorak. A work in progress.
+* `LEAD y` types `\o/`.
+* Some keys on the [Base](#base-layer) layer have been moved around:
+  - `?` moved to the left pinky, left of `Q`.
+  - `=` shifted one row down, but `F11` stayed where it was.
+  - `-` on the left half was replaced by `Tab`.
+  - `Tab`'s original position is taken by a `Media Next`/`Media Prev` key.
+  - `:` now inputs `;` when shifted.
+* `ESC` cancels the [Hungarian](#hungarian-layer) layer too, not just modifiers.
 
-* v1.0 - 2016-05-26
+## v1.0 - 2016-05-26
 
 Initial version.
 
