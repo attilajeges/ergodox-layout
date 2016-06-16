@@ -48,7 +48,8 @@ right). The more interesting parts are how certain keys behave:
   normal layout.
 * The `ESC` key also doubles as a one-shot cancel key: if tapped while any of
   the one-shot modifiers are in-flight (as in, single-tapped, and not expired
-  yet), it cancels all one-shot modifiers. Otherwise it sends the usual keycode.
+  yet), it cancels all one-shot modifiers. It also cancels the **Hun** layer, if
+  active. Otherwise it sends the usual keycode.
 * The **Emacs** and **Hun** layer keys are one-shot, the **1Hand** is a toggle.
 * The **Lead** key allows me to type in a sequence of keys, and trigger some
   actions:
