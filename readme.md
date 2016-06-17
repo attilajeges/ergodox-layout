@@ -15,11 +15,11 @@ under Linux. Your mileage may vary.
 * [Layouts](#layouts)
   - [Base layer](#base-layer)
   - [Arrow layer](#arrow-layer)
+  - [Experimental layer](#experimental-layer)
   - [Hungarian layer](#hungarian-layer)
   - [Emacs layer](#emacs-layer)
   - [One-handed layer](#one-handed-layer)
   - [Steno layer](#steno-layer)
-  - [Experimental layer](#experimental-layer)
 * [Building](#building)
 * [Changelog](#changelog)
 * [License](#license)
@@ -74,6 +74,18 @@ which does not.
 
 The compromise here is that the `Control` and `ESC` keys had to move to a less
 accessible position.
+
+## Experimental layer
+
+[![Experimental layer](images/experimental-layer.png)](http://www.keyboard-layout-editor.com/#/gists/6ff50bf71248e05aab5b3fec4fae3d08)
+
+While using the standard Dvorak layout, I encountered a number of
+inconveniences, and on this layer, I am playing with ideas to make the layout
+feel better. Initially, it was based on [Capewell-Dvorak][cpd], but that too,
+had shortcomings I was not happy with. So now this is something inbetween, with
+own observations thrown in. How it works out in the long run remains to be seen.
+
+ [cpd]: http://www.michaelcapewell.com/projects/keyboard/layout_capewell-dvorak.htm
 
 ## Hungarian layer
 
@@ -132,17 +144,6 @@ The differences are as follows:
 * The `Apps`/`BASE` key can be used to go back to the base layer, by
   long-tapping it. A short-tap will send the `App` key, as usual.
 
-## Experimental layer
-
-[![Experimental layer](images/experimental-layer.png)](http://www.keyboard-layout-editor.com/#/gists/6ff50bf71248e05aab5b3fec4fae3d08)
-
-While using the standard Dvorak layout, I encountered a number of
-inconveniences, and on this layer, I am playing with ideas to make the layout
-feel better. Initially, it was based on [Capewell-Dvorak][cpd], but that too,
-had shortcomings I was not happy with. So now this is something inbetween, with
-own observations thrown in. How it works out in the long run remains to be seen.
-
- [cpd]: http://www.michaelcapewell.com/projects/keyboard/layout_capewell-dvorak.htm
 
 # Building
 

@@ -14,14 +14,13 @@
 
 enum {
   BASE = 0,
+  EXPRM,
   ARRW,
   APPSEL,
   HUN,
   EMACS,
   OHLFT,
   OHRGT,
-  CDVRK
-  EXPRM
 };
 
 /* Macros */
@@ -180,7 +179,52 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                ,F(F_HUN),KC_ENT ,KC_SPC
     ),
 
-/* Keymap 1: Arrow layer
+/* Keymap 1: Experimental layer
+ *
+ * ,-----------------------------------------------------.           ,-----------------------------------------------------.
+ * |        `~ | 1 F1 | 2 F2 | 3 F3 | 4 F4 | 5 F5 | Plvr |           |Arrows| 6 F6 | 7 F7 | 8 F8 | 9 F9 | 0 F10|       F11 |
+ * |-----------+------+------+------+------+-------------|           |------+------+------+------+------+------+-----------|
+ * | Next/Prev |   '  |   ,  |   .  |   P  |   Y  |   [  |           |  ]   |   L  |   F  |   C  |   R  |  J   | =         |
+ * |-----------+------+------+------+------+------|      |           |      |------+------+------+------+------+-----------|
+ * |       Tab |   A  |   O  |   E  |   U  |   I  |------|           |------|   D  |   H  |   T  |   N  |  S   | \         |
+ * |-----------+------+------+------+------+------|   (  |           |  )   |------+------+------+------+------+-----------|
+ * | Play/Pause|   Z  |   G  |   V  |   K  |   X  |      |           |      |   Q  |   M  |   W  |   B  |  /   |      Stop |
+ * `-----------+------+------+------+------+-------------'           `-------------+------+------+------+------+-----------'
+ *     |  Home | End  | Down |  Up  |   :  |                                       |   -  | Left | Right| PgUp | PgDn  |
+ *     `-----------------------------------'                                       `-----------------------------------'
+ *                                         ,-------------.           ,-------------.
+ *                                         | LAlt | GUI  |           |EMACS | 1HND |
+ *                                  ,------|------|------|           |------+------+------.
+ *                                  |      |      | Ctrl |           | LEAD |      |      |
+ *                                  |Backsp|LShift|------|           |------| Enter| Space|
+ *                                  |      |      | ESC  |           | HUN  |      |      |
+ *                                  `--------------------'           `--------------------'
+ */
+[EXPRM] = KEYMAP(
+// left hand
+ KC_GRV             ,M(KF_1)     ,M(KF_2)     ,M(KF_3),M(KF_4),M(KF_5),M(A_PLVR)
+,M(A_MPN)           ,KC_QUOT     ,KC_COMM     ,KC_DOT ,KC_P   ,KC_Y   ,KC_LBRC
+,KC_TAB             ,KC_A        ,KC_O        ,KC_E   ,KC_U   ,KC_I
+,KC_MPLY            ,KC_Z        ,KC_G        ,KC_V   ,KC_K   ,KC_X   ,KC_LPRN
+,KC_HOME            ,KC_END      ,KC_DOWN     ,KC_UP  ,M(A_COLN)
+
+                                                            ,F(F_ALT),F(F_GUI)
+                                                                     ,F(F_CTRL)
+                                                    ,KC_BSPC,F(F_SFT),M(A_ESC)
+
+                                                                // right hand
+                                                               ,M(A_ARW),M(KF_6),M(KF_7),M(KF_8),M(KF_9)     ,M(KF_10)    ,KC_F11
+                                                               ,KC_RBRC ,KC_L   ,KC_F   ,KC_C   ,KC_R        ,KC_J        ,KC_BSLS
+                                                                        ,KC_D   ,KC_H   ,KC_T   ,KC_N        ,KC_S        ,KC_EQL
+                                                               ,KC_RPRN ,KC_Q   ,KC_M   ,KC_W   ,KC_B        ,KC_SLSH     ,KC_MSTP
+                                                                                ,KC_MINS,KC_LEFT,KC_RGHT     ,KC_PGUP     ,KC_PGDN
+
+                                                               ,OSL(EMACS),M(OH_LEFT)
+                                                               ,KC_LEAD
+                                                               ,F(F_HUN),KC_ENT ,KC_SPC
+    ),
+
+/* Keymap 2: Arrow layer
  *
  * ,-----------------------------------------------------.           ,-----------------------------------------------------.
  * |           |      |      |      |      |      |      |           |      |      |      |      |      |      |           |
@@ -226,7 +270,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                ,KC_RGHT  ,KC_TRNS  ,KC_TRNS
     ),
 
-/* Keymap 2: Application select layer
+/* Keymap 3: Application select layer
  *
  * ,-----------------------------------------------------.           ,-----------------------------------------------------.
  * |           |Music |Slack |Emacs |Term  |Chrome|      |           |      |      |      |      |      |      |           |
@@ -273,7 +317,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
 
-/* Keymap 3: Hungarian Layer
+/* Keymap 4: Hungarian Layer
  *
  * ,-----------------------------------------------------.           ,-----------------------------------------------------.
  * |           |      |      |      |      |      |      |           |      |      |      |      |      |      |           |
@@ -319,7 +363,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                ,F(F_BSE),KC_TRNS  ,KC_TRNS
     ),
 
-/* Keymap 4: Spacemacs layer
+/* Keymap 5: Spacemacs layer
  *
  * ,-----------------------------------------------------.           ,-----------------------------------------------------.
  * | MS Slow   | 1 F1 | 2 F2 | 3 F3 | 4 F4 | 5 F5 |ScrLCK|           |ScrLCK| 6 F6 | 7 F7 | 8 F8 | 9 F9 | 0 F10|    F11    |
@@ -363,7 +407,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                      ,KC_MNXT   ,KC_BTN1 ,KC_BTN2
     ),
 
-/* Keymap 5: One-handed, left side
+/* Keymap 6: One-handed, left side
  *
  * ,-----------------------------------------------------.
  * |        `~ | 1 F1 | 2 F2 | 3 F3 | 4 F4 | 5 F5 |A  BSE|
@@ -408,7 +452,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                ,KC_NO   ,KC_NO  ,KC_NO
     ),
 
-/* Keymap 6: One-handed, right side
+/* Keymap 7: One-handed, right side
  *
  * ,-----------------------------------------------------.
  * | =     F11 | 0 F10| 9 F9 | 8 F8 | 7 F7 | 6 F6 |A  BSE|
@@ -452,53 +496,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                ,KC_NO
                                                                ,KC_NO   ,KC_NO  ,KC_NO
     ),
-
-/* Keymap 8: Experimental layer
- *
- * ,-----------------------------------------------------.           ,-----------------------------------------------------.
- * |        `~ | 1 F1 | 2 F2 | 3 F3 | 4 F4 | 5 F5 | Plvr |           |Arrows| 6 F6 | 7 F7 | 8 F8 | 9 F9 | 0 F10|       F11 |
- * |-----------+------+------+------+------+-------------|           |------+------+------+------+------+------+-----------|
- * | Next/Prev |   '  |   ,  |   .  |   P  |   Y  |   [  |           |  ]   |   L  |   F  |   C  |   R  |  J   | =         |
- * |-----------+------+------+------+------+------|      |           |      |------+------+------+------+------+-----------|
- * |       Tab |   A  |   O  |   E  |   U  |   I  |------|           |------|   D  |   H  |   T  |   N  |  S   | \         |
- * |-----------+------+------+------+------+------|   (  |           |  )   |------+------+------+------+------+-----------|
- * | Play/Pause|   Z  |   G  |   V  |   K  |   X  |      |           |      |   Q  |   M  |   W  |   B  |  /   |      Stop |
- * `-----------+------+------+------+------+-------------'           `-------------+------+------+------+------+-----------'
- *     |  Home | End  | Down |  Up  |   :  |                                       |   -  | Left | Right| PgUp | PgDn  |
- *     `-----------------------------------'                                       `-----------------------------------'
- *                                         ,-------------.           ,-------------.
- *                                         | LAlt | GUI  |           |EMACS | 1HND |
- *                                  ,------|------|------|           |------+------+------.
- *                                  |      |      | Ctrl |           | LEAD |      |      |
- *                                  |Backsp|LShift|------|           |------| Enter| Space|
- *                                  |      |      | ESC  |           | HUN  |      |      |
- *                                  `--------------------'           `--------------------'
- */
-[EXPRM] = KEYMAP(
-// left hand
- KC_GRV             ,M(KF_1)     ,M(KF_2)     ,M(KF_3),M(KF_4),M(KF_5),M(A_PLVR)
-,M(A_MPN)           ,KC_QUOT     ,KC_COMM     ,KC_DOT ,KC_P   ,KC_Y   ,KC_LBRC
-,KC_TAB             ,KC_A        ,KC_O        ,KC_E   ,KC_U   ,KC_I
-,KC_MPLY            ,KC_Z        ,KC_G        ,KC_V   ,KC_K   ,KC_X   ,KC_LPRN
-,KC_HOME            ,KC_END      ,KC_DOWN     ,KC_UP  ,M(A_COLN)
-
-                                                            ,F(F_ALT),F(F_GUI)
-                                                                     ,F(F_CTRL)
-                                                    ,KC_BSPC,F(F_SFT),M(A_ESC)
-
-                                                                // right hand
-                                                               ,M(A_ARW),M(KF_6),M(KF_7),M(KF_8),M(KF_9)     ,M(KF_10)    ,KC_F11
-                                                               ,KC_RBRC ,KC_L   ,KC_F   ,KC_C   ,KC_R        ,KC_J        ,KC_BSLS
-                                                                        ,KC_D   ,KC_H   ,KC_T   ,KC_N        ,KC_S        ,KC_EQL
-                                                               ,KC_RPRN ,KC_Q   ,KC_M   ,KC_W   ,KC_B        ,KC_SLSH     ,KC_MSTP
-                                                                                ,KC_MINS,KC_LEFT,KC_RGHT     ,KC_PGUP     ,KC_PGDN
-
-                                                               ,OSL(EMACS),M(OH_LEFT)
-                                                               ,KC_LEAD
-                                                               ,F(F_HUN),KC_ENT ,KC_SPC
-    ),
-
-
 };
 
 const uint16_t PROGMEM fn_actions[] = {
