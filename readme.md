@@ -14,7 +14,6 @@ under Linux. Your mileage may vary.
 
 * [Layouts](#layouts)
   - [Base layer](#base-layer)
-  - [Arrow layer](#arrow-layer)
   - [Experimental layer](#experimental-layer)
   - [Hungarian layer](#hungarian-layer)
   - [Emacs layer](#emacs-layer)
@@ -52,6 +51,8 @@ interesting parts are how certain keys behave:
   active. Otherwise it sends the usual keycode.
 * The **Emacs** and **Hun** layer keys are one-shot, the **1Hand**, **Arrow**
   keys are toggles.
+* Toggling the **Arrow** layer toggles between the cursor arrows and the paging
+  keys on the bottom row.
 * The **Lead** key allows me to type in a sequence of keys, and trigger some
   actions:
     - `LEAD u` enters unicode input mode, by sending the GTK+ key sequence that
@@ -64,17 +65,6 @@ interesting parts are how certain keys behave:
     - `LEAD v` prints the firmware version, the keyboard and the keymap, if
       compiled with a QMK version that has these available.
       
-## Arrow layer
-
-[![Arrow layer](images/arrow-layer.png)](http://www.keyboard-layout-editor.com/#/gists/60ff9fc8e3e3d123aa065fbbdfe28f33)
-
-Used for navigation, to be layered on top of the base layer. Makes it possible
-to move the cursor and do edits still, unlike the [Emacs layer](#emacs-layer),
-which does not.
-
-The compromise here is that the `Control` and `ESC` keys had to move to a less
-accessible position.
-
 ## Experimental layer
 
 [![Experimental layer](images/experimental-layer.png)](http://www.keyboard-layout-editor.com/#/gists/6ff50bf71248e05aab5b3fec4fae3d08)
