@@ -14,6 +14,7 @@ under Linux. Your mileage may vary.
 
 * [Layouts](#layouts)
   - [Base layer](#base-layer)
+  - [Arrow layer](#arrow-layer)
   - [Hungarian layer](#hungarian-layer)
   - [Emacs layer](#emacs-layer)
   - [One-handed layer](#one-handed-layer)
@@ -29,9 +30,8 @@ under Linux. Your mileage may vary.
 
 [![Base layer](images/base-layer.png)](http://www.keyboard-layout-editor.com/#/gists/28f7eb305fdbff943613e1dc7aa9e82b)
 
-At its core, this is a Dvorak layout, with some minor changes (for example, `-`
-being on the left half, and on the innermost key of the bottom row on the
-right). The more interesting parts are how certain keys behave:
+At its core, this is a Dvorak layout, with some minor changes. The more
+interesting parts are how certain keys behave:
 
 * The keys on the number row double as function keys, when held for a bit longer
   than an usual tap. This allows me to use the function keys without having to
@@ -50,7 +50,8 @@ right). The more interesting parts are how certain keys behave:
   the one-shot modifiers are in-flight (as in, single-tapped, and not expired
   yet), it cancels all one-shot modifiers. It also cancels the **Hun** layer, if
   active. Otherwise it sends the usual keycode.
-* The **Emacs** and **Hun** layer keys are one-shot, the **1Hand** is a toggle.
+* The **Emacs** and **Hun** layer keys are one-shot, the **1Hand**, **Arrow**
+  keys are toggles.
 * The **Lead** key allows me to type in a sequence of keys, and trigger some
   actions:
     - `LEAD u` enters unicode input mode, by sending the GTK+ key sequence that
@@ -62,6 +63,17 @@ right). The more interesting parts are how certain keys behave:
     - `LEAD e` makes the [experimental layer](#experimental-layer) the default.
     - `LEAD v` prints the firmware version, the keyboard and the keymap, if
       compiled with a QMK version that has these available.
+      
+## Arrow layer
+
+[![Arrow layer](images/arrow-layer.png)](http://www.keyboard-layout-editor.com/#/gists/60ff9fc8e3e3d123aa065fbbdfe28f33)
+
+Used for navigation, to be layered on top of the base layer. Makes it possible
+to move the cursor and do edits still, unlike the [Emacs layer](#emacs-layer),
+which does not.
+
+The compromise here is that the `Control` and `ESC` keys had to move to a less
+accessible position.
 
 ## Hungarian layer
 
