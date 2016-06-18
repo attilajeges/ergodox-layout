@@ -139,17 +139,18 @@ The differences are as follows:
 
 To make my workflow easier, this layout is maintained in
 [its own repository][algernon:ez-layout]. To build it, you will need the
-[QMK][qmk] firmware checked out, and this repo either checked out, or symlinked
-to `keyboard/ergodox_ez/algernon`. One way to achieve that is this:
+[QMK][qmk] firmware checked out, and this repo either checked out to something
+like `keyboard/ergodox_ez/algernon-master`. One way to achieve that is this:
 
  [algernon:ez-layout]: https://github.com/algernon/ergodox-layout
  [qmk]: https://github.com/jackhumbert/qmk_firmware
 
 ```
 $ git clone https://github.com/jackhumbert/qmk_firmware.git
-$ cd qmk_firmware/keyboard/ergodox_ez
-$ git clone https://github.com/algernon/ergodox-layout.git keymaps/algernon
-$ make KEYMAP=algernon
+$ cd qmk_firmware
+$ git clone https://github.com/algernon/ergodox-layout.git \
+            keyboard/ergodox_ez/keymaps/algernon-master
+$ make KEYMAP=algernon-master
 ```
 
 From time to time, updates may be submitted back to the QMK repository. If you
