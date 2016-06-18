@@ -19,6 +19,7 @@ under Linux. Your mileage may vary.
   - [Navigation and media layer](#navigation-and-media-layer)
   - [One-handed layer](#one-handed-layer)
   - [Steno layer](#steno-layer)
+  - [LED states](#led-states)
 * [Building](#building)
 * [Changelog](#changelog)
 * [License](#license)
@@ -113,6 +114,36 @@ The differences are as follows:
 * The `Apps`/`BASE` key can be used to go back to the base layer, by
   long-tapping it. A short-tap will send the `App` key, as usual.
 
+
+## LED states
+
+The primary purpose of the LEDs is to show the modifier status, a secondary, to
+show which layer is active. Each modifier, `Shift`, `Alt` and `Control` each
+have their designated LEDs: the *red*, *green* and *blue*, respectively. When a
+modifier is in a one-shot state, the respective LED will turn on with a dimmer
+light. If the modifier is toggled on, the brightness of the LED turns full.
+
+For the layers, the following rules apply:
+
+* When the [Experimental layer](#experimental-layer) is toggled on, LEDs will
+  light up from left to right in a sequence, then turn off. When the layer is
+  toggled off, the LEDs light up and turn off in the other direction. No LEDs
+  are on while the layer is active.
+* When the [Hungarian layer](#hungarian-layer) is active, the *green* and *blue*
+  LEDs are on.
+* When the [Navigation and media layer](#navigation-and-media-layer) is active,
+  the *red* and *green* ones are on.
+* When the [One-handed layer](#one-handed-layer) is active, the *green* LED is
+  on and bright, and either the *red* or the *blue* one is going to slowly
+  blink, depending on the currently active side.
+* For the [Steno layer](#steno-layer), all LEDs will be turned on.
+* Toggling the **arrow* layer will play a *green*, *red*, *blue* cycle, both
+  when toggling on, and when toggling off the layer.
+
+Unless noted otherwise, the layers use a dim light for the LEDs, while modifiers
+use a stronger one, and modifiers override any layer preferences. For example,
+when on the one-handed layer, with the left side active (*red* light blinking),
+if `Shift` is on, the *red* light will be constantly on.
 
 # Building
 
