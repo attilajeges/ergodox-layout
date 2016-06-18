@@ -49,7 +49,7 @@ interesting parts are how certain keys behave:
   the one-shot modifiers are in-flight (as in, single-tapped, and not expired
   yet), it cancels all one-shot modifiers. It also cancels the **Hun** layer, if
   active. Otherwise it sends the usual keycode.
-* The **Emacs** and **Hun** layer keys are one-shot, the **1Hand**, **Arrow**
+* The **Media** and **Hun** layer keys are one-shot, the **1Hand**, **Arrow**
   keys are toggles.
 * Toggling the **Arrow** layer toggles between the cursor arrows and the paging
   keys on the bottom row.
@@ -62,9 +62,8 @@ interesting parts are how certain keys behave:
     - `LEAD y` types `\o/`.
     - `LEAD w m` maximises the currently focused window.
     - `LEAD e` makes the [experimental layer](#experimental-layer) the default.
-    - `LEAD v` prints the firmware version, the keyboard and the keymap, if
-      compiled with a QMK version that has these available.
-      
+    - `LEAD v` prints the firmware version, the keyboard and the keymap.
+
 ## Experimental layer
 
 [![Experimental layer](images/experimental-layer.png)](http://www.keyboard-layout-editor.com/#/gists/6ff50bf71248e05aab5b3fec4fae3d08)
