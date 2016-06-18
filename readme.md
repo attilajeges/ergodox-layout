@@ -16,7 +16,7 @@ under Linux. Your mileage may vary.
   - [Base layer](#base-layer)
   - [Experimental layer](#experimental-layer)
   - [Hungarian layer](#hungarian-layer)
-  - [Emacs layer](#emacs-layer)
+  - [Navigation and media layer](#navigation-and-media-layer)
   - [One-handed layer](#one-handed-layer)
   - [Steno layer](#steno-layer)
 * [Building](#building)
@@ -86,32 +86,12 @@ variant. For some, which can have other diatribes, the long one is on top,
 short's on bottom. Tapping any of the accented characters takes us back to the
 base layer.
 
-## Emacs layer
+## Navigation and media layer
 
-[![Emacs layer](images/emacs-layer.png)](http://www.keyboard-layout-editor.com/#/gists/c59c453f9fe1a3238ba1494e7e5c6892)
+[![Navigation and media layer](images/nav-n-media-layer.png)](http://www.keyboard-layout-editor.com/#/gists/c59c453f9fe1a3238ba1494e7e5c6892)
 
-This layer is primarily for navigating text - and for some mousing and other
-things, because there was space. Most of the keys should be pretty
-self-explanatory, except for a few:
-
-* There are three keys on the bottom row of the left side, that change how some
-  of the other keys - explained just below - work. The keys are for *Emacs
-  mode* (the default), *Terminal mode*, and *Traditional mode*, respectively.
-* The *Visual mode* key (the top big key on the left side) sends the `v` key in
-  *Emacs mode*, to enter Visual mode in Spacemacs. In all other modes, it is a
-  no-op.
-* The *Copy/Cut* key (the bottom big key on the left side) sends the copy
-  command on tap, the cut one when held for longer than a normal tap. The **copy
-  command** is `y` in *Emacs mode*, `Ctrl-Shift-c` in *Terminal mode*, and
-  `Ctrl-c` in *Traditional mode*. The **cut command** is `x` in *Emacs mode*,
-  `Ctrl-Shift-x` in *Terminal Mode* and `Ctrl-x` in *Traditional mode*.
-* The *Paste/Delete* key (the leftmost key on the left thumb cluster) sends the
-  paste command on tap, the delete one when held longer than a normal tap. The
-  **paste command** is `p` in *Emacs mode*, `Ctrl-Shift-v` in *Terminal mode*,
-  and `Ctrl-v` in *Traditional mode*. The **delete command** is `d` in *Emacs
-  mode*, and `DEL` in the other two.
-* The `A`, `I` and `R` keys will - after sending themselves - clear the layer
-  back to the base layer. This allows a quick escape from the layer.
+This layer is primarily for navigating with the cursor or the mouse, and some
+media things.
 
 ## One-handed layer
 

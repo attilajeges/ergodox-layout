@@ -18,7 +18,7 @@ enum {
   ARRW,
   APPSEL,
   HUN,
-  EMACS,
+  NMDIA,
   OHLFT,
   OHRGT,
 };
@@ -60,17 +60,6 @@ enum {
   A_MDL,
   A_MDR,
 
-  // Emacs layer keys
-  AE_VIS, // Visual mode
-  AE_PSTDEL, // Paste/Delete
-  AE_CPYC, // Copy/Cut
-  AE_EMACS, // Emacs copy & paste mode
-  AE_TERM, // Terminal copy & paste mode
-  AE_OTHER, // Other copy & paste mode
-  AE_INS, // Insert mode
-  AE_OVR, // Overwrite mode
-  AE_APPND, // Append
-
   // Hungarian layer keys
   HU_AA, // Á
   HU_OO, // Ó
@@ -103,10 +92,6 @@ enum {
 
 /* States & timers */
 
-uint8_t m_visual_state = 0;
-static uint16_t m_cutdel_timer;
-static uint16_t m_copypaste_timer;
-
 uint16_t gui_timer = 0;
 
 uint16_t kf_timers[12];
@@ -121,14 +106,6 @@ uint8_t oh_left_blink = 0;
 uint16_t oh_left_blink_timer = 0;
 uint8_t oh_right_blink = 0;
 uint16_t oh_right_blink_timer = 0;
-
-enum {
-  CP_EMACS = 0,
-  CP_TERM  = 1,
-  CP_OTHER = 2,
-};
-
-uint8_t cp_mode = CP_EMACS;
 
 /* The Keymap */
 
@@ -148,7 +125,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *     |       |      | Left |  Up  |   :  |                                       |   -  | Down | Rght |      |       |
  *     `-----------------------------------'                                       `-----------------------------------'
  *                                         ,-------------.           ,-------------.
- *                                         | LAlt | GUI  |           |EMACS | ARRW |
+ *                                         | LAlt | GUI  |           | MDIA | ARRW |
  *                                  ,------|------|------|           |------+------+------.
  *                                  |      |      | Ctrl |           | LEAD |      |      |
  *                                  |Backsp|LShift|------|           |------| Enter| Space|
@@ -174,9 +151,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                ,KC_RPRN   ,KC_B   ,KC_M   ,KC_W   ,KC_V        ,KC_Z        ,KC_MSTP
                                                                                   ,KC_MINS,KC_DOWN,KC_RGHT     ,KC_NO       ,KC_NO
 
-                                                               ,OSL(EMACS),M(A_ARW)
+                                                               ,OSL(NMDIA),M(A_ARW)
                                                                ,KC_LEAD
-                                                               ,F(F_HUN),KC_ENT ,KC_SPC
+                                                               ,F(F_HUN)  ,KC_ENT ,KC_SPC
     ),
 
 /* Keymap 1: Experimental layer
@@ -193,7 +170,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *     |       |      | Left |  Up  |   :  |                                       |   -  | Down | Rght |      |       |
  *     `-----------------------------------'                                       `-----------------------------------'
  *                                         ,-------------.           ,-------------.
- *                                         | LAlt | GUI  |           |EMACS | ARRW |
+ *                                         | LAlt | GUI  |           | MDIA | ARRW |
  *                                  ,------|------|------|           |------+------+------.
  *                                  |      |      | Ctrl |           | LEAD |      |      |
  *                                  |Backsp|LShift|------|           |------| Enter| Space|
@@ -219,9 +196,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                ,KC_RPRN   ,KC_Q   ,KC_M   ,KC_W   ,KC_B        ,KC_SLSH     ,KC_MSTP
                                                                                   ,KC_MINS,KC_LEFT,KC_RGHT     ,KC_PGUP     ,KC_PGDN
 
-                                                               ,OSL(EMACS),M(A_ARW)
+                                                               ,OSL(NMDIA),M(A_ARW)
                                                                ,KC_LEAD
-                                                               ,F(F_HUN),KC_ENT ,KC_SPC
+                                                               ,F(F_HUN)  ,KC_ENT ,KC_SPC
     ),
 
 /* Keymap 2: Arrow layer
@@ -363,44 +340,44 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                ,F(F_BSE),KC_TRNS  ,KC_TRNS
     ),
 
-/* Keymap 5: Spacemacs layer
+/* Keymap 5: Navigation & Media layer
  *
  * ,-----------------------------------------------------.           ,-----------------------------------------------------.
- * | MS Slow   | 1 F1 | 2 F2 | 3 F3 | 4 F4 | 5 F5 |ScrLCK|           |ScrLCK| 6 F6 | 7 F7 | 8 F8 | 9 F9 | 0 F10|    F11    |
+ * | MS Slow   |      |      |      |      |      |ScrLCK|           |ScrLCK|      |      |      |      |      |           |
  * |-----------+------+------+------+------+-------------|           |------+------+------+------+------+------+-----------|
- * | MS Normal |      | Home |  Up  | PgUp |      |Visual|           |Scroll|  $   |MsUpL | MsUp |MsUpR |  R   |PrintScreen|
- * |-----------+------+------+------+------+------| Mode |           |  Up  |------+------+------+------+------+-----------|
- * | MS Fast   |APPEND| Left | Down | Right| INS  |------|           |------|  D   |MsLeft| MsDn |MsRght|      |           |
- * |-----------+------+------+------+------+------| Cut  |           |Scroll|------+------+------+------+------+-----------|
- * | Play/Pause|      | End  | Down | PgDn |  X   | Copy |           | Down |      |MsDnL |  W   |MsDnR |      |      Stop |
+ * | MS Normal |      | Home |  Up  | PgUp |      |      |           |Scroll|      |MsUpL | MsUp |MsUpR |      |PrintScreen|
+ * |-----------+------+------+------+------+------|      |           |  Up  |------+------+------+------+------+-----------|
+ * | MS Fast   |      | Left | Down | Right|      |------|           |------|      |MsLeft| MsDn |MsRght|      |           |
+ * |-----------+------+------+------+------+------|      |           |Scroll|------+------+------+------+------+-----------|
+ * | Play/Pause|      | End  | Down | PgDn |      |      |           | Down |      |MsDnL | MsDn |MsDnR |      |      Stop |
  * `-----------+------+------+------+------+-------------'           `-------------+------+------+------+------+-----------'
- *      |EmacsM|TermM |OtherM|      |      |                                       |Vol Up|Vol Dn| Mute |      |      |
+ *      |      |      |      |      |      |                                       |      |      |      |      |      |
  *      `----------------------------------'                                       `----------------------------------'
  *                                         ,-------------.           ,-------------.
- *                                         |  Alt | GUI  |           | BASE | MClk |
+ *                                         |      | Mute |           | BASE | MClk |
  *                                  ,------|------|------|           |------+------+------.
- *                                  |Delete|      | Ctrl |           | Prev |Left  |Right |
- *                                  |      |LShift|------|           |------| Click| Click|
- *                                  |Paste |      | ESC  |           | Next |      |      |
+ *                                  |      |      | VlUp |           | Prev |Left  |Right |
+ *                                  |  SPC | Enter|------|           |------| Click| Click|
+ *                                  |      |      | VlDn |           | Next |      |      |
  *                                  `--------------------'           `--------------------'
  */
-[EMACS] = KEYMAP(
+[NMDIA] = KEYMAP(
 // left hand
- KC_ACL0    ,M(KF_1)     ,M(KF_2)    ,M(KF_3) ,M(KF_4) ,M(KF_5) ,LGUI(KC_L)
-,KC_ACL1    ,KC_NO       ,KC_HOME    ,KC_UP   ,KC_PGUP ,KC_NO   ,M(AE_VIS)
-,KC_ACL2    ,M(AE_APPND) ,KC_LEFT    ,KC_DOWN ,KC_RIGHT,M(AE_INS)
-,KC_MPLY    ,KC_NO       ,KC_END     ,KC_DOWN ,KC_PGDN ,KC_X    ,M(AE_CPYC)
-,M(AE_EMACS),M(AE_TERM)  ,M(AE_OTHER),KC_NO   ,KC_NO
-                                                        ,KC_TRNS ,KC_TRNS
-                                                                 ,KC_TRNS
-                                           ,M(AE_PSTDEL),KC_TRNS ,KC_TRNS
+ KC_ACL0    ,KC_NO       ,KC_NO      ,KC_NO   ,KC_NO   ,KC_NO   ,LGUI(KC_L)
+,KC_ACL1    ,KC_NO       ,KC_HOME    ,KC_UP   ,KC_PGUP ,KC_NO   ,KC_NO
+,KC_ACL2    ,KC_NO       ,KC_LEFT    ,KC_DOWN ,KC_RIGHT,KC_NO
+,KC_MPLY    ,KC_NO       ,KC_END     ,KC_DOWN ,KC_PGDN ,KC_NO   ,KC_NO
+,KC_NO      ,KC_NO       ,KC_NO      ,KC_NO   ,KC_NO
+                                                        ,KC_NO   ,KC_MUTE
+                                                                 ,KC_VOLU
+                                                 ,KC_SPC,KC_ENTER,KC_VOLD
 
                                                                      // right hand
-                                                                     ,LGUI(KC_L),M(KF_6) ,M(KF_7) ,M(KF_8) ,M(KF_9) ,M(KF_10) ,M(KF_11)
-                                                                     ,KC_WH_U   ,KC_DLR  ,M(A_MUL),KC_MS_U ,M(A_MUR),M(AE_OVR),KC_PSCR
-                                                                                ,KC_D    ,KC_MS_L ,KC_MS_D ,KC_MS_R ,KC_NO    ,KC_NO
-                                                                     ,KC_WH_D   ,KC_NO   ,M(A_MDL),KC_W    ,M(A_MDR),KC_NO    ,KC_MSTP
-                                                                                         ,KC_VOLU ,KC_VOLD ,KC_MUTE ,KC_NO    ,KC_NO
+                                                                     ,LGUI(KC_L),KC_NO   ,KC_NO   ,KC_NO   ,KC_NO   ,KC_NO    ,KC_NO
+                                                                     ,KC_WH_U   ,KC_NO   ,M(A_MUL),KC_MS_U ,M(A_MUR),KC_NO    ,KC_PSCR
+                                                                                ,KC_NO   ,KC_MS_L ,KC_MS_D ,KC_MS_R ,KC_NO    ,KC_NO
+                                                                     ,KC_WH_D   ,KC_NO   ,M(A_MDL),KC_MS_D ,M(A_MDR),KC_NO    ,KC_MSTP
+                                                                                         ,KC_NO   ,KC_NO   ,KC_NO   ,KC_NO    ,KC_NO
 
                                                                      ,KC_TRNS   ,KC_MS_BTN3
                                                                      ,KC_MPRV
@@ -997,7 +974,7 @@ void matrix_scan_user(void) {
   if (layer == HUN) {
     ergodox_right_led_2_on();
     ergodox_right_led_3_on();
-  } else if (layer == EMACS) {
+  } else if (layer == NMDIA) {
     ergodox_right_led_1_on();
     ergodox_right_led_2_on();
   } else if (layer == EXPRM) {
@@ -1040,7 +1017,7 @@ void matrix_scan_user(void) {
     ergodox_right_led_1_on ();
   } else {
     ergodox_right_led_1_set (LED_BRIGHTNESS_LO);
-    if (layer != OHLFT && layer != EMACS && layer != EXPRM)
+    if (layer != OHLFT && layer != NMDIA && layer != EXPRM)
       ergodox_right_led_1_off ();
   }
 
@@ -1050,7 +1027,7 @@ void matrix_scan_user(void) {
     ergodox_right_led_2_on ();
   } else {
     ergodox_right_led_2_set (LED_BRIGHTNESS_LO);
-    if (layer != OHRGT && layer != HUN && layer != OHLFT && layer != EMACS && layer != EXPRM)
+    if (layer != OHRGT && layer != HUN && layer != OHLFT && layer != NMDIA && layer != EXPRM)
       ergodox_right_led_2_off ();
   }
 
