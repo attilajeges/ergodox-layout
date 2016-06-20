@@ -354,11 +354,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *      |      |      |      |      |      |                                       |      |      |      |      |      |
  *      `----------------------------------'                                       `----------------------------------'
  *                                         ,-------------.           ,-------------.
- *                                         |      | Mute |           | BASE | MClk |
+ *                                         | Mute | VlUp |           | BASE | MClk |
  *                                  ,------|------|------|           |------+------+------.
- *                                  |      |      | VlUp |           | Prev |Left  |Right |
+ *                                  |      |      | VlDn |           | Prev |Left  |Right |
  *                                  |  SPC | Enter|------|           |------| Click| Click|
- *                                  |      |      | VlDn |           | Next |      |      |
+ *                                  |      |      | ESC  |           | Next |      |      |
  *                                  `--------------------'           `--------------------'
  */
 [NMDIA] = KEYMAP(
@@ -368,9 +368,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ,KC_ACL2    ,KC_NO       ,KC_LEFT    ,KC_DOWN ,KC_RIGHT,KC_NO
 ,KC_MPLY    ,KC_NO       ,KC_END     ,KC_DOWN ,KC_PGDN ,KC_NO   ,KC_NO
 ,KC_NO      ,KC_NO       ,KC_NO      ,KC_NO   ,KC_NO
-                                                        ,KC_NO   ,KC_MUTE
-                                                                 ,KC_VOLU
-                                                 ,KC_SPC,KC_ENTER,KC_VOLD
+                                                        ,KC_MUTE ,KC_VOLU
+                                                                 ,KC_VOLD
+                                                 ,KC_SPC,KC_ENTER,M(A_ESC)
 
                                                                      // right hand
                                                                      ,LGUI(KC_L),KC_NO   ,KC_NO   ,KC_NO   ,KC_NO   ,KC_NO    ,KC_NO
