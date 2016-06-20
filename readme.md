@@ -50,7 +50,7 @@ interesting parts are how certain keys behave:
   the one-shot modifiers are in-flight (as in, single-tapped, and not expired
   yet), it cancels all one-shot modifiers. It also cancels the **Hun** layer, if
   active. Otherwise it sends the usual keycode.
-* The **Media** and **Hun** layer keys are one-shot, the **1Hand**, **Arrow**
+* The **Media**, **Arrow**, and **Hun** layer keys are one-shot, the **1Hand**
   keys are toggles.
 * Toggling the **Arrow** layer toggles between the cursor arrows and the paging
   keys on the bottom row.
