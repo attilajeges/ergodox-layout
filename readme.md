@@ -137,7 +137,7 @@ For the layers, the following rules apply:
   on and bright, and either the *red* or the *blue* one is going to slowly
   blink, depending on the currently active side.
 * For the [Steno layer](#steno-layer), all LEDs will be turned on.
-* Toggling the **arrow* layer will play a *green*, *red*, *blue* cycle, both
+* Toggling the **arrow** layer will play a *green*, *red*, *blue* cycle, both
   when toggling on, and when toggling off the layer.
 
 Unless noted otherwise, the layers use a dim light for the LEDs, while modifiers
