@@ -31,7 +31,6 @@ enum {
   A_GUI,
   A_ESC,
   A_MPN,
-  A_COLN,
 
   // Function / number keys
   KF_1, // 1, F1
@@ -89,6 +88,12 @@ enum {
   F_CTRL
 };
 
+/* Custom keycodes */
+
+enum {
+  CT_CLN = 0x7101
+};
+
 /* States & timers */
 
 uint16_t gui_timer = 0;
@@ -105,6 +110,9 @@ uint8_t oh_left_blink = 0;
 uint16_t oh_left_blink_timer = 0;
 uint8_t oh_right_blink = 0;
 uint16_t oh_right_blink_timer = 0;
+
+uint8_t ct_cln_count = 0;
+uint16_t ct_cln_timer = 0;
 
 /* The Keymap */
 
@@ -137,7 +145,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ,M(A_MPN)           ,KC_QUOT     ,KC_COMM     ,KC_DOT ,KC_P   ,KC_Y   ,KC_LBRC
 ,KC_TAB             ,KC_A        ,KC_O        ,KC_E   ,KC_U   ,KC_I
 ,KC_MPLY            ,KC_SLSH     ,KC_Q        ,KC_J   ,KC_K   ,KC_X   ,KC_LPRN
-,KC_NO              ,KC_NO       ,KC_LEFT     ,KC_UP  ,M(A_COLN)
+,KC_NO              ,KC_NO       ,KC_LEFT     ,KC_UP  ,CT_CLN
 
                                                             ,F(F_ALT),F(F_GUI)
                                                                      ,F(F_CTRL)
@@ -182,7 +190,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ,M(A_MPN)           ,KC_QUOT     ,KC_COMM     ,KC_DOT ,KC_P   ,KC_Y   ,KC_LBRC
 ,KC_TAB             ,KC_A        ,KC_O        ,KC_E   ,KC_U   ,KC_I
 ,KC_MPLY            ,KC_Z        ,KC_G        ,KC_V   ,KC_K   ,KC_X   ,KC_LPRN
-,KC_HOME            ,KC_END      ,KC_DOWN     ,KC_UP  ,M(A_COLN)
+,KC_HOME            ,KC_END      ,KC_DOWN     ,KC_UP  ,CT_CLN
 
                                                             ,F(F_ALT),F(F_GUI)
                                                                      ,F(F_CTRL)
@@ -568,26 +576,6 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         }
         break;
 
-      case A_COLN:
-        if (keyboard_report->mods & MOD_BIT(KC_LSFT) ||
-            ((get_oneshot_mods() & MOD_BIT(KC_LSFT)) && !has_oneshot_mods_timed_out())) {
-          int oneshot = ((get_oneshot_mods() & MOD_BIT(KC_LSFT)) && !has_oneshot_mods_timed_out());
-
-          if (record->event.pressed) {
-            if (oneshot)
-              clear_oneshot_mods ();
-            unregister_code (KC_LSFT);
-
-            register_code (KC_SCLN);
-            unregister_code (KC_SCLN);
-            if (!oneshot)
-              register_code (KC_LSFT);
-          }
-        } else {
-          return MACRODOWN (D(RSFT), T(SCLN), U(RSFT), END);
-        }
-        break;
-
       case A_MPN:
         if (record->event.pressed) {
           if (keyboard_report->mods & MOD_BIT(KC_LSFT) ||
@@ -947,6 +935,21 @@ void matrix_scan_user(void) {
   if (gui_timer && timer_elapsed (gui_timer) > TAPPING_TERM)
     unregister_code (KC_LGUI);
 
+  if (ct_cln_timer && timer_elapsed (ct_cln_timer) > TAPPING_TERM) {
+    if (ct_cln_count == 1) {
+      register_code (KC_RSFT);
+      register_code (KC_SCLN);
+      unregister_code (KC_SCLN);
+      unregister_code (KC_RSFT);
+    } else if (ct_cln_count == 2) {
+      register_code (KC_SCLN);
+      unregister_code (KC_SCLN);
+    }
+
+    ct_cln_count = 0;
+    ct_cln_timer = 0;
+  }
+
   if (layer != OHLFT)
     oh_left_blink = 0;
   if (layer != OHRGT)
@@ -1106,8 +1109,36 @@ void matrix_scan_user(void) {
         ergodox_right_led_2_off ();
         _delay_ms (100);
         ergodox_right_led_3_off ();
-
       }
     }
   }
+}
+
+bool process_record_user (uint16_t keycode, keyrecord_t *record) {
+  switch(keycode) {
+  case CT_CLN:
+    if (record->event.pressed) {
+      ct_cln_count++;
+      ct_cln_timer = timer_read ();
+    } else {
+    }
+    return false;
+    break;
+
+  default:
+    if (ct_cln_count == 1) {
+      register_code (KC_RSFT);
+      register_code (KC_SCLN);
+      unregister_code (KC_SCLN);
+      unregister_code (KC_RSFT);
+    } else if (ct_cln_count == 2) {
+      register_code (KC_SCLN);
+      unregister_code (KC_SCLN);
+    }
+    ct_cln_count = 0;
+    ct_cln_timer = 0;
+    break;
+  }
+
+  return true;
 }

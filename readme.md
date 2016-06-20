@@ -54,6 +54,7 @@ interesting parts are how certain keys behave:
   keys are toggles.
 * Toggling the **Arrow** layer toggles between the cursor arrows and the paging
   keys on the bottom row.
+* Tapping the `:` key once yields `:`, tapping it twice yields `;`.
 * The **Lead** key allows me to type in a sequence of keys, and trigger some
   actions:
     - `LEAD u` enters unicode input mode, by sending the GTK+ key sequence that
