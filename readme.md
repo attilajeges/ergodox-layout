@@ -21,6 +21,7 @@ under Linux. Your mileage may vary.
   - [Steno layer](#steno-layer)
   - [LED states](#led-states)
 * [Building](#building)
+  - [Using on Windows](#using-on-windows)
 * [Changelog](#changelog)
 * [License](#license)
 
@@ -172,6 +173,12 @@ included with it (assuming you are in the root directory of the firmware):
 $ cd keyboard/ergodox_ez
 $ make KEYMAP=algernon
 ```
+
+## Using on Windows
+
+The keymap default to forcing NKRO, which seems to upset Windows, and except the
+modifiers, none of them work. If you experience this problem, recompile the
+firmware with `FORCE_NKRO=no` added to the `make` command line.
 
 # Changelog
 
