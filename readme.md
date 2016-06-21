@@ -182,6 +182,24 @@ firmware with `FORCE_NKRO=no` added to the `make` command line.
 
 # Changelog
 
+## v1.2 - UNRELEASED
+
+* The forced NKRO mode can be easily toggled off at compile-time, to make the
+  firmware compatible with [certain operating systems](#using-on-windows).
+* The `:;` key has changed behaviour: to access the `;` symbol, the key needs to
+  be double-tapped, instead of shifted.
+* The `=` and `\` keys were swapped, `=` moved to the home row, on both the
+  [base](#base-layer) and the [experimental](#experimental-layer) layers.
+* The arrow and navigation keys were redone, they are now more accessible, but
+  the navigation keys require an extra tap to access.
+* The **Emacs** layer is gone, replaced by a simplified
+  [navigation and media](#navigation-and-media-layer) layer.
+* `LEAD v` types the firmware version, and the keymap version.
+* On the [experimental](#experimental-layer) layer, the `L` and `Q`, and the `K`
+  and `G` keys were swapped.
+* The [Steno](#steno-layer) layer gained a few more `#` and `*` keys, to make it
+  easier on my fingers.
+
 ## v1.1 - 2016-06-14
 
 * The keyboard starts in NKRO mode, bootmagic and other things are disabled.
