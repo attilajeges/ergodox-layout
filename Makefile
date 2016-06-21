@@ -13,7 +13,13 @@ KEYMAP_VERSION = $(shell \
   cd "${KEYMAP_PATH}" && git describe --abbrev=6 --dirty --always --tags --match 'v*' 2>/dev/null; \
  else echo QMK; fi)
 
-OPT_DEFS += -DKEYMAP_VERSION=\"$(KEYMAP_VERSION)\"
+KEYMAP_BRANCH = $(shell \
+ if [ -d "${KEYMAP_PATH}/.git" ]; then \
+  cd "${KEYMAP_PATH}"; \
+ fi; \
+ git rev-parse --abbrev-ref HEAD 2>/dev/null)
+
+OPT_DEFS += -DKEYMAP_VERSION=\"$(KEYMAP_VERSION)\\\#$(KEYMAP_BRANCH)\"
 
 ifndef QUANTUM_DIR
 	include ../../../../Makefile
