@@ -1034,7 +1034,7 @@ void matrix_scan_user(void) {
     }
 
     SEQ_ONE_KEY (KC_V) {
-      SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " (" KEYMAP_VERSION ") @ " QMK_VERSION);
+      SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ (" QMK_VERSION "/" KEYMAP_VERSION ")");
     }
 
     SEQ_ONE_KEY (KC_L) {
