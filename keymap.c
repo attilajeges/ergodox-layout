@@ -190,7 +190,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ,M(A_MPN)           ,KC_QUOT     ,KC_COMM     ,KC_DOT ,KC_P   ,KC_Y   ,KC_LBRC
 ,KC_TAB             ,KC_A        ,KC_O        ,KC_E   ,KC_U   ,KC_I
 ,KC_MPLY            ,KC_Z        ,KC_G        ,KC_V   ,KC_K   ,KC_X   ,KC_LPRN
-,KC_HOME            ,KC_END      ,KC_DOWN     ,KC_UP  ,CT_CLN
+,KC_NO              ,KC_NO       ,KC_LEFT     ,KC_UP  ,CT_CLN
 
                                                             ,F(F_ALT),F(F_GUI)
                                                                      ,F(F_CTRL)
@@ -201,7 +201,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                ,KC_RBRC   ,KC_L   ,KC_F   ,KC_C   ,KC_R        ,KC_J        ,KC_BSLS
                                                                           ,KC_D   ,KC_H   ,KC_T   ,KC_N        ,KC_S        ,KC_EQL
                                                                ,KC_RPRN   ,KC_Q   ,KC_M   ,KC_W   ,KC_B        ,KC_SLSH     ,KC_MSTP
-                                                                                  ,KC_MINS,KC_LEFT,KC_RGHT     ,KC_PGUP     ,KC_PGDN
+                                                                                  ,KC_MINS,KC_DOWN,KC_RGHT     ,KC_NO       ,KC_NO
 
                                                                ,OSL(NMDIA),OSL(ARRW)
                                                                ,KC_LEAD
