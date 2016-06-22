@@ -887,6 +887,12 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
       return MACRO_NONE;
 };
 
+struct {
+  uint8_t count;
+  uint16_t keycode;
+  uint16_t timer;
+} dt_key;
+
 // Runs just one time when the keyboard initializes.
 void matrix_init_user(void) {
   ergodox_led_all_on();
@@ -900,6 +906,8 @@ void matrix_init_user(void) {
     _delay_ms (10);
   }
   ergodox_led_all_off();
+  dt_key.keycode = 0;
+  dt_key.count = 0;
 };
 
 LEADER_EXTERNS();
@@ -928,6 +936,21 @@ void ang_tap (uint16_t codes[]) {
 
 uint8_t is_exp = 0;
 
+void dt_user (void) {
+  switch (dt_key.keycode) {
+  case CT_CLN:
+    if (dt_key.count == 1) {
+      register_code (KC_RSFT);
+      register_code (KC_SCLN);
+      unregister_code (KC_SCLN);
+      unregister_code (KC_RSFT);
+    } else if (dt_key.count == 2) {
+      register_code (KC_SCLN);
+      unregister_code (KC_SCLN);
+    }
+  }
+}
+
 // Runs constantly in the background, in a loop.
 void matrix_scan_user(void) {
   uint8_t layer = biton32(layer_state);
@@ -935,19 +958,10 @@ void matrix_scan_user(void) {
   if (gui_timer && timer_elapsed (gui_timer) > TAPPING_TERM)
     unregister_code (KC_LGUI);
 
-  if (ct_cln_timer && timer_elapsed (ct_cln_timer) > TAPPING_TERM) {
-    if (ct_cln_count == 1) {
-      register_code (KC_RSFT);
-      register_code (KC_SCLN);
-      unregister_code (KC_SCLN);
-      unregister_code (KC_RSFT);
-    } else if (ct_cln_count == 2) {
-      register_code (KC_SCLN);
-      unregister_code (KC_SCLN);
-    }
-
-    ct_cln_count = 0;
-    ct_cln_timer = 0;
+  if (dt_key.keycode && timer_elapsed (dt_key.timer) > TAPPING_TERM) {
+    dt_user();
+    dt_key.keycode = 0;
+    dt_key.count = 0;
   }
 
   if (layer != OHLFT)
@@ -1118,25 +1132,18 @@ bool process_record_user (uint16_t keycode, keyrecord_t *record) {
   switch(keycode) {
   case CT_CLN:
     if (record->event.pressed) {
-      ct_cln_count++;
-      ct_cln_timer = timer_read ();
-    } else {
+      dt_key.keycode = keycode;
+      dt_key.timer = timer_read ();
+      dt_key.count++;
     }
     return false;
-    break;
 
   default:
-    if (ct_cln_count == 1) {
-      register_code (KC_RSFT);
-      register_code (KC_SCLN);
-      unregister_code (KC_SCLN);
-      unregister_code (KC_RSFT);
-    } else if (ct_cln_count == 2) {
-      register_code (KC_SCLN);
-      unregister_code (KC_SCLN);
+    if (dt_key.keycode) {
+      dt_user ();
+      dt_key.keycode = 0;
+      dt_key.count = 0;
     }
-    ct_cln_count = 0;
-    ct_cln_timer = 0;
     break;
   }
 
