@@ -179,7 +179,7 @@ firmware with `FORCE_NKRO=no` added to the `make` command line.
 
 # Changelog
 
-## v1.2 - UNRELEASED
+## v1.2 - 2016-06-22
 
 * The forced NKRO mode can be easily toggled off at compile-time, to make the
   firmware compatible with [certain operating systems](#using-on-windows).
