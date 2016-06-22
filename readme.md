@@ -150,7 +150,7 @@ if `Shift` is on, the *red* light will be constantly on.
 To make my workflow easier, this layout is maintained in
 [its own repository][algernon:ez-layout]. To build it, you will need the
 [QMK][qmk] firmware checked out, and this repo either checked out to something
-like `keyboard/ergodox_ez/algernon-master`. One way to achieve that is this:
+like `keyboards/ergodox_ez/algernon-master`. One way to achieve that is this:
 
  [algernon:ez-layout]: https://github.com/algernon/ergodox-layout
  [qmk]: https://github.com/jackhumbert/qmk_firmware
@@ -159,7 +159,7 @@ like `keyboard/ergodox_ez/algernon-master`. One way to achieve that is this:
 $ git clone https://github.com/jackhumbert/qmk_firmware.git
 $ cd qmk_firmware
 $ git clone https://github.com/algernon/ergodox-layout.git \
-            keyboard/ergodox_ez/keymaps/algernon-master
+            keyboards/ergodox_ez/keymaps/algernon-master
 $ make KEYBOARD=ergodox_ez KEYMAP=algernon-master
 ```
 
