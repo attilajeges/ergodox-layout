@@ -13,15 +13,15 @@ under Linux. Your mileage may vary.
 ## Table of Contents
 
 * [Layouts](#layouts)
-  - [Base layer](#base-layer)
-  - [Experimental layer](#experimental-layer)
-  - [Hungarian layer](#hungarian-layer)
-  - [Navigation and media layer](#navigation-and-media-layer)
-  - [One-handed layer](#one-handed-layer)
-  - [Steno layer](#steno-layer)
-  - [LED states](#led-states)
+    - [Base layer](#base-layer)
+    - [Experimental layer](#experimental-layer)
+    - [Hungarian layer](#hungarian-layer)
+    - [Navigation and media layer](#navigation-and-media-layer)
+    - [One-handed layer](#one-handed-layer)
+    - [Steno layer](#steno-layer)
+    - [LED states](#led-states)
 * [Building](#building)
-  - [Using on Windows](#using-on-windows)
+    - [Using on Windows](#using-on-windows)
 * [Changelog](#changelog)
 * [License](#license)
 
@@ -205,11 +205,11 @@ firmware with `FORCE_NKRO=no` added to the `make` command line.
   between Dvorak and Capewell-Dvorak. A work in progress.
 * `LEAD y` types `\o/`.
 * Some keys on the [Base](#base-layer) layer have been moved around:
-  - `?` moved to the left pinky, left of `Q`.
-  - `=` shifted one row down, but `F11` stayed where it was.
-  - `-` on the left half was replaced by `Tab`.
-  - `Tab`'s original position is taken by a `Media Next`/`Media Prev` key.
-  - `:` now inputs `;` when shifted.
+    - `?` moved to the left pinky, left of `Q`.
+    - `=` shifted one row down, but `F11` stayed where it was.
+    - `-` on the left half was replaced by `Tab`.
+    - `Tab`'s original position is taken by a `Media Next`/`Media Prev` key.
+    - `:` now inputs `;` when shifted.
 * `ESC` cancels the [Hungarian](#hungarian-layer) layer too, not just modifiers.
 
 ## v1.0 - 2016-05-26
