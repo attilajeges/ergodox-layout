@@ -47,6 +47,7 @@ At its core, this is a Dvorak layout, with some minor changes. The more interest
     - `LEAD w m` maximises the currently focused window.
     - `LEAD e` makes the [experimental layer](#experimental-layer) the default.
     - `LEAD v` prints the firmware version, the keyboard and the keymap.
+    - `LEAD d` toggles logging keypress positions to the HID console.
 
 ## Experimental layer
 

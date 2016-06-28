@@ -114,6 +114,8 @@ uint16_t oh_right_blink_timer = 0;
 uint8_t ct_cln_count = 0;
 uint16_t ct_cln_timer = 0;
 
+bool log_enable = false;
+
 /* The Keymap */
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -1043,6 +1045,10 @@ void matrix_scan_user(void) {
     leading = false;
     leader_end ();
 
+    SEQ_ONE_KEY (KC_D) {
+      log_enable = !log_enable;
+    }
+
     SEQ_ONE_KEY (KC_U) {
       ang_do_unicode ();
     }
@@ -1129,6 +1135,13 @@ void matrix_scan_user(void) {
 }
 
 bool process_record_user (uint16_t keycode, keyrecord_t *record) {
+  uint8_t layer = biton32(layer_state);
+
+  if (log_enable && layer == BASE) {
+    xprintf ("KL: col=%d, row=%d\n", record->event.key.col,
+             record->event.key.row);
+  }
+
   switch(keycode) {
   case CT_CLN:
     if (record->event.pressed) {
