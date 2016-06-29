@@ -2,8 +2,9 @@
 import json
 import os
 import sys
-import colorsys
 import re
+
+from math import floor
 
 cr_coord_map = [
     [
@@ -55,13 +56,25 @@ def set_bg(j, (b, n), color):
     set_attr_at(j, b, n, "c", set_attr, color)
     #set_attr_at(j, b, n, "g", set_attr, False)
 
-def hls_to_hex(h, l, s):
-    r, g, b = colorsys.hls_to_rgb(max(0, min(h, 360)), min(s, 1.0), max (0, min (l, 0.75)))
+def heatmap_color (v):
+    colors = [ [0.5, 0.5, 1], [0.5, 1, 0.5], [1, 1, 0.5], [1, 0.5, 0.5]]
+    fb = 0
+    if v <= 0:
+        idx1, idx2 = 0, 0
+    elif v >= 1:
+        idx1, idx2 = len(colors) - 1, len(colors) - 1
+    else:
+        val = v * (len(colors) - 1)
+        idx1 = int(floor(val))
+        idx2 = idx1 + 1
+        fb = val - float(idx1)
+
+    r = (colors[idx2][0] - colors[idx1][0]) * fb + colors[idx1][0]
+    g = (colors[idx2][1] - colors[idx1][1]) * fb + colors[idx1][1]
+    b = (colors[idx2][2] - colors[idx1][2]) * fb + colors[idx1][2]
+
     r, g, b = [x * 255 for x in r, g, b]
     return "#%02x%02x%02x" % (r, g, b)
-
-def heatmap_color (v):
-    return hls_to_hex (((1.0 - v) * 240) / 360, 1, 0.5)
 
 with open(sys.argv[1], "r") as f:
     layout = json.load (f)
@@ -92,6 +105,9 @@ def load_keylog(fname):
     return total / 2, keylog
 
 total, log = load_keylog (sys.argv[2])
+max_cnt = 0
+for (c, r) in log:
+    max_cnt = max(max_cnt, log[(c, r)])
 
 def l_flat(s):
     f = s.split("\n")
@@ -101,7 +117,8 @@ def l_flat(s):
 for (c, r) in log:
     coords = coord(c, r)
     b, n = coords
-    cap = (total + len(log)) / 2
+    cap = len(log)
+    cap = max_cnt
     v = float(log[(c, r)]) / cap
     print >> sys.stderr, "%s => %d/%d => %f = %s" % (l_flat(layout[b][n+1]), log[(c,r)], cap, v, heatmap_color(v))
     set_bg (layout, coord(c, r), heatmap_color (v))
