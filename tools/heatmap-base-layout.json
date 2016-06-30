@@ -1,7 +1,7 @@
 [
   {
     "backcolor": "#ffffff",
-    "name": "ErgoDox - algernon's layout: Base Layer",
+    "name": "ErgoDox - algernon's layout: Heatmap",
     "author": "Gergely Nagy <kbd@gergo.csillger.hu>",
     "notes": "See [here](https://github.com/algernon/ergodox-layout#readme) for the QMK keymap source.",
     "switchMount": "cherry",
@@ -22,28 +22,7 @@
     },
     "#\n3\nF3",
     {
-      "x": 3.5,
-      "c": "#cccccc",
-      "t": "#800000\n#000000",
-      "a": 5,
-      "f2": 1,
-      "d": true
-    },
-    "<i class='fa fa-circle'></i>\nSHIFT",
-    {
-      "x": 0.25,
-      "t": "#00d409\n#000000",
-      "d": true
-    },
-    "<i class='fa fa-circle'></i>\nALT",
-    {
-      "x": 0.25,
-      "t": "#0b51b3\n#000000",
-      "d": true
-    },
-    "<i class='fa fa-circle'></i>\nCONTROL",
-    {
-      "x": 3.5,
+      "x": 10.5,
       "c": "#a7d0db",
       "t": "#000000",
       "a": 4,
