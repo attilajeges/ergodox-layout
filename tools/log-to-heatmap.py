@@ -56,6 +56,13 @@ def set_bg(j, (b, n), color):
     set_attr_at(j, b, n, "c", set_attr, color)
     #set_attr_at(j, b, n, "g", set_attr, False)
 
+def _set_tap_info(o, count, cap):
+    ns = 4 - o.count ("\n")
+    return o + "\n" * ns + "%.02f%%" % (float(count) / float(cap) * 100)
+
+def set_tap_info(j, (b, n), count, cap):
+    j[b][n + 1] = _set_tap_info (j[b][n + 1], count, cap)
+
 def heatmap_color (v):
     colors = [ [0.5, 0.5, 1], [0.5, 1, 0.5], [1, 1, 0.5], [1, 0.5, 0.5]]
     fb = 0
@@ -122,5 +129,6 @@ for (c, r) in log:
     v = float(log[(c, r)]) / cap
     print >> sys.stderr, "%s => %d/%d => %f = %s" % (l_flat(layout[b][n+1]), log[(c,r)], cap, v, heatmap_color(v))
     set_bg (layout, coord(c, r), heatmap_color (v))
+    set_tap_info (layout, coord (c, r), log[(c, r)], total)
 
 print json.dumps(layout)
