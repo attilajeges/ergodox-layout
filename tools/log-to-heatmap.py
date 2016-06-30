@@ -64,7 +64,7 @@ def set_tap_info(j, (b, n), count, cap):
     j[b][n + 1] = _set_tap_info (j[b][n + 1], count, cap)
 
 def heatmap_color (v):
-    colors = [ [0.5, 0.5, 1], [0.5, 1, 0.5], [1, 1, 0.5], [1, 0.5, 0.5]]
+    colors = [ [0.3, 0.3, 1], [0.3, 1, 0.3], [1, 1, 0.3], [1, 0.3, 0.3]]
     fb = 0
     if v <= 0:
         idx1, idx2 = 0, 0
