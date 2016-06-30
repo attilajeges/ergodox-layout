@@ -134,4 +134,9 @@ def main(base_fn, log_fn):
     print json.dumps(layout)
 
 if __name__ == "__main__":
+    if len(sys.argv) < 3:
+        print """Log to Heatmap -- creates a heatmap out of keyboard logs
+
+Usage: log-to-heatmap.py base-layout.json logfile >layout.json"""
+        sys.exit (1)
     main(*sys.argv[1:])
