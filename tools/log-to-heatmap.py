@@ -130,6 +130,7 @@ def main(base_fn, log_fn):
         v = float(log[(c, r)]) / cap
         print >> sys.stderr, "%s => %d/%d => %f = %s" % (l_flat(layout[b][n+1]), log[(c,r)], cap, v, heatmap_color(v))
         set_bg (layout, coord(c, r), heatmap_color (v))
+        set_tap_info (layout, coord (c, r), log[(c, r)], total)
 
     print json.dumps(layout)
 
