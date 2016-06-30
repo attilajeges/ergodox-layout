@@ -19,6 +19,8 @@ Some of the things in the layout only work when one uses Spacemacs and GNOME und
     - [One-handed layer](#one-handed-layer)
     - [Steno layer](#steno-layer)
     - [LED states](#led-states)
+* [Tools](#tools)
+    - [Heatmap](#heatmap)
 * [Building](#building)
     - [Using on Windows](#using-on-windows)
 * [Changelog](#changelog)
@@ -96,6 +98,18 @@ For the layers, the following rules apply:
 * For the [Steno layer](#steno-layer), all LEDs will be turned on.
 
 Unless noted otherwise, the layers use a dim light for the LEDs, while modifiers use a stronger one, and modifiers override any layer preferences. For example, when on the one-handed layer, with the left side active (*red* light blinking), if `Shift` is on, the *red* light will be constantly on.
+
+# Tools
+
+## Heatmap
+
+When the keypress logging functionality is enabled (by `LEAD d`), the keyboard will output a line every time a key is pressed, containing the position of the key in the matrix. This allows one to collect this information, and build analytics over it, such as a heat map, including dead keys too.
+
+Included with the firmware is a small tool that can parse these logs, and create a heatmap that one can import into [KLE][kle]. To use it, simply point `tools/log-to-heatmap.py` to a base layout file (one is included in the `tools/` directory), and the key position log. The latter one can create by running `hid-listen`, and redirecting its output to a file.
+
+The generated heatmap looks somewhat like this:
+
+ ![Heatmap](images/heatmap.png)
 
 # Building
 
