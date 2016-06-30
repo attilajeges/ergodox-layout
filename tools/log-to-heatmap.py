@@ -84,7 +84,7 @@ def heatmap_color (v):
     return "#%02x%02x%02x" % (r, g, b)
 
 # Load the keylog
-def load_keylog(fname):
+def load_keylog(fname, restrict_row):
     keylog = {}
     total = 0
     with open(fname, "r") as f:
@@ -94,6 +94,8 @@ def load_keylog(fname):
         if not m:
             continue
         (c, r) = (int(m.group (2)), int(m.group (1)))
+        if restrict_row != None and r != int(restrict_row):
+            continue
         if (c, r) in keylog:
             keylog[(c, r)] = keylog[(c, r)] + 1
         else:
@@ -105,7 +107,7 @@ def l_flat(s):
     f = s.split("\n")
     return ", ".join (f)
 
-def main(base_fn, log_fn):
+def main(base_fn, log_fn, restrict_row = None):
 
     with open(base_fn, "r") as f:
         layout = json.load (f)
@@ -117,7 +119,7 @@ def main(base_fn, log_fn):
                 set_bg (layout, col, "#d9dae0")
                 #set_attr_at (layout, col[0], col[1], "g", set_attr, True)
 
-    total, log = load_keylog (log_fn)
+    total, log = load_keylog (log_fn, restrict_row)
     max_cnt = 0
     for (c, r) in log:
         max_cnt = max(max_cnt, log[(c, r)])
@@ -138,6 +140,6 @@ if __name__ == "__main__":
     if len(sys.argv) < 3:
         print """Log to Heatmap -- creates a heatmap out of keyboard logs
 
-Usage: log-to-heatmap.py base-layout.json logfile >layout.json"""
+Usage: log-to-heatmap.py base-layout.json logfile [row] >layout.json"""
         sys.exit (1)
     main(*sys.argv[1:])
