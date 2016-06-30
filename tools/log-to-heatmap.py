@@ -83,16 +83,6 @@ def heatmap_color (v):
     r, g, b = [x * 255 for x in r, g, b]
     return "#%02x%02x%02x" % (r, g, b)
 
-with open(sys.argv[1], "r") as f:
-    layout = json.load (f)
-
-## Reset colors
-for row in cr_coord_map:
-    for col in row:
-        if col != []:
-            set_bg (layout, col, "#d9dae0")
-            #set_attr_at (layout, col[0], col[1], "g", set_attr, True)
-
 # Load the keylog
 def load_keylog(fname):
     keylog = {}
@@ -111,24 +101,37 @@ def load_keylog(fname):
         total = total + 1
     return total / 2, keylog
 
-total, log = load_keylog (sys.argv[2])
-max_cnt = 0
-for (c, r) in log:
-    max_cnt = max(max_cnt, log[(c, r)])
-
 def l_flat(s):
     f = s.split("\n")
     return ", ".join (f)
 
-# Create the heatmap
-for (c, r) in log:
-    coords = coord(c, r)
-    b, n = coords
-    cap = len(log)
-    cap = max_cnt
-    v = float(log[(c, r)]) / cap
-    print >> sys.stderr, "%s => %d/%d => %f = %s" % (l_flat(layout[b][n+1]), log[(c,r)], cap, v, heatmap_color(v))
-    set_bg (layout, coord(c, r), heatmap_color (v))
-    set_tap_info (layout, coord (c, r), log[(c, r)], total)
+def main(base_fn, log_fn):
 
-print json.dumps(layout)
+    with open(base_fn, "r") as f:
+        layout = json.load (f)
+
+    ## Reset colors
+    for row in cr_coord_map:
+        for col in row:
+            if col != []:
+                set_bg (layout, col, "#d9dae0")
+                #set_attr_at (layout, col[0], col[1], "g", set_attr, True)
+
+    total, log = load_keylog (log_fn)
+    max_cnt = 0
+    for (c, r) in log:
+        max_cnt = max(max_cnt, log[(c, r)])
+
+    # Create the heatmap
+    for (c, r) in log:
+        coords = coord(c, r)
+        b, n = coords
+        cap = max_cnt
+        v = float(log[(c, r)]) / cap
+        print >> sys.stderr, "%s => %d/%d => %f = %s" % (l_flat(layout[b][n+1]), log[(c,r)], cap, v, heatmap_color(v))
+        set_bg (layout, coord(c, r), heatmap_color (v))
+
+    print json.dumps(layout)
+
+if __name__ == "__main__":
+    main(*sys.argv[1:])
