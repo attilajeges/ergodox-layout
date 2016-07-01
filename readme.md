@@ -107,6 +107,8 @@ When the keypress logging functionality is enabled (by `LEAD d`), the keyboard w
 
 Included with the firmware is a small tool that can parse these logs, and create a heatmap that one can import into [KLE][kle]. To use it, simply point `tools/log-to-heatmap.py` to a base layout file (one is included in the `tools/` directory), and the key position log. The latter one can create by running `hid-listen`, and redirecting its output to a file.
 
+ [kle]: http://www.keyboard-layout-editor.com/
+
 The generated heatmap looks somewhat like this:
 
  ![Heatmap](images/heatmap.png)
