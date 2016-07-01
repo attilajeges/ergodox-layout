@@ -8,7 +8,7 @@
     "switchBrand": "gateron",
     "switchType": "KS-3-Tea",
     "pcb": true,
-    "css": ".keyborder { -webkit-filter: blur(5px); filter: blur(5px); }"
+    "css": ".keyborder { -webkit-filter: blur(5px); filter: blur(5px); } .keytop { -webkit-filter: blur(10px); } .keylabels { border: 1px solid black; }"
   },
   [
     {
