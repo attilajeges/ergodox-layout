@@ -15,7 +15,7 @@
 
 enum {
   BASE = 0,
-  EXPRM,
+  ADORE,
   ARRW,
   APPSEL,
   HUN,
@@ -163,16 +163,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                ,F(F_HUN)  ,KC_ENT ,KC_SPC
     ),
 
-/* Keymap 1: Experimental layer
+/* Keymap 1: Adore layer
  *
  * ,-----------------------------------------------------.           ,-----------------------------------------------------.
  * |        `~ | 1 F1 | 2 F2 | 3 F3 | 4 F4 | 5 F5 | Apps |           | Apps | 6 F6 | 7 F7 | 8 F8 | 9 F9 | 0 F10|       F11 |
  * |-----------+------+------+------+------+-------------|           |------+------+------+------+------+------+-----------|
- * | Next/Prev |   '  |   ,  |   .  |   P  |   Y  |   [  |           |  ]   |   L  |   F  |   C  |   R  |  J   | \         |
+ * | Next/Prev |   ,  |   .  |   L  |   W  |   M  |   [  |           |  ]   |   F  |   H  |   C  |   P  |  Y   | \         |
  * |-----------+------+------+------+------+------|      |           |      |------+------+------+------+------+-----------|
- * | Tab/Arrow |   A  |   O  |   E  |   U  |   I  |------|           |------|   D  |   H  |   T  |   N  |  S   | = / Arrow |
+ * | Tab/Arrow |   A  |   O  |   E  |   I  |   U  |------|           |------|   D  |   R  |   T  |   N  |  S   | = / Arrow |
  * |-----------+------+------+------+------+------|   (  |           |  )   |------+------+------+------+------+-----------|
- * | Play/Pause|   Z  |   G  |   V  |   K  |   X  |      |           |      |   Q  |   M  |   W  |   B  |  /   |      Stop |
+ * | Play/Pause|   /  |   Z  |   '  |   K  |   X  |      |           |      |   B  |   G  |   V  |   J  |  Q   |      Stop |
  * `-----------+------+------+------+------+-------------'           `-------------+------+------+------+------+-----------'
  *     |       |      |      |      |   :  |                                       |   -  |      |      |      |       |
  *     `-----------------------------------'                                       `-----------------------------------'
@@ -184,12 +184,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                  |      |      | ESC  |           | HUN  |      |      |
  *                                  `--------------------'           `--------------------'
  */
-[EXPRM] = KEYMAP(
+[ADORE] = KEYMAP(
 // left hand
  KC_GRV             ,M(KF_1)     ,M(KF_2)     ,M(KF_3),M(KF_4),M(KF_5),KC_APP
-,M(A_MPN)           ,KC_QUOT     ,KC_COMM     ,KC_DOT ,KC_P   ,KC_Y   ,KC_LBRC
-,LT(ARRW, KC_TAB)   ,KC_A        ,KC_O        ,KC_E   ,KC_U   ,KC_I
-,KC_MPLY            ,KC_Z        ,KC_G        ,KC_V   ,KC_K   ,KC_X   ,KC_LPRN
+,M(A_MPN)           ,KC_COMM     ,KC_DOT      ,KC_L   ,KC_W   ,KC_M   ,KC_LBRC
+,LT(ARRW, KC_TAB)   ,KC_A        ,KC_O        ,KC_E   ,KC_I   ,KC_U
+,KC_MPLY            ,KC_SLSH     ,KC_Z        ,KC_QUOT,KC_K   ,KC_X   ,KC_LPRN
 ,KC_NO              ,KC_NO       ,KC_NO       ,KC_NO  ,TD(CT_CLN)
 
                                                             ,F(F_ALT),F(F_GUI)
@@ -198,9 +198,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
                                                                 // right hand
                                                                ,KC_APP    ,M(KF_6),M(KF_7),M(KF_8),M(KF_9) ,M(KF_10) ,KC_F11
-                                                               ,KC_RBRC   ,KC_L   ,KC_F   ,KC_C   ,KC_R    ,KC_J     ,KC_BSLS
-                                                                          ,KC_D   ,KC_H   ,KC_T   ,KC_N    ,KC_S     ,LT(ARRW, KC_EQL)
-                                                               ,KC_RPRN   ,KC_Q   ,KC_M   ,KC_W   ,KC_B    ,KC_SLSH  ,KC_MSTP
+                                                               ,KC_RBRC   ,KC_F   ,KC_H   ,KC_C   ,KC_P    ,KC_Y     ,KC_BSLS
+                                                                          ,KC_D   ,KC_R   ,KC_T   ,KC_N    ,KC_S     ,LT(ARRW, KC_EQL)
+                                                               ,KC_RPRN   ,KC_B   ,KC_G   ,KC_V   ,KC_J    ,KC_Q     ,KC_MSTP
                                                                                   ,KC_MINS,KC_NO  ,KC_NO   ,KC_NO    ,KC_NO
 
                                                                ,OSL(NMDIA),M(OH_LEFT)
@@ -887,7 +887,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
       return MACRO_NONE;
 };
 
-uint8_t is_exp = 0;
+uint8_t is_adore = 0;
 
 // Runs just one time when the keyboard initializes.
 void matrix_init_user(void) {
@@ -1014,7 +1014,7 @@ void matrix_scan_user(void) {
     ergodox_right_led_1_on ();
   } else {
     ergodox_right_led_1_set (LED_BRIGHTNESS_LO);
-    if (layer != OHLFT && layer != NMDIA && layer != EXPRM)
+    if (layer != OHLFT && layer != NMDIA && layer != ADORE)
       ergodox_right_led_1_off ();
   }
 
@@ -1024,7 +1024,7 @@ void matrix_scan_user(void) {
     ergodox_right_led_2_on ();
   } else {
     ergodox_right_led_2_set (LED_BRIGHTNESS_LO);
-    if (layer != OHRGT && layer != HUN && layer != OHLFT && layer != NMDIA && layer != EXPRM)
+    if (layer != OHRGT && layer != HUN && layer != OHLFT && layer != NMDIA && layer != ADORE)
       ergodox_right_led_2_off ();
   }
 
@@ -1034,7 +1034,7 @@ void matrix_scan_user(void) {
     ergodox_right_led_3_on ();
   } else {
     ergodox_right_led_3_set (LED_BRIGHTNESS_LO);
-    if (layer != OHRGT && layer != HUN && layer != EXPRM)
+    if (layer != OHRGT && layer != HUN && layer != ADORE)
       ergodox_right_led_3_off ();
   }
 
@@ -1093,12 +1093,12 @@ void matrix_scan_user(void) {
       unregister_code (KC_LGUI);
     }
 
-    SEQ_ONE_KEY (KC_E) {
-      if (is_exp == 0) {
+    SEQ_ONE_KEY (KC_A) {
+      if (is_adore == 0) {
         default_layer_and (0);
-        default_layer_or ((1UL << EXPRM));
-        eeconfig_update_default_layer ((1UL << EXPRM));
-        is_exp = 1;
+        default_layer_or ((1UL << ADORE));
+        eeconfig_update_default_layer ((1UL << ADORE));
+        is_adore = 1;
 
         ergodox_led_all_off ();
         ergodox_right_led_3_on ();
@@ -1112,7 +1112,7 @@ void matrix_scan_user(void) {
         _delay_ms (100);
         ergodox_right_led_1_off ();
       } else {
-        is_exp = 0;
+        is_adore = 0;
         default_layer_and (0);
         default_layer_or (1UL << BASE);
         eeconfig_update_default_layer ((1UL << BASE));

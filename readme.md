@@ -13,7 +13,7 @@ Some of the things in the layout only work when one uses Spacemacs and GNOME und
 
 * [Layouts](#layouts)
     - [Base layer](#base-layer)
-    - [Experimental layer](#experimental-layer)
+    - [ADORE layer](#adore-layer)
     - [Hungarian layer](#hungarian-layer)
     - [Navigation and media layer](#navigation-and-media-layer)
     - [One-handed layer](#one-handed-layer)
@@ -47,17 +47,19 @@ At its core, this is a Dvorak layout, with some minor changes. The more interest
     - `LEAD s` does a lot of magic to type in a shruggie: `¯\_(ツ)_/¯`
     - `LEAD y` types `\o/`.
     - `LEAD w m` maximises the currently focused window.
-    - `LEAD e` makes the [experimental layer](#experimental-layer) the default.
+    - `LEAD a` makes the [ADORE layer](#adore-layer) the default.
     - `LEAD v` prints the firmware version, the keyboard and the keymap.
     - `LEAD d` toggles logging keypress positions to the HID console.
 
-## Experimental layer
+## ADORE layer
 
-[![Experimental layer](images/experimental-layer.png)](http://www.keyboard-layout-editor.com/#/gists/6ff50bf71248e05aab5b3fec4fae3d08)
+[![ADORE layer](images/adore-layer.png)](http://www.keyboard-layout-editor.com/#/gists/45681a17453d235925b6028dd83bf12a)
 
 While using the standard Dvorak layout, I encountered a number of inconveniences, and on this layer, I am playing with ideas to make the layout feel better. Initially, it was based on [Capewell-Dvorak][cpd], but that too, had shortcomings I was not happy with. So now this is something inbetween, with own observations thrown in. How it works out in the long run remains to be seen.
 
  [cpd]: http://www.michaelcapewell.com/projects/keyboard/layout_capewell-dvorak.htm
+ 
+Based on a week and a half of typing, the keys were rearranged, and the home row neatly spelled out **ADORE**, that gave the layout its name.
 
 ## Hungarian layer
 
@@ -91,7 +93,7 @@ The primary purpose of the LEDs is to show the modifier status, a secondary, to 
 
 For the layers, the following rules apply:
 
-* When the [Experimental layer](#experimental-layer) is toggled on, LEDs will light up from left to right in a sequence, then turn off. When the layer is toggled off, the LEDs light up and turn off in the other direction. No LEDs are on while the layer is active.
+* When the [ADORE layer](#adore-layer) is toggled on, LEDs will light up from left to right in a sequence, then turn off. When the layer is toggled off, the LEDs light up and turn off in the other direction. No LEDs are on while the layer is active.
 * When the [Hungarian layer](#hungarian-layer) is active, the *green* and *blue* LEDs are on.
 * When the [Navigation and media layer](#navigation-and-media-layer) is active, the *red* and *green* ones are on.
 * When the [One-handed layer](#one-handed-layer) is active, the *green* LED is on and bright, and either the *red* or the *blue* one is going to slowly blink, depending on the currently active side.
@@ -144,18 +146,18 @@ The keymap default to forcing NKRO, which seems to upset Windows, and except the
 
 * The forced NKRO mode can be easily toggled off at compile-time, to make the firmware compatible with [certain operating systems](#using-on-windows).
 * The `:;` key has changed behaviour: to access the `;` symbol, the key needs to be double-tapped, instead of shifted.
-* The `=` and `\` keys were swapped, `=` moved to the home row, on both the [base](#base-layer) and the [experimental](#experimental-layer) layers.
+* The `=` and `\` keys were swapped, `=` moved to the home row, on both the [base](#base-layer) and the **experimental** layers.
 * The arrow and navigation keys were redone, they are now more accessible, but the navigation keys require an extra tap to access.
 * The **Emacs** layer is gone, replaced by a simplified [navigation and media](#navigation-and-media-layer) layer.
 * `LEAD v` types the firmware version, and the keymap version.
-* On the [experimental](#experimental-layer) layer, the `L` and `Q`, and the `K` and `G` keys were swapped.
+* On the **experimental** layer, the `L` and `Q`, and the `K` and `G` keys were swapped.
 * The [Steno](#steno-layer) layer gained a few more `#` and `*` keys, to make it easier on my fingers.
 
 ## v1.1 - 2016-06-14
 
 * The keyboard starts in NKRO mode, bootmagic and other things are disabled.
 * A [Steno](#steno-layer) layer was added, to be used with Plover.
-* An [experimental](#experimental-layer) layer was added, something halfway between Dvorak and Capewell-Dvorak. A work in progress.
+* An **experimental** layer was added, something halfway between Dvorak and Capewell-Dvorak. A work in progress.
 * `LEAD y` types `\o/`.
 * Some keys on the [Base](#base-layer) layer have been moved around:
     - `?` moved to the left pinky, left of `Q`.
