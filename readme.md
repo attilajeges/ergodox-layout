@@ -142,6 +142,13 @@ The keymap default to forcing NKRO, which seems to upset Windows, and except the
 
 # Changelog
 
+## v1.3 - 2016-07-06
+
+* Added support for logging keys, by pressing `LEAD d`. Also included is a tool to generate a [heatmap](#heatmap) out of the logs.
+* The arrow and navigation keys were rearranged again, and now require an additional key being held to activate. See the [base layer](#base-layer) for an image that shows where arrows are.
+* The **experimental** layer has been redone, and is now called [ADORE](#adore-layer), and as such, can be enabled by `LEAD a` now.
+* Switching between Dvorak and ADORE is now persisted into EEPROM, and survives a reboot.
+
 ## v1.2 - 2016-06-22
 
 * The forced NKRO mode can be easily toggled off at compile-time, to make the firmware compatible with [certain operating systems](#using-on-windows).
