@@ -908,8 +908,8 @@ void matrix_init_user(void) {
   if (!eeconfig_is_enabled())
     eeconfig_init();
   dl = eeconfig_read_default_layer ();
-  if (dl == (1UL << EXPRM))
-    is_exp = 1;
+  if (dl == (1UL << ADORE))
+    is_adore = 1;
 };
 
 LEADER_EXTERNS();
@@ -974,7 +974,7 @@ void matrix_scan_user(void) {
   } else if (layer == NMDIA) {
     ergodox_right_led_1_on();
     ergodox_right_led_2_on();
-  } else if (layer == EXPRM) {
+  } else if (layer == ADORE) {
     ergodox_right_led_1_on ();
     ergodox_right_led_2_on ();
     ergodox_right_led_3_on ();
