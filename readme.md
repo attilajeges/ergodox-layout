@@ -142,10 +142,6 @@ The keymap default to forcing NKRO, which seems to upset Windows, and except the
 
 # Changelog
 
-## v1.4 - UNRELEASED
-
-* The **ARROW** layer toggle is now also available on the left thumb cluster, while `Backspace` is held.
-
 ## v1.3 - 2016-07-06
 
 * Added support for logging keys, by pressing `LEAD d`. Also included is a tool to generate a [heatmap](#heatmap) out of the logs.

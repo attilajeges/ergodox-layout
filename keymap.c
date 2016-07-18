@@ -149,7 +149,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
                                                             ,F(F_ALT),F(F_GUI)
                                                                      ,F(F_CTRL)
-                                           ,LT(ARRW,KC_BSPC),F(F_SFT),M(A_ESC)
+                                                    ,KC_BSPC,F(F_SFT),M(A_ESC)
 
                                                                 // right hand
                                                                ,KC_APP    ,M(KF_6),M(KF_7),M(KF_8),M(KF_9) ,M(KF_10) ,KC_F11
@@ -194,7 +194,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
                                                             ,F(F_ALT),F(F_GUI)
                                                                      ,F(F_CTRL)
-                                           ,LT(ARRW,KC_BSPC),F(F_SFT),M(A_ESC)
+                                                    ,KC_BSPC,F(F_SFT),M(A_ESC)
 
                                                                 // right hand
                                                                ,KC_APP    ,M(KF_6),M(KF_7),M(KF_8),M(KF_9) ,M(KF_10) ,KC_F11
