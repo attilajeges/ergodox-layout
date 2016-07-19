@@ -1043,6 +1043,9 @@ void matrix_scan_user(void) {
     leader_end ();
 
     SEQ_ONE_KEY (KC_D) {
+      ergodox_led_all_on();
+      _delay_ms(100);
+      ergodox_led_all_off();
       log_enable = !log_enable;
     }
 
