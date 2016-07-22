@@ -92,7 +92,8 @@ enum {
 /* Custom keycodes */
 
 enum {
-  CT_CLN = 0
+  CT_CLN = 0,
+  CT_TA,
 };
 
 /* States & timers */
@@ -143,7 +144,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // left hand
  KC_GRV             ,M(KF_1)     ,M(KF_2)     ,M(KF_3),M(KF_4),M(KF_5),KC_APP
 ,M(A_MPN)           ,KC_QUOT     ,KC_COMM     ,KC_DOT ,KC_P   ,KC_Y   ,KC_LBRC
-,LT(ARRW,KC_TAB)    ,KC_A        ,KC_O        ,KC_E   ,KC_U   ,KC_I
+,TD(CT_TA)          ,KC_A        ,KC_O        ,KC_E   ,KC_U   ,KC_I
 ,KC_MPLY            ,KC_SLSH     ,KC_Q        ,KC_J   ,KC_K   ,KC_X   ,KC_LPRN
 ,KC_NO              ,KC_NO       ,KC_NO       ,KC_NO  ,TD(CT_CLN)
 
@@ -154,7 +155,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                 // right hand
                                                                ,KC_APP    ,M(KF_6),M(KF_7),M(KF_8),M(KF_9) ,M(KF_10) ,KC_F11
                                                                ,KC_RBRC   ,KC_F   ,KC_G   ,KC_C   ,KC_R    ,KC_L     ,KC_BSLS
-                                                                          ,KC_D   ,KC_H   ,KC_T   ,KC_N    ,KC_S     ,LT(ARRW, KC_EQL)
+                                                                          ,KC_D   ,KC_H   ,KC_T   ,KC_N    ,KC_S     ,KC_EQL
                                                                ,KC_RPRN   ,KC_B   ,KC_M   ,KC_W   ,KC_V    ,KC_Z     ,KC_MSTP
                                                                                   ,KC_MINS,KC_NO  ,KC_NO   ,KC_NO    ,KC_NO
 
@@ -188,7 +189,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // left hand
  KC_GRV             ,M(KF_1)     ,M(KF_2)     ,M(KF_3),M(KF_4),M(KF_5),KC_APP
 ,M(A_MPN)           ,KC_COMM     ,KC_DOT      ,KC_L   ,KC_W   ,KC_M   ,KC_LBRC
-,LT(ARRW, KC_TAB)   ,KC_A        ,KC_O        ,KC_E   ,KC_I   ,KC_U
+,TD(CT_TA)          ,KC_A        ,KC_O        ,KC_E   ,KC_I   ,KC_U
 ,KC_MPLY            ,KC_SLSH     ,KC_Z        ,KC_QUOT,KC_K   ,KC_X   ,KC_LPRN
 ,KC_NO              ,KC_NO       ,KC_NO       ,KC_NO  ,TD(CT_CLN)
 
@@ -199,7 +200,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                 // right hand
                                                                ,KC_APP    ,M(KF_6),M(KF_7),M(KF_8),M(KF_9) ,M(KF_10) ,KC_F11
                                                                ,KC_RBRC   ,KC_F   ,KC_H   ,KC_C   ,KC_P    ,KC_Y     ,KC_BSLS
-                                                                          ,KC_D   ,KC_R   ,KC_T   ,KC_N    ,KC_S     ,LT(ARRW, KC_EQL)
+                                                                          ,KC_D   ,KC_R   ,KC_T   ,KC_N    ,KC_S     ,KC_EQL
                                                                ,KC_RPRN   ,KC_B   ,KC_G   ,KC_V   ,KC_J    ,KC_Q     ,KC_MSTP
                                                                                   ,KC_MINS,KC_NO  ,KC_NO   ,KC_NO    ,KC_NO
 
@@ -936,24 +937,40 @@ void ang_tap (uint16_t codes[]) {
   register_code (code); \
   unregister_code (code)
 
-void ang_tap_dance (qk_tap_dance_state_t *state) {
-  switch (state->keycode) {
-  case TD(CT_CLN):
-    if (state->count == 1) {
-      register_code (KC_RSFT);
-      register_code (KC_SCLN);
-      unregister_code (KC_SCLN);
-      unregister_code (KC_RSFT);
-    } else if (state->count == 2) {
-      register_code (KC_SCLN);
-      unregister_code (KC_SCLN);
-      reset_tap_dance (state);
-    }
+void ang_tap_dance_cln_finished (qk_tap_dance_state_t *state, void *user_data) {
+  if (state->count == 1) {
+    register_code (KC_RSFT);
+    register_code (KC_SCLN);
+  } else if (state->count == 2) {
+    register_code (KC_SCLN);
   }
 }
 
+void ang_tap_dance_cln_reset (qk_tap_dance_state_t *state, void *user_data) {
+  if (state->count == 1) {
+    unregister_code (KC_SCLN);
+    unregister_code (KC_RSFT);
+  } else if (state->count == 2) {
+    unregister_code (KC_SCLN);
+  }
+}
+
+void ang_tap_dance_ta_finished (qk_tap_dance_state_t *state, void *user_data) {
+  if (state->count == 1 && !state->pressed) {
+    register_code (KC_TAB);
+  } else {
+    layer_on (ARRW);
+  }
+}
+
+void ang_tap_dance_ta_reset (qk_tap_dance_state_t *state, void *user_data) {
+  unregister_code (KC_TAB);
+  layer_off (ARRW);
+}
+
 const qk_tap_dance_action_t tap_dance_actions[] = {
-  [CT_CLN] = ACTION_TAP_DANCE_FN (ang_tap_dance)
+   [CT_CLN] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, ang_tap_dance_cln_finished, ang_tap_dance_cln_reset)
+  ,[CT_TA]  = ACTION_TAP_DANCE_FN_ADVANCED (NULL, ang_tap_dance_ta_finished, ang_tap_dance_ta_reset)
 };
 
 // Runs constantly in the background, in a loop.
