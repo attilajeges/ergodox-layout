@@ -955,22 +955,55 @@ void ang_tap_dance_cln_reset (qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
+typedef struct {
+  bool layer_toggle;
+  bool sticky;
+  bool finished_once;
+} td_ta_state_t;
+
 void ang_tap_dance_ta_finished (qk_tap_dance_state_t *state, void *user_data) {
+  td_ta_state_t *td_ta = (td_ta_state_t *) user_data;
+
+  if (td_ta->finished_once) {
+    return;
+  }
+
+  if (td_ta->sticky) {
+    td_ta->sticky = false;
+    td_ta->layer_toggle = false;
+    layer_off (ARRW);
+    return;
+  }
+
+  td_ta->finished_once = true;
   if (state->count == 1 && !state->pressed) {
     register_code (KC_TAB);
+    td_ta->sticky = false;
+    td_ta->layer_toggle = false;
   } else {
+    td_ta->layer_toggle = true;
     layer_on (ARRW);
+    td_ta->sticky = (state->count == 2);
   }
 }
 
 void ang_tap_dance_ta_reset (qk_tap_dance_state_t *state, void *user_data) {
-  unregister_code (KC_TAB);
-  layer_off (ARRW);
+  td_ta_state_t *td_ta = (td_ta_state_t *) user_data;
+
+  if (!td_ta->layer_toggle)
+    unregister_code (KC_TAB);
+  if (!td_ta->sticky)
+    layer_off (ARRW);
+
+  td_ta->finished_once = false;
 }
 
 const qk_tap_dance_action_t tap_dance_actions[] = {
    [CT_CLN] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, ang_tap_dance_cln_finished, ang_tap_dance_cln_reset)
-  ,[CT_TA]  = ACTION_TAP_DANCE_FN_ADVANCED (NULL, ang_tap_dance_ta_finished, ang_tap_dance_ta_reset)
+  ,[CT_TA]  = {
+     .fn = { NULL, ang_tap_dance_ta_finished, ang_tap_dance_ta_reset },
+     .user_data = (void *)&((td_ta_state_t) { false, false, false })
+   }
 };
 
 // Runs constantly in the background, in a loop.
