@@ -118,6 +118,8 @@ uint16_t oh_right_blink_timer = 0;
 bool log_enable = false;
 #endif
 
+bool time_travel = false;
+
 /* The Keymap */
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -1123,6 +1125,10 @@ void matrix_scan_user(void) {
     }
 #endif
 
+    SEQ_ONE_KEY (KC_T) {
+      time_travel = !time_travel;
+    }
+
     SEQ_ONE_KEY (KC_U) {
       ang_do_unicode ();
     }
@@ -1210,15 +1216,41 @@ void matrix_scan_user(void) {
   }
 }
 
-#if KEYLOGGER_ENABLE
+static uint16_t last4[4];
+
 bool process_record_user (uint16_t keycode, keyrecord_t *record) {
+#if KEYLOGGER_ENABLE
   uint8_t layer = biton32(layer_state);
 
   if (log_enable && layer == BASE) {
     xprintf ("KL: col=%d, row=%d\n", record->event.key.col,
              record->event.key.row);
   }
+#endif
+
+  if (time_travel && !record->event.pressed) {
+    uint8_t p;
+
+    // shift cache one to the left
+    for (p = 0; p < 3; p++) {
+      last4[p] = last4[p + 1];
+    }
+    last4[3] = keycode;
+
+    if (last4[0] == KC_D && last4[1] == KC_A && last4[2] == KC_T && last4[3] == KC_E) {
+      uint16_t codes[] = {KC_E, KC_SPC, KC_MINS, KC_D, KC_SPC, KC_QUOT, 0};
+      ang_tap (codes);
+      register_code (KC_RSFT);
+      register_code (KC_EQL);
+      unregister_code (KC_EQL);
+      unregister_code (KC_RSFT);
+
+      uint16_t codes2[] = {KC_4, KC_SPC, KC_D, KC_A, KC_Y, KC_S, KC_QUOT, 0};
+      ang_tap (codes2);
+
+      return false;
+    }
+  }
 
   return true;
 }
-#endif

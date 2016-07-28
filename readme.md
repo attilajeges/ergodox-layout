@@ -50,6 +50,7 @@ At its core, this is a Dvorak layout, with some minor changes. The more interest
     - `LEAD a` makes the [ADORE layer](#adore-layer) the default.
     - `LEAD v` prints the firmware version, the keyboard and the keymap.
     - `LEAD d` toggles logging keypress positions to the HID console.
+    - `LEAD t` toggles time travel. Figuring out the current `date` is left as an exercise to the reader.
 
 ## ADORE layer
 
