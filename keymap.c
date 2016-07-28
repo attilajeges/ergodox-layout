@@ -93,6 +93,7 @@ enum {
 
 enum {
   CT_CLN = 0,
+  CT_MNS,
   CT_TA,
 };
 
@@ -153,11 +154,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                     ,KC_BSPC,F(F_SFT),M(A_ESC)
 
                                                                 // right hand
-                                                               ,KC_APP    ,M(KF_6),M(KF_7),M(KF_8),M(KF_9) ,M(KF_10) ,KC_F11
-                                                               ,KC_RBRC   ,KC_F   ,KC_G   ,KC_C   ,KC_R    ,KC_L     ,KC_BSLS
-                                                                          ,KC_D   ,KC_H   ,KC_T   ,KC_N    ,KC_S     ,KC_EQL
-                                                               ,KC_RPRN   ,KC_B   ,KC_M   ,KC_W   ,KC_V    ,KC_Z     ,KC_MSTP
-                                                                                  ,KC_MINS,KC_NO  ,KC_NO   ,KC_NO    ,KC_NO
+                                                               ,KC_APP    ,M(KF_6),M(KF_7)   ,M(KF_8),M(KF_9) ,M(KF_10) ,KC_F11
+                                                               ,KC_RBRC   ,KC_F   ,KC_G      ,KC_C   ,KC_R    ,KC_L     ,KC_BSLS
+                                                                          ,KC_D   ,KC_H      ,KC_T   ,KC_N    ,KC_S     ,KC_EQL
+                                                               ,KC_RPRN   ,KC_B   ,KC_M      ,KC_W   ,KC_V    ,KC_Z     ,KC_MSTP
+                                                                                  ,TD(CT_MNS),KC_NO  ,KC_NO   ,KC_NO    ,KC_NO
 
                                                                ,OSL(NMDIA),M(OH_LEFT)
                                                                ,KC_LEAD
@@ -198,11 +199,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                     ,KC_BSPC,F(F_SFT),M(A_ESC)
 
                                                                 // right hand
-                                                               ,KC_APP    ,M(KF_6),M(KF_7),M(KF_8),M(KF_9) ,M(KF_10) ,KC_F11
-                                                               ,KC_RBRC   ,KC_F   ,KC_H   ,KC_C   ,KC_P    ,KC_Y     ,KC_BSLS
-                                                                          ,KC_D   ,KC_R   ,KC_T   ,KC_N    ,KC_S     ,KC_EQL
-                                                               ,KC_RPRN   ,KC_B   ,KC_G   ,KC_V   ,KC_J    ,KC_Q     ,KC_MSTP
-                                                                                  ,KC_MINS,KC_NO  ,KC_NO   ,KC_NO    ,KC_NO
+                                                               ,KC_APP    ,M(KF_6),M(KF_7)   ,M(KF_8),M(KF_9) ,M(KF_10) ,KC_F11
+                                                               ,KC_RBRC   ,KC_F   ,KC_H      ,KC_C   ,KC_P    ,KC_Y     ,KC_BSLS
+                                                                          ,KC_D   ,KC_R      ,KC_T   ,KC_N    ,KC_S     ,KC_EQL
+                                                               ,KC_RPRN   ,KC_B   ,KC_G      ,KC_V   ,KC_J    ,KC_Q     ,KC_MSTP
+                                                                                  ,TD(CT_MNS),KC_NO  ,KC_NO   ,KC_NO    ,KC_NO
 
                                                                ,OSL(NMDIA),M(OH_LEFT)
                                                                ,KC_LEAD
@@ -955,6 +956,24 @@ void ang_tap_dance_cln_reset (qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
+void ang_tap_dance_mns_finished (qk_tap_dance_state_t *state, void *user_data) {
+  if (state->count == 1) {
+    register_code (KC_MINS);
+  } else if (state->count == 2) {
+    register_code (KC_RSFT);
+    register_code (KC_MINS);
+  }
+}
+
+void ang_tap_dance_mns_reset (qk_tap_dance_state_t *state, void *user_data) {
+  if (state->count == 1) {
+    unregister_code (KC_MINS);
+  } else if (state->count == 2) {
+    unregister_code (KC_RSFT);
+    unregister_code (KC_MINS);
+  }
+}
+
 typedef struct {
   bool layer_toggle;
   bool sticky;
@@ -1000,6 +1019,7 @@ void ang_tap_dance_ta_reset (qk_tap_dance_state_t *state, void *user_data) {
 
 const qk_tap_dance_action_t tap_dance_actions[] = {
    [CT_CLN] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, ang_tap_dance_cln_finished, ang_tap_dance_cln_reset)
+  ,[CT_MNS] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, ang_tap_dance_mns_finished, ang_tap_dance_mns_reset)
   ,[CT_TA]  = {
      .fn = { NULL, ang_tap_dance_ta_finished, ang_tap_dance_ta_reset },
      .user_data = (void *)&((td_ta_state_t) { false, false, false })
