@@ -143,6 +143,14 @@ The keymap default to forcing NKRO, which seems to upset Windows, and except the
 
 # Changelog
 
+## v1.4 - 2016-07-29
+
+* When toggling the key logging on or off, the LEDs will do a little dance.
+* The keylogger is now optional, but enabled by default. Use `KEYLOGGER_ENABLE=no` on the `make` command line to disable it.
+* The `TAB`/`ARRW` key was turned into a tap-dance key, allowing one to toggle the **ARROW** layer on by double-tapping, and as such, avoid the need to hold the key.
+* The `-`/`_` key was turned into a tap-dance key too.
+* There is now a way to travel time with the keyboard, toggle the feature on by hitting `LEAD t`.
+
 ## v1.3 - 2016-07-06
 
 * Added support for logging keys, by pressing `LEAD d`. Also included is a tool to generate a [heatmap](#heatmap) out of the logs.
