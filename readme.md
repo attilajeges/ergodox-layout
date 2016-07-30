@@ -127,14 +127,14 @@ To make my workflow easier, this layout is maintained in [its own repository][al
 $ git clone https://github.com/jackhumbert/qmk_firmware.git
 $ cd qmk_firmware
 $ git clone https://github.com/algernon/ergodox-layout.git \
-            keyboards/ergodox_ez/keymaps/algernon-master
-$ make KEYBOARD=ergodox_ez KEYMAP=algernon-master
+            keyboards/ergodox/keymaps/algernon-master
+$ make KEYBOARD=ergodox KEYMAP=algernon-master
 ```
 
 From time to time, updates may be submitted back to the QMK repository. If you are reading it there, you can build the firmware like any other firmware included with it (assuming you are in the root directory of the firmware):
 
 ```
-$ make KEYBOARD=ergodox_ez KEYMAP=algernon
+$ make KEYBOARD=ergodox KEYMAP=algernon
 ```
 
 ## Using on Windows
