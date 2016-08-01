@@ -16,7 +16,6 @@ Some of the things in the layout only work when one uses Spacemacs and GNOME und
     - [ADORE layer](#adore-layer)
     - [Hungarian layer](#hungarian-layer)
     - [Navigation and media layer](#navigation-and-media-layer)
-    - [One-handed layer](#one-handed-layer)
     - [Steno layer](#steno-layer)
     - [LED states](#led-states)
 * [Tools](#tools)
@@ -38,7 +37,7 @@ At its core, this is a Dvorak layout, with some minor changes. The more interest
 * The `Shift`, `Alt`, and `Control` modifiers are one-shot. When tapped, they are considered active for the next key press only. When double tapped, they toggle on, until a third, single tap sometime later. When held, they act as expected. My usual pattern is that I use these for the next keypress only, so this behaviour is perfect. If I need them held, I'll just double-tap.
 * The `GUI` key is special, because when I double-tap it, it sends `GUI + w`, which pops up an application selector. It also switches to a one-shot layer, where the number row on the left half turns into app selector macros, for the most common things I usually want to switch to. Otherwise it behaves as on a normal layout.
 * The `ESC` key also doubles as a one-shot cancel key: if tapped while any of the one-shot modifiers are in-flight (as in, single-tapped, and not expired yet), it cancels all one-shot modifiers. It also cancels the **Hun** layer, if active. Otherwise it sends the usual keycode.
-* The **Media** and **Hun** layer keys are one-shot, the **1Hand** key is toggle.
+* The **Media** and **Hun** layer keys are one-shot.
 * When holding any of the **Arrow** layer keys, the arrow layer activates while the layer key is held. Tapping the key produces the normal key.
 * Tapping the `:` key once yields `:`, tapping it twice yields `;`.
 * The **Lead** key allows me to type in a sequence of keys, and trigger some actions:
@@ -74,19 +73,6 @@ On this layer, the accented characters are at the same position as their base va
 
 This layer is primarily for navigating with the cursor or the mouse, and some media things.
 
-## One-handed layer
-
-[![One-handed layer](images/one-handed-layer.png)](http://www.keyboard-layout-editor.com/#/gists/edff2495135955b8963198dace7f7ece)
-
-The one-handed layer is used in situations where the right hand is occupied, by mousing around, for example. Tapping the `OTHER` key switches which side is active. For the most part, keys remain in their usual position. When the right half is active, keys are mirrored to the left half.
-
-The differences are as follows:
-
-* The `ESC` key has been moved to the bottom row, so the `OTHER` key is easier to tap.
-* Most keys on the thumb cluster now have dual uses, and these do not change when switching sides:
-    - The `Space`/`Backspace` key sends `Space` on tap, `Backspace` when held for longer than a normal tap.
-    - The `Enter`/`Shift` key sends `Enter` on short-tap, `Shift` on long-tap.
-* The `Apps`/`BASE` key can be used to go back to the base layer, by long-tapping it. A short-tap will send the `App` key, as usual.
 
 ## LED states
 
@@ -97,7 +83,6 @@ For the layers, the following rules apply:
 * When the [ADORE layer](#adore-layer) is toggled on, LEDs will light up from left to right in a sequence, then turn off. When the layer is toggled off, the LEDs light up and turn off in the other direction. No LEDs are on while the layer is active.
 * When the [Hungarian layer](#hungarian-layer) is active, the *green* and *blue* LEDs are on.
 * When the [Navigation and media layer](#navigation-and-media-layer) is active, the *red* and *green* ones are on.
-* When the [One-handed layer](#one-handed-layer) is active, the *green* LED is on and bright, and either the *red* or the *blue* one is going to slowly blink, depending on the currently active side.
 * For the [Steno layer](#steno-layer), all LEDs will be turned on.
 
 Unless noted otherwise, the layers use a dim light for the LEDs, while modifiers use a stronger one, and modifiers override any layer preferences. For example, when on the one-handed layer, with the left side active (*red* light blinking), if `Shift` is on, the *red* light will be constantly on.
@@ -142,6 +127,9 @@ $ make KEYBOARD=ergodox KEYMAP=algernon
 The keymap default to forcing NKRO, which seems to upset Windows, and except the modifiers, none of them work. If you experience this problem, recompile the firmware with `FORCE_NKRO=no` added to the `make` command line.
 
 # Changelog
+
+## v1.5 - UNRELEASED
+* The **1HAND** layer has been removed.
 
 ## v1.4 - 2016-07-29
 
