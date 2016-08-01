@@ -708,7 +708,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         return MACRODOWN(T(S), T(L), T(A), T(C), T(K), T(ENT), END);
 
       case APP_EMCS:
-        return MACRODOWN(T(E), T(M), T(A), T(C), T(S), T(ENT), END);
+        return MACRODOWN(T(G), T(N), T(U), T(SPC), T(E), T(M), T(A), T(C), T(S), T(SPC), T(2), T(4), T(ENT), END);
 
       case APP_TERM:
         return MACRODOWN(T(T), T(E), T(R), T(M), T(ENT), END);
