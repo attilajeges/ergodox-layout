@@ -154,18 +154,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 1: Adore layer
  *
  * ,-----------------------------------------------------.           ,-----------------------------------------------------.
- * |        `~ | 1 F1 | 2 F2 | 3 F3 | 4 F4 | 5 F5 | Apps |           | Apps | 6 F6 | 7 F7 | 8 F8 | 9 F9 | 0 F10|       F11 |
+ * | Play/Pause| 1 F1 | 2 F2 | 3 F3 | 4 F4 | 5 F5 | Apps |           | Apps | 6 F6 | 7 F7 | 8 F8 | 9 F9 | 0 F10|       F11 |
  * |-----------+------+------+------+------+-------------|           |------+------+------+------+------+------+-----------|
- * | Next/Prev |   ,  |   .  |   L  |   W  |   M  |   [  |           |  ]   |   F  |   H  |   C  |   P  |  Y   | \         |
+ * |        `~ |   '  |   ,  |   .  |   L  |   M  |   [  |           |  ]   |   F  |   H  |   C  |   P  |  Y   | \         |
  * |-----------+------+------+------+------+------|      |           |      |------+------+------+------+------+-----------|
- * | Tab/Arrow |   A  |   O  |   E  |   I  |   U  |------|           |------|   D  |   R  |   T  |   N  |  S   | = / Arrow |
+ * | Tab/Arrow |   A  |   O  |   E  |   I  |   U  |------|           |------|   D  |   R  |   T  |   N  |  S   | =         |
  * |-----------+------+------+------+------+------|   (  |           |  )   |------+------+------+------+------+-----------|
- * | Play/Pause|   /  |   Z  |   '  |   K  |   X  |      |           |      |   B  |   G  |   V  |   J  |  Q   |      Stop |
+ * |         : |   Q  |   Z  |   W  |   K  |   X  |      |           |      |   B  |   G  |   V  |   J  |  /   | -         |
  * `-----------+------+------+------+------+-------------'           `-------------+------+------+------+------+-----------'
- *     |       |      |      |      |   :  |                                       |   -  |      |      |      |       |
+ *     |       |      |      |      |      |                                       |      |      |      |      |       |
  *     `-----------------------------------'                                       `-----------------------------------'
  *                                         ,-------------.           ,-------------.
- *                                         | LAlt | GUI  |           | MDIA |      |
+ *                                         | LAlt | GUI  |           | MDIA | Del  |
  *                                  ,------|------|------|           |------+------+------.
  *                                  |      |      | Ctrl |           | LEAD |      |      |
  *                                  |Backsp|LShift|------|           |------| Enter| Space|
@@ -174,22 +174,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [ADORE] = KEYMAP(
 // left hand
- KC_GRV             ,M(KF_1)     ,M(KF_2)     ,M(KF_3),M(KF_4),M(KF_5),KC_APP
-,M(A_MPN)           ,KC_COMM     ,KC_DOT      ,KC_L   ,KC_W   ,KC_M   ,KC_LBRC
+ KC_MPLY            ,M(KF_1)     ,M(KF_2)     ,M(KF_3),M(KF_4),M(KF_5),KC_APP
+,KC_GRV             ,KC_QUOT     ,KC_COMM     ,KC_DOT ,KC_L   ,KC_M   ,KC_LBRC
 ,TD(CT_TA)          ,KC_A        ,KC_O        ,KC_E   ,KC_I   ,KC_U
-,KC_MPLY            ,KC_SLSH     ,KC_Z        ,KC_QUOT,KC_K   ,KC_X   ,KC_LPRN
-,KC_NO              ,KC_NO       ,KC_NO       ,KC_NO  ,TD(CT_CLN)
+,TD(CT_CLN)         ,KC_Q        ,KC_Z        ,KC_W   ,KC_K   ,KC_X   ,KC_LPRN
+,KC_NO              ,KC_NO       ,KC_NO       ,KC_NO  ,KC_NO
 
                                                             ,F(F_ALT),F(F_GUI)
                                                                      ,F(F_CTRL)
                                                     ,KC_BSPC,F(F_SFT),M(A_ESC)
 
                                                                 // right hand
-                                                               ,KC_APP    ,M(KF_6),M(KF_7)   ,M(KF_8),M(KF_9) ,M(KF_10) ,KC_F11
-                                                               ,KC_RBRC   ,KC_F   ,KC_H      ,KC_C   ,KC_P    ,KC_Y     ,KC_BSLS
-                                                                          ,KC_D   ,KC_R      ,KC_T   ,KC_N    ,KC_S     ,KC_EQL
-                                                               ,KC_RPRN   ,KC_B   ,KC_G      ,KC_V   ,KC_J    ,KC_Q     ,KC_MSTP
-                                                                                  ,TD(CT_MNS),KC_NO  ,KC_NO   ,KC_NO    ,KC_NO
+                                                               ,KC_APP    ,M(KF_6),M(KF_7),M(KF_8),M(KF_9) ,M(KF_10) ,KC_F11
+                                                               ,KC_RBRC   ,KC_F   ,KC_H   ,KC_C   ,KC_P    ,KC_Y     ,KC_BSLS
+                                                                          ,KC_D   ,KC_R   ,KC_T   ,KC_N    ,KC_S     ,KC_EQL
+                                                               ,KC_RPRN   ,KC_B   ,KC_G   ,KC_V   ,KC_J    ,KC_SLSH  ,TD(CT_MNS)
+                                                                                  ,KC_NO  ,KC_NO  ,KC_NO   ,KC_NO    ,KC_NO
 
                                                                ,OSL(NMDIA),KC_DEL
                                                                ,KC_LEAD
