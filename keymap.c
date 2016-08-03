@@ -160,7 +160,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |-----------+------+------+------+------+------|      |           |      |------+------+------+------+------+-----------|
  * | Tab/Arrow |   A  |   O  |   E  |   I  |   U  |------|           |------|   D  |   R  |   T  |   N  |  S   | =         |
  * |-----------+------+------+------+------+------|   (  |           |  )   |------+------+------+------+------+-----------|
- * |         : |   Q  |   Z  |   W  |   K  |   X  |      |           |      |   B  |   G  |   V  |   J  |  /   | -         |
+ * |         : |   Z  |   Q  |   W  |   K  |   X  |      |           |      |   B  |   G  |   V  |   J  |  /   | -         |
  * `-----------+------+------+------+------+-------------'           `-------------+------+------+------+------+-----------'
  *     |       |      |      |      |      |                                       |      |      |      |      |       |
  *     `-----------------------------------'                                       `-----------------------------------'
@@ -177,7 +177,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  KC_MPLY            ,M(KF_1)     ,M(KF_2)     ,M(KF_3),M(KF_4),M(KF_5),KC_APP
 ,KC_GRV             ,KC_QUOT     ,KC_COMM     ,KC_DOT ,KC_L   ,KC_M   ,KC_LBRC
 ,TD(CT_TA)          ,KC_A        ,KC_O        ,KC_E   ,KC_I   ,KC_U
-,TD(CT_CLN)         ,KC_Q        ,KC_Z        ,KC_W   ,KC_K   ,KC_X   ,KC_LPRN
+,TD(CT_CLN)         ,KC_Z        ,KC_Q        ,KC_W   ,KC_K   ,KC_X   ,KC_LPRN
 ,KC_NO              ,KC_NO       ,KC_NO       ,KC_NO  ,KC_NO
 
                                                             ,F(F_ALT),F(F_GUI)
