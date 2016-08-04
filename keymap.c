@@ -749,8 +749,12 @@ void matrix_init_user(void) {
   if (!eeconfig_is_enabled())
     eeconfig_init();
   dl = eeconfig_read_default_layer ();
-  if (dl == (1UL << ADORE))
+  if (dl == (1UL << ADORE)) {
     is_adore = 1;
+#if ADORE_AUTOLOG
+    log_enable = true;
+#endif
+  }
 };
 
 LEADER_EXTERNS();
@@ -998,7 +1002,13 @@ void matrix_scan_user(void) {
         ergodox_right_led_2_off ();
         wait_ms (100);
         ergodox_right_led_1_off ();
+#if ADORE_AUTOLOG
+        log_enable = true;
+#endif
       } else {
+#if ADORE_AUTOLOG
+        log_enable = false;
+#endif
         is_adore = 0;
         default_layer_and (0);
         default_layer_or (1UL << BASE);
@@ -1024,9 +1034,7 @@ static uint16_t last4[4];
 
 bool process_record_user (uint16_t keycode, keyrecord_t *record) {
 #if KEYLOGGER_ENABLE
-  uint8_t layer = biton32(layer_state);
-
-  if (log_enable && layer == BASE) {
+  if (log_enable) {
     xprintf ("KL: col=%d, row=%d\n", record->event.key.col,
              record->event.key.row);
   }
