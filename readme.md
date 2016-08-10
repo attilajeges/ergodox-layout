@@ -133,7 +133,7 @@ The keymap default to forcing NKRO, which seems to upset Windows, and except the
 * A `Delete` key is now available on the right thumb cluster.
 * The [ADORE](#adore-layer) layer received a major update, see the layout image above.
 * It is now possible to enable automatic logging for the [ADORE](#adore-layer) layer, by setting the `ADORE_AUTOLOG` makefile variable to `yes` when compiling the keymap. It is off by default.
-* The `~` key and the `Media Next/Prev` key have been swapped on the [base](#base-layer).
+* The `~` key and the `Media Next/Prev` key have been swapped on the [base layer](#base-layer).
 
 ## v1.4 - 2016-07-29
 
