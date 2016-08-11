@@ -88,6 +88,8 @@ enum {
   CT_CLN = 0,
   CT_MNS,
   CT_TA,
+  CT_LBP,
+  CT_RBP
 };
 
 /* States & timers */
@@ -156,28 +158,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------.           ,-----------------------------------------------------.
  * | Play/Pause| 1 F1 | 2 F2 | 3 F3 | 4 F4 | 5 F5 | Apps |           | Apps | 6 F6 | 7 F7 | 8 F8 | 9 F9 | 0 F10|       F11 |
  * |-----------+------+------+------+------+-------------|           |------+------+------+------+------+------+-----------|
- * |        `~ |   '  |   ,  |   .  |   L  |   M  |   [  |           |  ]   |   F  |   H  |   C  |   P  |  Y   | \         |
- * |-----------+------+------+------+------+------|      |           |      |------+------+------+------+------+-----------|
+ * |        `~ |   X  |   W  |   K  |   L  |   M  |   (  |           |  )   |   F  |   H  |   C  |   P  |  Y   | \         |
+ * |-----------+------+------+------+------+------|   [  |           |  ]   |------+------+------+------+------+-----------|
  * | Tab/Arrow |   A  |   O  |   E  |   I  |   U  |------|           |------|   D  |   R  |   T  |   N  |  S   | =         |
- * |-----------+------+------+------+------+------|   (  |           |  )   |------+------+------+------+------+-----------|
- * |         : |   Z  |   Q  |   W  |   K  |   X  |      |           |      |   B  |   G  |   V  |   J  |  /   | -         |
+ * |-----------+------+------+------+------+------|      |           |      |------+------+------+------+------+-----------|
+ * |           |   Z  |   Q  |   '  |   ,  |   .  |   :  |           |  -   |   B  |   G  |   V  |   J  |  /   |           |
  * `-----------+------+------+------+------+-------------'           `-------------+------+------+------+------+-----------'
  *     |       |      |      |      |      |                                       |      |      |      |      |       |
  *     `-----------------------------------'                                       `-----------------------------------'
  *                                         ,-------------.           ,-------------.
  *                                         | LAlt | GUI  |           | MDIA | Del  |
  *                                  ,------|------|------|           |------+------+------.
- *                                  |      |      | Ctrl |           | LEAD |      |      |
+ *                                  |      |      | Ctrl |           | HUN  |      |      |
  *                                  |Backsp|LShift|------|           |------| Enter| Space|
- *                                  |      |      | ESC  |           | HUN  |      |      |
+ *                                  |      |      | ESC  |           | LEAD |      |      |
  *                                  `--------------------'           `--------------------'
  */
 [ADORE] = KEYMAP(
 // left hand
  KC_MPLY            ,M(KF_1)     ,M(KF_2)     ,M(KF_3),M(KF_4),M(KF_5),KC_APP
-,KC_GRV             ,KC_QUOT     ,KC_COMM     ,KC_DOT ,KC_L   ,KC_M   ,KC_LBRC
+,KC_GRV             ,KC_X        ,KC_W        ,KC_K   ,KC_L   ,KC_M   ,TD(CT_LBP)
 ,TD(CT_TA)          ,KC_A        ,KC_O        ,KC_E   ,KC_I   ,KC_U
-,TD(CT_CLN)         ,KC_Z        ,KC_Q        ,KC_W   ,KC_K   ,KC_X   ,KC_LPRN
+,KC_NO              ,KC_Z        ,KC_Q        ,KC_QUOT,KC_COMM,KC_DOT ,TD(CT_CLN)
 ,KC_NO              ,KC_NO       ,KC_NO       ,KC_NO  ,KC_NO
 
                                                             ,F(F_ALT),F(F_GUI)
@@ -186,14 +188,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
                                                                 // right hand
                                                                ,KC_APP    ,M(KF_6),M(KF_7),M(KF_8),M(KF_9) ,M(KF_10) ,KC_F11
-                                                               ,KC_RBRC   ,KC_F   ,KC_H   ,KC_C   ,KC_P    ,KC_Y     ,KC_BSLS
+                                                               ,TD(CT_RBP),KC_F   ,KC_H   ,KC_C   ,KC_P    ,KC_Y     ,KC_BSLS
                                                                           ,KC_D   ,KC_R   ,KC_T   ,KC_N    ,KC_S     ,KC_EQL
-                                                               ,KC_RPRN   ,KC_B   ,KC_G   ,KC_V   ,KC_J    ,KC_SLSH  ,TD(CT_MNS)
+                                                               ,TD(CT_MNS),KC_B   ,KC_G   ,KC_V   ,KC_J    ,KC_SLSH  ,KC_NO
                                                                                   ,KC_NO  ,KC_NO  ,KC_NO   ,KC_NO    ,KC_NO
 
                                                                ,OSL(NMDIA),KC_DEL
-                                                               ,KC_LEAD
-                                                               ,F(F_HUN)  ,KC_ENT ,KC_SPC
+                                                               ,F(F_HUN)
+                                                               ,KC_LEAD   ,KC_ENT ,KC_SPC
     ),
 
 /* Keymap 2: Arrow layer
@@ -781,6 +783,41 @@ void ang_tap (uint16_t codes[]) {
   register_code (code); \
   unregister_code (code)
 
+void ang_tap_dance_bp_finished (qk_tap_dance_state_t *state, void *user_data) {
+  bool left, parens;
+
+  if (state->count > 2) {
+    state->count = 0;
+    return;
+  }
+
+  if (state->keycode == TD(CT_LBP))
+    left = true;
+  else
+    left = false;
+
+  if (state->count == 1)
+    parens = false;
+  else
+    parens = true;
+
+  if (parens) {
+    register_code (KC_RSFT);
+    if (left) {
+      TAP_ONCE(KC_9);
+    } else {
+      TAP_ONCE(KC_0);
+    }
+    unregister_code (KC_RSFT);
+  } else {
+    if (left) {
+      TAP_ONCE (KC_LBRC);
+    } else {
+      TAP_ONCE (KC_RBRC);
+    }
+  }
+}
+
 void ang_tap_dance_cln_finished (qk_tap_dance_state_t *state, void *user_data) {
   if (state->count == 1) {
     register_code (KC_RSFT);
@@ -867,6 +904,8 @@ const qk_tap_dance_action_t tap_dance_actions[] = {
      .fn = { NULL, ang_tap_dance_ta_finished, ang_tap_dance_ta_reset },
      .user_data = (void *)&((td_ta_state_t) { false, false, false })
    }
+  ,[CT_LBP] = ACTION_TAP_DANCE_FN (ang_tap_dance_bp_finished)
+  ,[CT_RBP] = ACTION_TAP_DANCE_FN (ang_tap_dance_bp_finished)
 };
 
 // Runs constantly in the background, in a loop.
