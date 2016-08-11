@@ -134,6 +134,7 @@ The keymap default to forcing NKRO, which seems to upset Windows, and except the
 * The [ADORE](#adore-layer) layer received a major update, see the layout image above.
 * It is now possible to enable automatic logging for the [ADORE](#adore-layer) layer, by setting the `ADORE_AUTOLOG` makefile variable to `yes` when compiling the keymap. It is off by default.
 * The `~` key and the `Media Next/Prev` key have been swapped on the [base layer](#base-layer).
+* On the **ARROW** layer, `Backspace` has been replaced by `Enter`.
 
 ## v1.4 - 2016-07-29
 
