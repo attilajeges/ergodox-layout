@@ -146,7 +146,8 @@ The keymap default to forcing NKRO, which seems to upset Windows, and except the
 
 # Changelog
 
-## v1.5 - UNRELEASED
+## v1.5 - 2016-08-12
+
 * The **1HAND** layer has been removed.
 * A `Delete` key is now available on the right thumb cluster.
 * The [ADORE](#adore-layer) layer received a major update, see the layout image above.
