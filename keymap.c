@@ -1143,7 +1143,6 @@ static qk_ucis_symbol_t ucis_symbol_table[] = {
   {"rofl", {0x1, 0xf923, 0}},
   {"kiss", {0x1, 0xf619, 0}},
   {"snowman", {0x2603, 0}},
-  {NULL, {}}
 };
 
 bool process_record_ucis (uint16_t keycode, keyrecord_t *record) {
@@ -1179,7 +1178,7 @@ bool process_record_ucis (uint16_t keycode, keyrecord_t *record) {
 
     ang_do_unicode();
     wait_ms(10);
-    for (i = 0; ucis_symbol_table[i].symbol; i++) {
+    for (i = 0; i < (sizeof(ucis_symbol_table) / sizeof (qk_ucis_symbol_t)); i++) {
       if (is_uni_seq (ucis_symbol_table[i].symbol)) {
         symbol_found = true;
         for (uint8_t j = 0; ucis_symbol_table[i].codes[j]; j++) {
