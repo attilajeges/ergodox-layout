@@ -20,6 +20,8 @@ Some of the things in the layout only work when one uses Spacemacs and GNOME und
     - [LED states](#led-states)
 * [Tools](#tools)
     - [Heatmap](#heatmap)
+* [Special features](#special-features)
+    - [Unicode Symbol Input](#unicode-symbol-input)
 * [Building](#building)
     - [Using on Windows](#using-on-windows)
 * [Changelog](#changelog)
@@ -50,6 +52,7 @@ At its core, this is a Dvorak layout, with some minor changes. The more interest
     - `LEAD v` prints the firmware version, the keyboard and the keymap.
     - `LEAD d` toggles logging keypress positions to the HID console.
     - `LEAD t` toggles time travel. Figuring out the current `date` is left as an exercise to the reader.
+    - `LEAD LEAD u` enters the [Unicode symbol input][#unicode-symbol-input] mode.
 
 ## ADORE layer
 
@@ -86,6 +89,21 @@ For the layers, the following rules apply:
 * For the [Steno layer](#steno-layer), all LEDs will be turned on.
 
 Unless noted otherwise, the layers use a dim light for the LEDs, while modifiers use a stronger one, and modifiers override any layer preferences. For example, when on the one-handed layer, with the left side active (*red* light blinking), if `Shift` is on, the *red* light will be constantly on.
+
+# Special features
+
+## Unicode Symbol Input
+
+Once in the Unicode Symbol Input mode, one is able to type in symbol names, press `Enter` or `Space`, and get the Unicode symbol itself back. When in the mode, a capital `U` is printed first. Once the sequence is finished, all of it is erased by sending enough `Backspace` taps, and the firmware starts the OS-specific unicode input sequence. Then, it looks up the symbol name, and enters the associated code. If it is not found, it will just replay the pressed keycodes.
+
+The currently supported symbols are:
+
+- `snowman`: ☃
+- `kiss`: 😙
+- `rofl`: 🤣
+- `poop`: 💩
+
+This is an experimental feature, and may or may not work reliably.
 
 # Tools
 
@@ -135,6 +153,7 @@ The keymap default to forcing NKRO, which seems to upset Windows, and except the
 * It is now possible to enable automatic logging for the [ADORE](#adore-layer) layer, by setting the `ADORE_AUTOLOG` makefile variable to `yes` when compiling the keymap. It is off by default.
 * The `~` key and the `Media Next/Prev` key have been swapped on the [base layer](#base-layer).
 * On the **ARROW** layer, `Backspace` has been replaced by `Enter`.
+* There is some experimental support for entering Unicode symbols.
 
 ## v1.4 - 2016-07-29
 
