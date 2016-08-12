@@ -908,6 +908,10 @@ const qk_tap_dance_action_t tap_dance_actions[] = {
   ,[CT_RBP] = ACTION_TAP_DANCE_FN (ang_tap_dance_bp_finished)
 };
 
+static uint16_t uni[32];
+static uint8_t unicnt;
+static bool unimagic = false;
+
 // Runs constantly in the background, in a loop.
 void matrix_scan_user(void) {
   uint8_t layer = biton32(layer_state);
@@ -978,6 +982,14 @@ void matrix_scan_user(void) {
 
     SEQ_ONE_KEY (KC_U) {
       ang_do_unicode ();
+    }
+
+    SEQ_TWO_KEYS (KC_LEAD, KC_U) {
+      unicnt = 0;
+      unimagic = true;
+      register_code(KC_RSFT);
+      TAP_ONCE(KC_U);
+      unregister_code(KC_RSFT);
     }
 
     SEQ_ONE_KEY (KC_V) {
@@ -1071,6 +1083,126 @@ void matrix_scan_user(void) {
 
 static uint16_t last4[4];
 
+bool is_uni_seq(char *seq) {
+  uint8_t i;
+
+  for (i = 0; seq[i]; i++) {
+    uint16_t code;
+    if (('1' <= seq[i]) && (seq[i] <= '9'))
+      code = seq[i] - '1' + KC_1;
+    else if (seq[i] == '0')
+      code = KC_0;
+    else
+      code = seq[i] - 'a' + KC_A;
+
+    if (i > unicnt)
+      return false;
+    if (uni[i] != code)
+      return false;
+  }
+
+  if (uni[i] == KC_ENT || uni[i] == KC_SPC)
+    return true;
+
+  return false;
+}
+
+uint16_t hex_to_keycode(uint8_t hex)
+{
+  if (hex == 0x0) {
+    return KC_0;
+  } else if (hex < 0xA) {
+    return KC_1 + (hex - 0x1);
+  } else {
+    return KC_A + (hex - 0xA);
+  }
+}
+
+void register_hex(uint16_t hex) {
+  bool leading_zeros = true;
+
+  for(int i = 3; i >= 0; i--) {
+    uint8_t digit = ((hex >> (i*4)) & 0xF);
+    if (digit != 0)
+      leading_zeros = false;
+    else if (leading_zeros)
+      continue;
+    register_code(hex_to_keycode(digit));
+    unregister_code(hex_to_keycode(digit));
+  }
+}
+
+typedef struct {
+  char *symbol;
+  uint16_t codes[4];
+} qk_ucis_symbol_t;
+
+static qk_ucis_symbol_t ucis_symbol_table[] = {
+  {"poop", {0x1, 0xf4a9, 0}},
+  {"rofl", {0x1, 0xf923, 0}},
+  {"kiss", {0x1, 0xf619, 0}},
+  {"snowman", {0x2603, 0}},
+  {NULL, {}}
+};
+
+bool process_record_ucis (uint16_t keycode, keyrecord_t *record) {
+  uint8_t i;
+
+  if (!unimagic)
+    return true;
+
+  if (!record->event.pressed)
+    return true;
+
+  uni[unicnt] = keycode;
+  unicnt++;
+
+  if (keycode == KC_BSPC) {
+    if (unicnt >= 2) {
+      unicnt-= 2;
+      return true;
+    } else {
+      unicnt--;
+      return false;
+    }
+  }
+
+  if (keycode == KC_ENT || keycode == KC_SPC) {
+    bool symbol_found = false;
+
+    for (i = unicnt; i > 0; i--) {
+      register_code (KC_BSPC);
+      unregister_code (KC_BSPC);
+    }
+
+    ang_do_unicode();
+    for (i = 0; ucis_symbol_table[i].symbol; i++) {
+      if (is_uni_seq (ucis_symbol_table[i].symbol)) {
+        symbol_found = true;
+        for (uint8_t j = 0; ucis_symbol_table[i].codes[j]; j++) {
+          register_hex(ucis_symbol_table[i].codes[j]);
+        }
+        break;
+      }
+    }
+    if (!symbol_found) {
+      for (i = 0; i < unicnt - 1; i++) {
+        uint8_t code;
+
+        if (uni[i] > KF_1)
+          code = uni[i] - KF_1 + KC_1;
+        else
+          code = uni[i];
+        TAP_ONCE(code);
+      }
+    }
+
+    unimagic = false;
+    return true;
+  }
+  return true;
+}
+
 bool process_record_user (uint16_t keycode, keyrecord_t *record) {
 #if KEYLOGGER_ENABLE
   if (log_enable) {
@@ -1078,6 +1210,9 @@ bool process_record_user (uint16_t keycode, keyrecord_t *record) {
              record->event.key.row);
   }
 #endif
+
+  if (!process_record_ucis (keycode, record))
+    return false;
 
   if (time_travel && !record->event.pressed) {
     uint8_t p;
