@@ -131,13 +131,13 @@ $ git clone https://github.com/jackhumbert/qmk_firmware.git
 $ cd qmk_firmware
 $ git clone https://github.com/algernon/ergodox-layout.git \
             keyboards/ergodox/keymaps/algernon-master
-$ make KEYBOARD=ergodox KEYMAP=algernon-master
+$ make keyboard=ergodox keymap=algernon-master
 ```
 
 From time to time, updates may be submitted back to the QMK repository. If you are reading it there, you can build the firmware like any other firmware included with it (assuming you are in the root directory of the firmware):
 
 ```
-$ make KEYBOARD=ergodox KEYMAP=algernon
+$ make keyboard=ergodox keymap=algernon
 ```
 
 ## Using on Windows
