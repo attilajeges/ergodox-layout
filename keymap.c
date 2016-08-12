@@ -1129,6 +1129,7 @@ void register_hex(uint16_t hex) {
       continue;
     register_code(hex_to_keycode(digit));
     unregister_code(hex_to_keycode(digit));
+    wait_ms(10);
   }
 }
 
@@ -1173,9 +1174,11 @@ bool process_record_ucis (uint16_t keycode, keyrecord_t *record) {
     for (i = unicnt; i > 0; i--) {
       register_code (KC_BSPC);
       unregister_code (KC_BSPC);
+      wait_ms(10);
     }
 
     ang_do_unicode();
+    wait_ms(10);
     for (i = 0; ucis_symbol_table[i].symbol; i++) {
       if (is_uni_seq (ucis_symbol_table[i].symbol)) {
         symbol_found = true;
@@ -1194,6 +1197,7 @@ bool process_record_ucis (uint16_t keycode, keyrecord_t *record) {
         else
           code = uni[i];
         TAP_ONCE(code);
+        wait_ms (10);
       }
     }
 
