@@ -722,6 +722,8 @@ static uint8_t is_adore = 0;
 void matrix_init_user(void) {
   uint8_t dl;
 
+  set_unicode_input_mode(UC_LNX);
+
   ergodox_led_all_on();
   for (int i = LED_BRIGHTNESS_HI; i > LED_BRIGHTNESS_LO; i--) {
     ergodox_led_all_set (i);
@@ -746,16 +748,6 @@ void matrix_init_user(void) {
 };
 
 LEADER_EXTERNS();
-
-static void ang_do_unicode (void) {
-  register_code (KC_RCTL);
-  register_code (KC_RSFT);
-  register_code (KC_U);
-  unregister_code (KC_U);
-  unregister_code (KC_RSFT);
-  unregister_code (KC_RCTL);
-  wait_ms (100);
-}
 
 static void ang_tap (uint16_t codes[]) {
   for (int i = 0; codes[i] != 0; i++) {
@@ -894,60 +886,6 @@ const qk_tap_dance_action_t tap_dance_actions[] = {
   ,[CT_RBP] = ACTION_TAP_DANCE_FN (ang_tap_dance_bp_finished)
 };
 
-static uint16_t uni[32];
-static uint8_t unicnt;
-static bool unimagic = false;
-
-bool is_uni_seq(char *seq) {
-  uint8_t i;
-
-  for (i = 0; seq[i]; i++) {
-    uint16_t code;
-    if (('1' <= seq[i]) && (seq[i] <= '9'))
-      code = seq[i] - '1' + KC_1;
-    else if (seq[i] == '0')
-      code = KC_0;
-    else
-      code = seq[i] - 'a' + KC_A;
-
-    if (i > unicnt)
-      return false;
-    if (uni[i] != code)
-      return false;
-  }
-
-  if (uni[i] == KC_ENT || uni[i] == KC_SPC)
-    return true;
-
-  return false;
-}
-
-uint16_t hex_to_keycode(uint8_t hex)
-{
-  if (hex == 0x0) {
-    return KC_0;
-  } else if (hex < 0xA) {
-    return KC_1 + (hex - 0x1);
-  } else {
-    return KC_A + (hex - 0xA);
-  }
-}
-
-void register_hex(uint16_t hex) {
-  bool leading_zeros = true;
-
-  for(int i = 3; i >= 0; i--) {
-    uint8_t digit = ((hex >> (i*4)) & 0xF);
-    if (digit != 0)
-      leading_zeros = false;
-    else if (leading_zeros)
-      continue;
-    register_code(hex_to_keycode(digit));
-    unregister_code(hex_to_keycode(digit));
-    wait_ms(10);
-  }
-}
-
 // Runs constantly in the background, in a loop.
 void matrix_scan_user(void) {
   uint8_t layer = biton32(layer_state);
@@ -1017,15 +955,12 @@ void matrix_scan_user(void) {
     }
 
     SEQ_ONE_KEY (KC_U) {
-      ang_do_unicode ();
+      unicode_input_start();
+      unicode_input_finish();
     }
 
     SEQ_TWO_KEYS (KC_LEAD, KC_U) {
-      unicnt = 0;
-      unimagic = true;
-      ang_do_unicode();
-      register_hex(0x2328);
-      TAP_ONCE(KC_SPC);
+      qk_ucis_start();
     }
 
     SEQ_ONE_KEY (KC_V) {
@@ -1034,10 +969,9 @@ void matrix_scan_user(void) {
 
     SEQ_ONE_KEY (KC_L) {
       /* λ */
-      ang_do_unicode ();
-
-      uint16_t codes[] = {KC_0, KC_3, KC_B, KC_B, KC_ENT, 0};
-      ang_tap (codes);
+      unicode_input_start();
+      register_hex(0x03bb);
+      unicode_input_finish();
     }
 
     SEQ_ONE_KEY (KC_Y) {
@@ -1046,13 +980,13 @@ void matrix_scan_user(void) {
     }
 
     SEQ_ONE_KEY (KC_S) {
-      ang_do_unicode (); TAP_ONCE (KC_A); TAP_ONCE (KC_F); TAP_ONCE (KC_SPC);
+      unicode_input_start(); register_hex(0xaf); unicode_input_finish();
       TAP_ONCE (KC_BSLS);
       register_code (KC_RSFT); TAP_ONCE (KC_MINS); TAP_ONCE (KC_9); unregister_code (KC_RSFT);
-      ang_do_unicode (); TAP_ONCE (KC_3); TAP_ONCE (KC_0); TAP_ONCE (KC_C); TAP_ONCE (KC_4); TAP_ONCE (KC_SPC);
+      unicode_input_start (); register_hex(0x30c4); unicode_input_finish();
       register_code (KC_RSFT); TAP_ONCE (KC_0); TAP_ONCE (KC_MINS); unregister_code (KC_RSFT);
       TAP_ONCE (KC_SLSH);
-      ang_do_unicode (); TAP_ONCE (KC_A); TAP_ONCE (KC_F); TAP_ONCE (KC_SPC);
+      unicode_input_start (); register_hex(0xaf); unicode_input_finish();
     }
 
     SEQ_TWO_KEYS (KC_W, KC_M) {
@@ -1119,78 +1053,13 @@ void matrix_scan_user(void) {
 
 static uint16_t last4[4];
 
-typedef struct {
-  char *symbol;
-  uint16_t codes[4];
-} qk_ucis_symbol_t;
-
-static qk_ucis_symbol_t ucis_symbol_table[] = {
-  {"poop", {0x1, 0xf4a9, 0}},
-  {"rofl", {0x1, 0xf923, 0}},
-  {"kiss", {0x1, 0xf619, 0}},
-  {"snowman", {0x2603, 0}},
-};
-
-bool process_record_ucis (uint16_t keycode, keyrecord_t *record) {
-  uint8_t i;
-
-  if (!unimagic)
-    return true;
-
-  if (!record->event.pressed)
-    return true;
-
-  uni[unicnt] = keycode;
-  unicnt++;
-
-  if (keycode == KC_BSPC) {
-    if (unicnt >= 2) {
-      unicnt-= 2;
-      return true;
-    } else {
-      unicnt--;
-      return false;
-    }
-  }
-
-  if (keycode == KC_ENT || keycode == KC_SPC) {
-    bool symbol_found = false;
-
-    for (i = unicnt; i > 0; i--) {
-      register_code (KC_BSPC);
-      unregister_code (KC_BSPC);
-      wait_ms(10);
-    }
-
-    ang_do_unicode();
-    wait_ms(10);
-    for (i = 0; i < (sizeof(ucis_symbol_table) / sizeof (qk_ucis_symbol_t)); i++) {
-      if (is_uni_seq (ucis_symbol_table[i].symbol)) {
-        symbol_found = true;
-        for (uint8_t j = 0; ucis_symbol_table[i].codes[j]; j++) {
-          register_hex(ucis_symbol_table[i].codes[j]);
-        }
-        break;
-      }
-    }
-    if (!symbol_found) {
-      for (i = 0; i < unicnt - 1; i++) {
-        uint8_t code;
-
-        if (uni[i] > KF_1)
-          code = uni[i] - KF_1 + KC_1;
-        else
-          code = uni[i];
-        TAP_ONCE(code);
-        wait_ms (10);
-      }
-    }
-
-    unimagic = false;
-    return true;
-  }
-  return true;
-}
+const qk_ucis_symbol_t ucis_symbol_table[] = UCIS_TABLE
+(
+ UCIS_SYM("poop", 0x01, 0xf4a9),
+ UCIS_SYM("rofl", 0x01, 0xf923),
+ UCIS_SYM("kiss", 0x01, 0xf619),
+ UCIS_SYM("snowman", 0x2603)
+);
 
 bool process_record_user (uint16_t keycode, keyrecord_t *record) {
 #if KEYLOGGER_ENABLE
@@ -1213,9 +1082,6 @@ bool process_record_user (uint16_t keycode, keyrecord_t *record) {
     }
     return queue;
   }
-
-  if (!process_record_ucis (keycode, record))
-    return false;
 
   if (time_travel && !record->event.pressed) {
     uint8_t p;
@@ -1242,4 +1108,18 @@ bool process_record_user (uint16_t keycode, keyrecord_t *record) {
   }
 
   return true;
+}
+
+void qk_ucis_symbol_fallback (void) {
+  for (uint8_t i = 0; i < qk_ucis_state.count - 1; i++) {
+    uint8_t code;
+
+    if (qk_ucis_state.codes[i] > KF_1)
+      code = qk_ucis_state.codes[i] - KF_1 + KC_1;
+    else
+      code = qk_ucis_state.codes[i];
+    register_code(code);
+    unregister_code(code);
+    wait_ms (10);
+  }
 }
