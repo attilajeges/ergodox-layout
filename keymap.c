@@ -912,6 +912,56 @@ static uint16_t uni[32];
 static uint8_t unicnt;
 static bool unimagic = false;
 
+bool is_uni_seq(char *seq) {
+  uint8_t i;
+
+  for (i = 0; seq[i]; i++) {
+    uint16_t code;
+    if (('1' <= seq[i]) && (seq[i] <= '9'))
+      code = seq[i] - '1' + KC_1;
+    else if (seq[i] == '0')
+      code = KC_0;
+    else
+      code = seq[i] - 'a' + KC_A;
+
+    if (i > unicnt)
+      return false;
+    if (uni[i] != code)
+      return false;
+  }
+
+  if (uni[i] == KC_ENT || uni[i] == KC_SPC)
+    return true;
+
+  return false;
+}
+
+uint16_t hex_to_keycode(uint8_t hex)
+{
+  if (hex == 0x0) {
+    return KC_0;
+  } else if (hex < 0xA) {
+    return KC_1 + (hex - 0x1);
+  } else {
+    return KC_A + (hex - 0xA);
+  }
+}
+
+void register_hex(uint16_t hex) {
+  bool leading_zeros = true;
+
+  for(int i = 3; i >= 0; i--) {
+    uint8_t digit = ((hex >> (i*4)) & 0xF);
+    if (digit != 0)
+      leading_zeros = false;
+    else if (leading_zeros)
+      continue;
+    register_code(hex_to_keycode(digit));
+    unregister_code(hex_to_keycode(digit));
+    wait_ms(10);
+  }
+}
+
 // Runs constantly in the background, in a loop.
 void matrix_scan_user(void) {
   uint8_t layer = biton32(layer_state);
@@ -987,9 +1037,9 @@ void matrix_scan_user(void) {
     SEQ_TWO_KEYS (KC_LEAD, KC_U) {
       unicnt = 0;
       unimagic = true;
-      register_code(KC_RSFT);
-      TAP_ONCE(KC_U);
-      unregister_code(KC_RSFT);
+      ang_do_unicode();
+      register_hex(0x2328);
+      TAP_ONCE(KC_SPC);
     }
 
     SEQ_ONE_KEY (KC_V) {
@@ -1082,56 +1132,6 @@ void matrix_scan_user(void) {
 }
 
 static uint16_t last4[4];
-
-bool is_uni_seq(char *seq) {
-  uint8_t i;
-
-  for (i = 0; seq[i]; i++) {
-    uint16_t code;
-    if (('1' <= seq[i]) && (seq[i] <= '9'))
-      code = seq[i] - '1' + KC_1;
-    else if (seq[i] == '0')
-      code = KC_0;
-    else
-      code = seq[i] - 'a' + KC_A;
-
-    if (i > unicnt)
-      return false;
-    if (uni[i] != code)
-      return false;
-  }
-
-  if (uni[i] == KC_ENT || uni[i] == KC_SPC)
-    return true;
-
-  return false;
-}
-
-uint16_t hex_to_keycode(uint8_t hex)
-{
-  if (hex == 0x0) {
-    return KC_0;
-  } else if (hex < 0xA) {
-    return KC_1 + (hex - 0x1);
-  } else {
-    return KC_A + (hex - 0xA);
-  }
-}
-
-void register_hex(uint16_t hex) {
-  bool leading_zeros = true;
-
-  for(int i = 3; i >= 0; i--) {
-    uint8_t digit = ((hex >> (i*4)) & 0xF);
-    if (digit != 0)
-      leading_zeros = false;
-    else if (leading_zeros)
-      continue;
-    register_code(hex_to_keycode(digit));
-    unregister_code(hex_to_keycode(digit));
-    wait_ms(10);
-  }
-}
 
 typedef struct {
   char *symbol;
