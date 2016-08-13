@@ -391,7 +391,7 @@ const uint16_t PROGMEM fn_actions[] = {
   ,[F_CTRL] = ACTION_MODS_ONESHOT (MOD_LCTL)
 };
 
-macro_t *ang_do_hun (keyrecord_t *record, uint16_t accent, uint16_t hun_char)
+static macro_t *ang_do_hun (keyrecord_t *record, uint16_t accent, uint16_t hun_char)
 {
   uint8_t need_shift = 0;
   uint8_t hold_shift = 0;
@@ -436,7 +436,7 @@ macro_t *ang_do_hun (keyrecord_t *record, uint16_t accent, uint16_t hun_char)
   return MACRO_NONE;
 }
 
-void ang_handle_kf (keyrecord_t *record, uint8_t id)
+static void ang_handle_kf (keyrecord_t *record, uint8_t id)
 {
   uint8_t code = id - KF_1;
 
@@ -730,7 +730,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
       return MACRO_NONE;
 };
 
-uint8_t is_adore = 0;
+static uint8_t is_adore = 0;
 
 // Runs just one time when the keyboard initializes.
 void matrix_init_user(void) {
@@ -761,7 +761,7 @@ void matrix_init_user(void) {
 
 LEADER_EXTERNS();
 
-void ang_do_unicode (void) {
+static void ang_do_unicode (void) {
   register_code (KC_RCTL);
   register_code (KC_RSFT);
   register_code (KC_U);
@@ -771,7 +771,7 @@ void ang_do_unicode (void) {
   wait_ms (100);
 }
 
-void ang_tap (uint16_t codes[]) {
+static void ang_tap (uint16_t codes[]) {
   for (int i = 0; codes[i] != 0; i++) {
     register_code (codes[i]);
     unregister_code (codes[i]);
@@ -783,7 +783,7 @@ void ang_tap (uint16_t codes[]) {
   register_code (code); \
   unregister_code (code)
 
-void ang_tap_dance_bp_finished (qk_tap_dance_state_t *state, void *user_data) {
+static void ang_tap_dance_bp_finished (qk_tap_dance_state_t *state, void *user_data) {
   bool left, parens;
 
   if (state->count > 2) {
@@ -818,7 +818,7 @@ void ang_tap_dance_bp_finished (qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
-void ang_tap_dance_cln_finished (qk_tap_dance_state_t *state, void *user_data) {
+static void ang_tap_dance_cln_finished (qk_tap_dance_state_t *state, void *user_data) {
   if (state->count == 1) {
     register_code (KC_RSFT);
     register_code (KC_SCLN);
@@ -827,7 +827,7 @@ void ang_tap_dance_cln_finished (qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
-void ang_tap_dance_cln_reset (qk_tap_dance_state_t *state, void *user_data) {
+static void ang_tap_dance_cln_reset (qk_tap_dance_state_t *state, void *user_data) {
   if (state->count == 1) {
     unregister_code (KC_SCLN);
     unregister_code (KC_RSFT);
@@ -836,7 +836,7 @@ void ang_tap_dance_cln_reset (qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
-void ang_tap_dance_mns_finished (qk_tap_dance_state_t *state, void *user_data) {
+static void ang_tap_dance_mns_finished (qk_tap_dance_state_t *state, void *user_data) {
   if (state->count == 1) {
     register_code (KC_MINS);
   } else if (state->count == 2) {
@@ -845,7 +845,7 @@ void ang_tap_dance_mns_finished (qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
-void ang_tap_dance_mns_reset (qk_tap_dance_state_t *state, void *user_data) {
+static void ang_tap_dance_mns_reset (qk_tap_dance_state_t *state, void *user_data) {
   if (state->count == 1) {
     unregister_code (KC_MINS);
   } else if (state->count == 2) {
@@ -860,7 +860,7 @@ typedef struct {
   bool finished_once;
 } td_ta_state_t;
 
-void ang_tap_dance_ta_finished (qk_tap_dance_state_t *state, void *user_data) {
+static void ang_tap_dance_ta_finished (qk_tap_dance_state_t *state, void *user_data) {
   td_ta_state_t *td_ta = (td_ta_state_t *) user_data;
 
   if (td_ta->finished_once) {
@@ -886,7 +886,7 @@ void ang_tap_dance_ta_finished (qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
-void ang_tap_dance_ta_reset (qk_tap_dance_state_t *state, void *user_data) {
+static void ang_tap_dance_ta_reset (qk_tap_dance_state_t *state, void *user_data) {
   td_ta_state_t *td_ta = (td_ta_state_t *) user_data;
 
   if (!td_ta->layer_toggle)
