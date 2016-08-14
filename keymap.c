@@ -30,7 +30,6 @@ enum {
   NONE = 0,
   // Buttons that do extra stuff
   A_GUI,
-  A_ESC,
   A_MPN,
 
   // Function / number keys
@@ -139,7 +138,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
                                                             ,F(F_ALT),F(F_GUI)
                                                                      ,F(F_CTRL)
-                                                    ,KC_BSPC,F(F_SFT),M(A_ESC)
+                                                    ,KC_BSPC,F(F_SFT),KC_ESC
 
                                                                 // right hand
                                                                ,KC_APP    ,M(KF_6),M(KF_7)   ,M(KF_8),M(KF_9) ,M(KF_10) ,KC_F11
@@ -184,7 +183,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
                                                             ,F(F_ALT),F(F_GUI)
                                                                      ,F(F_CTRL)
-                                                    ,KC_BSPC,F(F_SFT),M(A_ESC)
+                                                    ,KC_BSPC,F(F_SFT),KC_ESC
 
                                                                 // right hand
                                                                ,KC_APP    ,M(KF_6),M(KF_7),M(KF_8),M(KF_9) ,M(KF_10) ,KC_F11
@@ -367,7 +366,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ,KC_NO      ,KC_NO       ,KC_NO      ,KC_NO   ,KC_NO
                                                         ,KC_MUTE ,KC_VOLU
                                                                  ,KC_VOLD
-                                                 ,KC_SPC,KC_ENTER,M(A_ESC)
+                                                 ,KC_SPC,KC_ENTER,KC_ESC
 
                                                                      // right hand
                                                                      ,LGUI(KC_L),KC_NO   ,KC_NO   ,KC_NO   ,KC_NO   ,KC_NO    ,KC_NO
@@ -463,19 +462,6 @@ static void ang_handle_kf (keyrecord_t *record, uint8_t id)
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
       switch(id) {
-      case A_ESC:
-        if (record->event.pressed) {
-          if ((get_oneshot_mods ()) && !has_oneshot_mods_timed_out ()) {
-            clear_oneshot_mods ();
-          } else {
-            register_code (KC_ESC);
-          }
-          layer_off (HUN);
-        } else {
-          unregister_code (KC_ESC);
-        }
-        break;
-
       case A_MPN:
         if (record->event.pressed) {
           if (keyboard_report->mods & MOD_BIT(KC_LSFT) ||
@@ -1213,6 +1199,20 @@ bool process_record_user (uint16_t keycode, keyrecord_t *record) {
              record->event.key.row);
   }
 #endif
+
+  if (keycode == KC_ESC && record->event.pressed) {
+    bool queue = true;
+
+    if ((get_oneshot_mods ()) && !has_oneshot_mods_timed_out ()) {
+      clear_oneshot_mods ();
+      queue = false;
+    }
+    if (layer_state & (1UL<<HUN)) {
+      layer_off (HUN);
+      queue = false;
+    }
+    return queue;
+  }
 
   if (!process_record_ucis (keycode, record))
     return false;
