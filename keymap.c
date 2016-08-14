@@ -2,6 +2,7 @@
  * algernon's ErgoDox EZ layout, please see the readme.md file!
  */
 
+#include <stdarg.h>
 #include "ergodox.h"
 #include "led.h"
 #include "debug.h"
@@ -43,7 +44,6 @@ enum {
   KF_8,
   KF_9,
   KF_10,
-  KF_11, // =, F11
 
   // Application select keys
   APP_SLK, // Slack
@@ -442,20 +442,18 @@ static void ang_handle_kf (keyrecord_t *record, uint8_t id)
   if (record->event.pressed) {
     kf_timers[code] = timer_read ();
   } else {
-    uint8_t kc;
+    uint8_t kc_base;
 
     if (timer_elapsed (kf_timers[code]) > TAPPING_TERM) {
       // Long press
-      kc = KC_F1 + code;
+      kc_base = KC_F1;
     } else {
-      if (id == KF_11)
-        kc = KC_EQL;
-      else
-        kc = KC_1 + code;
+      kc_base = KC_1;
     }
+    code += kc_base;
 
-    register_code (kc);
-    unregister_code (kc);
+    register_code (code);
+    unregister_code (code);
   }
 }
 
@@ -708,7 +706,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         return MACRODOWN(T(R), T(H), T(Y), T(T), T(H), T(M), T(B), T(O), T(X), T(ENT), END);
 
         /* Function keys */
-      case KF_1 ... KF_11:
+      case KF_1 ... KF_10:
         ang_handle_kf (record, id);
         break;
       }
@@ -749,12 +747,19 @@ void matrix_init_user(void) {
 
 LEADER_EXTERNS();
 
-static void ang_tap (uint16_t codes[]) {
-  for (int i = 0; codes[i] != 0; i++) {
-    register_code (codes[i]);
-    unregister_code (codes[i]);
-    wait_ms (50);
-  }
+static void ang_tap (uint8_t code, ...) {
+  uint8_t kc = code;
+  va_list ap;
+
+  va_start(ap, code);
+
+  do {
+    register_code(kc);
+    unregister_code(kc);
+    wait_ms(50);
+    kc = va_arg(ap, int);
+  } while (kc != 0);
+  va_end(ap);
 }
 
 #define TAP_ONCE(code)  \
@@ -762,7 +767,8 @@ static void ang_tap (uint16_t codes[]) {
   unregister_code (code)
 
 static void ang_tap_dance_bp_finished (qk_tap_dance_state_t *state, void *user_data) {
-  bool left, parens;
+  bool right, parens;
+  uint8_t kc;
 
   if (state->count > 2) {
     state->count = 0;
@@ -770,9 +776,9 @@ static void ang_tap_dance_bp_finished (qk_tap_dance_state_t *state, void *user_d
   }
 
   if (state->keycode == TD(CT_LBP))
-    left = true;
+    right = false;
   else
-    left = false;
+    right = true;
 
   if (state->count == 1)
     parens = false;
@@ -780,19 +786,20 @@ static void ang_tap_dance_bp_finished (qk_tap_dance_state_t *state, void *user_d
     parens = true;
 
   if (parens) {
-    register_code (KC_RSFT);
-    if (left) {
-      TAP_ONCE(KC_9);
-    } else {
-      TAP_ONCE(KC_0);
+    kc = KC_9;
+    if (right) {
+      kc++;
     }
+
+    register_code (KC_RSFT);
+    TAP_ONCE(kc);
     unregister_code (KC_RSFT);
   } else {
-    if (left) {
-      TAP_ONCE (KC_LBRC);
-    } else {
-      TAP_ONCE (KC_RBRC);
+    kc = KC_LBRC;
+    if (right) {
+      kc++;
     }
+    TAP_ONCE (kc);
   }
 }
 
@@ -975,8 +982,7 @@ void matrix_scan_user(void) {
     }
 
     SEQ_ONE_KEY (KC_Y) {
-      uint16_t codes[] = {KC_BSLS, KC_O, KC_SLSH, 0};
-      ang_tap (codes);
+      ang_tap (KC_BSLS, KC_O, KC_SLSH, 0);
     }
 
     SEQ_ONE_KEY (KC_S) {
@@ -997,8 +1003,7 @@ void matrix_scan_user(void) {
 
       wait_ms (1000);
 
-      uint16_t codes[] = {KC_M, KC_A, KC_X, KC_MINS, KC_F, KC_O, KC_C, KC_U, KC_S, KC_E, KC_D, KC_ENT, 0};
-      ang_tap (codes);
+      ang_tap (KC_M, KC_A, KC_X, KC_MINS, KC_F, KC_O, KC_C, KC_U, KC_S, KC_E, KC_D, KC_ENT, 0);
       register_code (KC_LGUI);
       register_code (KC_UP);
       unregister_code (KC_UP);
@@ -1095,15 +1100,13 @@ bool process_record_user (uint16_t keycode, keyrecord_t *record) {
     last4[3] = keycode;
 
     if (last4[0] == KC_D && last4[1] == KC_A && last4[2] == KC_T && last4[3] == KC_E) {
-      uint16_t codes[] = {KC_E, KC_SPC, KC_MINS, KC_D, KC_SPC, KC_QUOT, 0};
-      ang_tap (codes);
+      ang_tap (KC_E, KC_SPC, KC_MINS, KC_D, KC_SPC, KC_QUOT, 0);
       register_code (KC_RSFT);
       register_code (KC_EQL);
       unregister_code (KC_EQL);
       unregister_code (KC_RSFT);
 
-      uint16_t codes2[] = {KC_4, KC_SPC, KC_D, KC_A, KC_Y, KC_S, KC_QUOT, 0};
-      ang_tap (codes2);
+      ang_tap (KC_4, KC_SPC, KC_D, KC_A, KC_Y, KC_S, KC_QUOT, 0);
 
       return false;
     }
