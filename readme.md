@@ -9,6 +9,11 @@ This is an unconventional layout for the ErgoDox EZ. For more details about the 
 
 Some of the things in the layout only work when one uses Spacemacs and GNOME under Linux. Your mileage may vary.
 
+**NOTE**: At the moment, this keymap requires a feature of QMK that has not been merged to master yet. Check out the [f/ucis][f:ucis] branch of [my fork][gh:qmk-fork].
+
+ [f:ucis]: https://github.com/algernon/qmk_firmware/tree/f/ucis
+ [gh:qmk-fork]: https://github.com/algernon/qmk_firmware
+
 ## Table of Contents
 
 * [Layouts](#layouts)
