@@ -52,7 +52,7 @@ At its core, this is a Dvorak layout, with some minor changes. The more interest
     - `LEAD v` prints the firmware version, the keyboard and the keymap.
     - `LEAD d` toggles logging keypress positions to the HID console.
     - `LEAD t` toggles time travel. Figuring out the current `date` is left as an exercise to the reader.
-    - `LEAD LEAD u` enters the [Unicode symbol input][#unicode-symbol-input] mode.
+    - `LEAD LEAD u` enters the [Unicode symbol input](#unicode-symbol-input) mode.
 
 ## ADORE layer
 
