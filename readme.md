@@ -150,6 +150,11 @@ The keymap default to forcing NKRO, which seems to upset Windows, and except the
 
 # Changelog
 
+## v1.6 - UNRELEASED
+
+* The [Unicode Input System](#unicode-input-system) has been moved to QMK.
+* `LEAD u` now starts the symbolic unicode input system, instead of the OS-one.
+
 ## v1.5 - 2016-08-12
 
 * The **1HAND** layer has been removed.
