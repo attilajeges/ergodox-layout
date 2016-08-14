@@ -962,11 +962,6 @@ void matrix_scan_user(void) {
     }
 
     SEQ_ONE_KEY (KC_U) {
-      unicode_input_start();
-      unicode_input_finish();
-    }
-
-    SEQ_TWO_KEYS (KC_LEAD, KC_U) {
       qk_ucis_start();
     }
 

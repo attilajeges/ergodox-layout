@@ -48,7 +48,6 @@ At its core, this is a Dvorak layout, with some minor changes. The more interest
 * When holding any of the **Arrow** layer keys, the arrow layer activates while the layer key is held. Tapping the key produces the normal key.
 * Tapping the `:` key once yields `:`, tapping it twice yields `;`.
 * The **Lead** key allows me to type in a sequence of keys, and trigger some actions:
-    - `LEAD u` enters unicode input mode, by sending the GTK+ key sequence that does this.
     - `LEAD l` uses the unicode input method to enter a `λ`.
     - `LEAD s` does a lot of magic to type in a shruggie: `¯\_(ツ)_/¯`
     - `LEAD y` types `\o/`.
@@ -57,7 +56,7 @@ At its core, this is a Dvorak layout, with some minor changes. The more interest
     - `LEAD v` prints the firmware version, the keyboard and the keymap.
     - `LEAD d` toggles logging keypress positions to the HID console.
     - `LEAD t` toggles time travel. Figuring out the current `date` is left as an exercise to the reader.
-    - `LEAD LEAD u` enters the [Unicode symbol input](#unicode-symbol-input) mode.
+    - `LEAD u` enters the [Unicode symbol input](#unicode-symbol-input) mode.
 
 ## ADORE layer
 
