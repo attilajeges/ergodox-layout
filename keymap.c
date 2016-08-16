@@ -444,12 +444,13 @@ static void ang_handle_kf (keyrecord_t *record, uint8_t id)
   } else {
     uint8_t kc_base;
 
-    if (timer_elapsed (kf_timers[code]) > TAPPING_TERM) {
+    if (kf_timers[code] && timer_elapsed (kf_timers[code]) > TAPPING_TERM) {
       // Long press
       kc_base = KC_F1;
     } else {
       kc_base = KC_1;
     }
+    kf_timers[code] = 0;
     code += kc_base;
 
     register_code (code);
