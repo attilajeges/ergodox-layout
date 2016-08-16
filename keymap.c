@@ -435,6 +435,8 @@ static macro_t *ang_do_hun (keyrecord_t *record, uint16_t accent, uint16_t hun_c
   return MACRO_NONE;
 }
 
+static bool from_appsel;
+
 static void ang_handle_kf (keyrecord_t *record, uint8_t id)
 {
   uint8_t code = id - KF_1;
@@ -443,6 +445,11 @@ static void ang_handle_kf (keyrecord_t *record, uint8_t id)
     kf_timers[code] = timer_read ();
   } else {
     uint8_t kc_base;
+
+    if (from_appsel) {
+      from_appsel = false;
+      return;
+    }
 
     if (kf_timers[code] && timer_elapsed (kf_timers[code]) > TAPPING_TERM) {
       // Long press
@@ -692,18 +699,23 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         break;
 
       case APP_SLK:
+        from_appsel = true;
         return MACRODOWN(T(S), T(L), T(A), T(C), T(K), T(ENT), END);
 
       case APP_EMCS:
+        from_appsel = true;
         return MACRODOWN(T(G), T(N), T(U), T(SPC), T(E), T(M), T(A), T(C), T(S), T(SPC), T(2), T(4), T(ENT), END);
 
       case APP_TERM:
+        from_appsel = true;
         return MACRODOWN(T(T), T(E), T(R), T(M), T(ENT), END);
 
       case APP_CHRM:
+        from_appsel = true;
         return MACRODOWN(T(C), T(H), T(R), T(O), T(M), T(ENT), END);
 
       case APP_MSIC:
+        from_appsel = true;
         return MACRODOWN(T(R), T(H), T(Y), T(T), T(H), T(M), T(B), T(O), T(X), T(ENT), END);
 
         /* Function keys */
