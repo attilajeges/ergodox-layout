@@ -509,6 +509,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
       case HU_UEE:
         return ang_do_hun (record, KC_EQL, KC_U);
 
+#if MOUSEKEY_ENABLE
         /* Mouse movement */
       case A_MUL:
         if (record->event.pressed) {
@@ -553,6 +554,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         }
         mousekey_send();
         break;
+#endif
 
         /* EMACS layer stuff */
       case AE_EMACS:
