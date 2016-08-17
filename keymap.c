@@ -849,15 +849,10 @@ static void ang_tap_dance_mns_reset (qk_tap_dance_state_t *state, void *user_dat
 typedef struct {
   bool layer_toggle;
   bool sticky;
-  bool finished_once;
 } td_ta_state_t;
 
 static void ang_tap_dance_ta_finished (qk_tap_dance_state_t *state, void *user_data) {
   td_ta_state_t *td_ta = (td_ta_state_t *) user_data;
-
-  if (td_ta->finished_once) {
-    return;
-  }
 
   if (td_ta->sticky) {
     td_ta->sticky = false;
@@ -866,7 +861,6 @@ static void ang_tap_dance_ta_finished (qk_tap_dance_state_t *state, void *user_d
     return;
   }
 
-  td_ta->finished_once = true;
   if (state->count == 1 && !state->pressed) {
     register_code (KC_TAB);
     td_ta->sticky = false;
@@ -885,8 +879,6 @@ static void ang_tap_dance_ta_reset (qk_tap_dance_state_t *state, void *user_data
     unregister_code (KC_TAB);
   if (!td_ta->sticky)
     layer_off (ARRW);
-
-  td_ta->finished_once = false;
 }
 
 qk_tap_dance_action_t tap_dance_actions[] = {
@@ -894,7 +886,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
   ,[CT_MNS] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, ang_tap_dance_mns_finished, ang_tap_dance_mns_reset)
   ,[CT_TA]  = {
      .fn = { NULL, ang_tap_dance_ta_finished, ang_tap_dance_ta_reset },
-     .user_data = (void *)&((td_ta_state_t) { false, false, false })
+     .user_data = (void *)&((td_ta_state_t) { false, false })
    }
   ,[CT_LBP] = ACTION_TAP_DANCE_FN (ang_tap_dance_bp_finished)
   ,[CT_RBP] = ACTION_TAP_DANCE_FN (ang_tap_dance_bp_finished)
