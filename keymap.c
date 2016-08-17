@@ -821,36 +821,28 @@ static void ang_tap_dance_bp_finished (qk_tap_dance_state_t *state, void *user_d
 static void ang_tap_dance_cln_finished (qk_tap_dance_state_t *state, void *user_data) {
   if (state->count == 1) {
     register_code (KC_RSFT);
-    register_code (KC_SCLN);
-  } else if (state->count == 2) {
-    register_code (KC_SCLN);
   }
+  register_code (KC_SCLN);
 }
 
 static void ang_tap_dance_cln_reset (qk_tap_dance_state_t *state, void *user_data) {
+  unregister_code (KC_SCLN);
   if (state->count == 1) {
-    unregister_code (KC_SCLN);
     unregister_code (KC_RSFT);
-  } else if (state->count == 2) {
-    unregister_code (KC_SCLN);
   }
 }
 
 static void ang_tap_dance_mns_finished (qk_tap_dance_state_t *state, void *user_data) {
-  if (state->count == 1) {
-    register_code (KC_MINS);
-  } else if (state->count == 2) {
+  if (state->count == 2) {
     register_code (KC_RSFT);
-    register_code (KC_MINS);
   }
+  register_code (KC_MINS);
 }
 
 static void ang_tap_dance_mns_reset (qk_tap_dance_state_t *state, void *user_data) {
-  if (state->count == 1) {
-    unregister_code (KC_MINS);
-  } else if (state->count == 2) {
+  unregister_code (KC_MINS);
+  if (state->count == 2) {
     unregister_code (KC_RSFT);
-    unregister_code (KC_MINS);
   }
 }
 
