@@ -781,71 +781,6 @@ static void ang_tap (uint8_t code, ...) {
   register_code (code); \
   unregister_code (code)
 
-static void ang_tap_dance_bp_finished (qk_tap_dance_state_t *state, void *user_data) {
-  bool right, parens;
-  uint8_t kc;
-
-  if (state->count > 2) {
-    state->count = 0;
-    return;
-  }
-
-  if (state->keycode == TD(CT_LBP))
-    right = false;
-  else
-    right = true;
-
-  if (state->count == 1)
-    parens = false;
-  else
-    parens = true;
-
-  if (parens) {
-    kc = KC_9;
-    if (right) {
-      kc++;
-    }
-
-    register_code (KC_RSFT);
-    TAP_ONCE(kc);
-    unregister_code (KC_RSFT);
-  } else {
-    kc = KC_LBRC;
-    if (right) {
-      kc++;
-    }
-    TAP_ONCE (kc);
-  }
-}
-
-static void ang_tap_dance_cln_finished (qk_tap_dance_state_t *state, void *user_data) {
-  if (state->count == 1) {
-    register_code (KC_RSFT);
-  }
-  register_code (KC_SCLN);
-}
-
-static void ang_tap_dance_cln_reset (qk_tap_dance_state_t *state, void *user_data) {
-  unregister_code (KC_SCLN);
-  if (state->count == 1) {
-    unregister_code (KC_RSFT);
-  }
-}
-
-static void ang_tap_dance_mns_finished (qk_tap_dance_state_t *state, void *user_data) {
-  if (state->count == 2) {
-    register_code (KC_RSFT);
-  }
-  register_code (KC_MINS);
-}
-
-static void ang_tap_dance_mns_reset (qk_tap_dance_state_t *state, void *user_data) {
-  unregister_code (KC_MINS);
-  if (state->count == 2) {
-    unregister_code (KC_RSFT);
-  }
-}
-
 typedef struct {
   bool layer_toggle;
   bool sticky;
@@ -882,14 +817,14 @@ static void ang_tap_dance_ta_reset (qk_tap_dance_state_t *state, void *user_data
 }
 
 qk_tap_dance_action_t tap_dance_actions[] = {
-   [CT_CLN] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, ang_tap_dance_cln_finished, ang_tap_dance_cln_reset)
-  ,[CT_MNS] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, ang_tap_dance_mns_finished, ang_tap_dance_mns_reset)
+   [CT_CLN] = ACTION_TAP_DANCE_DOUBLE (KC_COLN, KC_SCLN)
+  ,[CT_MNS] = ACTION_TAP_DANCE_DOUBLE (KC_MINS, KC_UNDS)
   ,[CT_TA]  = {
      .fn = { NULL, ang_tap_dance_ta_finished, ang_tap_dance_ta_reset },
      .user_data = (void *)&((td_ta_state_t) { false, false })
    }
-  ,[CT_LBP] = ACTION_TAP_DANCE_FN (ang_tap_dance_bp_finished)
-  ,[CT_RBP] = ACTION_TAP_DANCE_FN (ang_tap_dance_bp_finished)
+  ,[CT_LBP] = ACTION_TAP_DANCE_DOUBLE (KC_LBRC, KC_LPRN)
+  ,[CT_RBP] = ACTION_TAP_DANCE_DOUBLE (KC_RBRC, KC_RPRN)
 };
 
 // Runs constantly in the background, in a loop.
@@ -955,6 +890,11 @@ void matrix_scan_user(void) {
       log_enable = !log_enable;
     }
 #endif
+
+    SEQ_ONE_KEY (KC_Q) {
+      register_code16 (LCTL(KC_1));
+      unregister_code16 (LCTL(KC_1));
+    }
 
     SEQ_ONE_KEY (KC_T) {
       time_travel = !time_travel;
