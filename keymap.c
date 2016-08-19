@@ -709,7 +709,14 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 
       case APP_TERM:
         from_appsel = true;
-        return MACRODOWN(T(T), T(E), T(R), T(M), T(ENT), END);
+        if (!record->event.pressed) {
+          register_code(KC_ESC);
+          unregister_code(KC_ESC);
+          wait_ms(TAPPING_TERM + 25);
+          register_code(KC_DEL);
+          unregister_code(KC_DEL);
+        }
+        break;
 
       case APP_CHRM:
         from_appsel = true;
