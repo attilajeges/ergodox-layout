@@ -156,11 +156,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------.           ,-----------------------------------------------------.
  * | Play/Pause| 1 F1 | 2 F2 | 3 F3 | 4 F4 | 5 F5 | Apps |           |  F12 | 6 F6 | 7 F7 | 8 F8 | 9 F9 | 0 F10|       F11 |
  * |-----------+------+------+------+------+-------------|           |------+------+------+------+------+------+-----------|
- * |        `~ |   X  |   W  |   K  |   L  |   M  |   (  |           |  )   |   F  |   H  |   C  |   P  |  Y   | \         |
+ * |        `~ |   X  |   W  |   G  |   L  |   M  |   (  |           |  )   |   F  |   H  |   C  |   P  |  Y   | \         |
  * |-----------+------+------+------+------+------|   [  |           |  ]   |------+------+------+------+------+-----------|
  * | Tab/Arrow |   A  |   O  |   E  |   I  |   U  |------|           |------|   D  |   R  |   T  |   N  |  S   | =         |
  * |-----------+------+------+------+------+------|      |           |      |------+------+------+------+------+-----------|
- * |           |   Z  |   Q  |   '  |   ,  |   .  |   :  |           |  -   |   B  |   G  |   V  |   J  |  /   |           |
+ * |           |   Z  |   Q  |   '  |   ,  |   .  |   :  |           |  -   |   B  |   K  |   V  |   J  |  /   |           |
  * `-----------+------+------+------+------+-------------'           `-------------+------+------+------+------+-----------'
  *     |       |      |      |      |      |                                       |      |      |      |      |       |
  *     `-----------------------------------'                                       `-----------------------------------'
@@ -175,7 +175,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [ADORE] = KEYMAP(
 // left hand
  KC_MPLY            ,M(KF_1)     ,M(KF_2)     ,M(KF_3),M(KF_4),M(KF_5),KC_APP
-,KC_GRV             ,KC_X        ,KC_W        ,KC_K   ,KC_L   ,KC_M   ,TD(CT_LBP)
+,KC_GRV             ,KC_X        ,KC_W        ,KC_G   ,KC_L   ,KC_M   ,TD(CT_LBP)
 ,TD(CT_TA)          ,KC_A        ,KC_O        ,KC_E   ,KC_I   ,KC_U
 ,KC_NO              ,KC_Z        ,KC_Q        ,KC_QUOT,KC_COMM,KC_DOT ,TD(CT_CLN)
 ,KC_NO              ,KC_NO       ,KC_NO       ,KC_NO  ,KC_NO
@@ -188,7 +188,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                ,KC_F12    ,M(KF_6),M(KF_7),M(KF_8),M(KF_9) ,M(KF_10) ,KC_F11
                                                                ,TD(CT_RBP),KC_F   ,KC_H   ,KC_C   ,KC_P    ,KC_Y     ,KC_BSLS
                                                                           ,KC_D   ,KC_R   ,KC_T   ,KC_N    ,KC_S     ,KC_EQL
-                                                               ,KC_MINS   ,KC_B   ,KC_G   ,KC_V   ,KC_J    ,KC_SLSH  ,KC_NO
+                                                               ,KC_MINS   ,KC_B   ,KC_K   ,KC_V   ,KC_J    ,KC_SLSH  ,KC_NO
                                                                                   ,KC_NO  ,KC_NO  ,KC_NO   ,KC_NO    ,KC_NO
 
                                                                ,OSL(NMDIA),KC_DEL
