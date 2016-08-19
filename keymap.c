@@ -85,7 +85,6 @@ enum {
 
 enum {
   CT_CLN = 0,
-  CT_MNS,
   CT_TA,
   CT_LBP,
   CT_RBP
@@ -145,7 +144,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                ,KC_RBRC   ,KC_F   ,KC_G      ,KC_C   ,KC_R    ,KC_L     ,KC_BSLS
                                                                           ,KC_D   ,KC_H      ,KC_T   ,KC_N    ,KC_S     ,KC_EQL
                                                                ,KC_RPRN   ,KC_B   ,KC_M      ,KC_W   ,KC_V    ,KC_Z     ,KC_MSTP
-                                                                                  ,TD(CT_MNS),KC_NO  ,KC_NO   ,KC_NO    ,KC_NO
+                                                                                  ,KC_MINS   ,KC_NO  ,KC_NO   ,KC_NO    ,KC_NO
 
                                                                ,OSL(NMDIA),KC_DEL
                                                                ,KC_LEAD
@@ -189,7 +188,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                ,KC_F12    ,M(KF_6),M(KF_7),M(KF_8),M(KF_9) ,M(KF_10) ,KC_F11
                                                                ,TD(CT_RBP),KC_F   ,KC_H   ,KC_C   ,KC_P    ,KC_Y     ,KC_BSLS
                                                                           ,KC_D   ,KC_R   ,KC_T   ,KC_N    ,KC_S     ,KC_EQL
-                                                               ,TD(CT_MNS),KC_B   ,KC_G   ,KC_V   ,KC_J    ,KC_SLSH  ,KC_NO
+                                                               ,KC_MINS   ,KC_B   ,KC_G   ,KC_V   ,KC_J    ,KC_SLSH  ,KC_NO
                                                                                   ,KC_NO  ,KC_NO  ,KC_NO   ,KC_NO    ,KC_NO
 
                                                                ,OSL(NMDIA),KC_DEL
@@ -818,7 +817,6 @@ static void ang_tap_dance_ta_reset (qk_tap_dance_state_t *state, void *user_data
 
 qk_tap_dance_action_t tap_dance_actions[] = {
    [CT_CLN] = ACTION_TAP_DANCE_DOUBLE (KC_COLN, KC_SCLN)
-  ,[CT_MNS] = ACTION_TAP_DANCE_DOUBLE (KC_MINS, KC_UNDS)
   ,[CT_TA]  = {
      .fn = { NULL, ang_tap_dance_ta_finished, ang_tap_dance_ta_reset },
      .user_data = (void *)&((td_ta_state_t) { false, false })

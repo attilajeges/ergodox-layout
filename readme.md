@@ -149,6 +149,7 @@ The keymap default to forcing NKRO, which seems to upset Windows, and except the
 
 * `LEAD u` now starts the symbolic unicode input system, instead of the OS-one.
 * The `Apps` key has been replaced by `F12`.
+* The `-`/`_` is no longer a tap-dance key.
 
 ## v1.5 - 2016-08-12
 
