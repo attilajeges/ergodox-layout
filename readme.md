@@ -3,11 +3,15 @@
 algernon's layout
 =======================
 
-This is an unconventional layout for the ErgoDox EZ. For more details about the history of the layout, see my [blog posts about my ErgoDox journey][blog-ergodox].
+This is an unconventional layout for the [ErgoDox EZ][ez]. For more details about the history of the layout, see my [blog posts about my ErgoDox journey][blog-ergodox].
 
+ [ez]: https://ergodox-ez.com/
  [blog-ergodox]: https://asylum.madhouse-project.org/blog/tags/ergodox/
 
-Some of the things in the layout only work when one uses Spacemacs and GNOME under Linux. Your mileage may vary.
+Some of the things in the layout only work when one uses [Spacemacs][spacemacs] and [GNOME][gnome] under Linux. Your mileage may vary.
+
+ [spacemacs]: http://spacemacs.org/
+ [gnome]: https://www.gnome.org/
 
 ## Table of Contents
 
