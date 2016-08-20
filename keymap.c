@@ -58,6 +58,11 @@ enum {
   A_MDL,
   A_MDR,
 
+  // Mouse acceleration
+  A_ACL0,
+  A_ACL1,
+  A_ACL2,
+
   // Hungarian layer keys
   HU_AA, // Á
   HU_OO, // Ó
@@ -358,9 +363,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [NMDIA] = KEYMAP(
 // left hand
- KC_ACL0    ,KC_NO       ,KC_NO      ,KC_NO   ,KC_NO   ,KC_NO   ,LGUI(KC_L)
-,KC_ACL1    ,KC_NO       ,KC_HOME    ,KC_UP   ,KC_PGUP ,KC_NO   ,KC_NO
-,KC_ACL2    ,KC_NO       ,KC_LEFT    ,KC_DOWN ,KC_RIGHT,KC_NO
+ M(A_ACL0)  ,KC_NO       ,KC_NO      ,KC_NO   ,KC_NO   ,KC_NO   ,LGUI(KC_L)
+,M(A_ACL1)  ,KC_NO       ,KC_HOME    ,KC_UP   ,KC_PGUP ,KC_NO   ,KC_NO
+,M(A_ACL2)  ,KC_NO       ,KC_LEFT    ,KC_DOWN ,KC_RIGHT,KC_NO
 ,KC_MPLY    ,KC_NO       ,KC_END     ,KC_DOWN ,KC_PGDN ,KC_NO   ,KC_NO
 ,KC_NO      ,KC_NO       ,KC_NO      ,KC_NO   ,KC_NO
                                                         ,KC_MUTE ,KC_VOLU
@@ -464,6 +469,8 @@ static void ang_handle_kf (keyrecord_t *record, uint8_t id)
   }
 }
 
+static bool m_accel_state[3];
+
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
       switch(id) {
@@ -552,6 +559,19 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
           mousekey_off(KC_MS_RIGHT);
         }
         mousekey_send();
+        break;
+
+      case A_ACL0 ... A_ACL2:
+        if (record->event.pressed) {
+          uint8_t idx = id - A_ACL0;
+          if (m_accel_state[idx]) {
+            mousekey_off(KC_ACL0 + idx);
+            m_accel_state[idx] = false;
+          } else {
+            mousekey_on(KC_ACL0 + idx);
+            m_accel_state[idx] = true;
+          }
+        }
         break;
 #endif
 

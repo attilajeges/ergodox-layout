@@ -151,6 +151,7 @@ The keymap default to forcing NKRO, which seems to upset Windows, and except the
 * The `Apps` key has been replaced by `F12`.
 * The `-`/`_` is no longer a tap-dance key.
 * Adjustments were made to the [ADORE](#adore-layer) layer.
+* The mouse acceleration keys on the [Navigation and Media](#navigation-and-media-layer) layer have been turned into toggles: tap them once to turn them on, until tapped again.
 
 ## v1.5 - 2016-08-12
 
