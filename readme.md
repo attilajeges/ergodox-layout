@@ -151,6 +151,8 @@ The keymap default to forcing NKRO, which seems to upset Windows, and except the
 
 ## v1.6 - UNRELEASED
 
+* The parentheses & bracket keys have been merged: tapping them results in `[` or `{` (if it was shifted), double tapping leads to `(`.
+* The `:;` and `-_` keys are now available on the base layer, on their ADORE location, too, just below `[{(`/`]})`.
 * `LEAD u` now starts the symbolic unicode input system, instead of the OS-one.
 * The `Apps` key has been replaced by `F12`.
 * The `-`/`_` is no longer a tap-dance key.
