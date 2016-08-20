@@ -469,7 +469,9 @@ static void ang_handle_kf (keyrecord_t *record, uint8_t id)
   }
 }
 
-static bool m_accel_state[3];
+static struct {
+  uint8_t idx;
+} m_accel_state;
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
@@ -564,12 +566,16 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
       case A_ACL0 ... A_ACL2:
         if (record->event.pressed) {
           uint8_t idx = id - A_ACL0;
-          if (m_accel_state[idx]) {
-            mousekey_off(KC_ACL0 + idx);
-            m_accel_state[idx] = false;
+          if (m_accel_state.idx == id) {
+            mousekey_off(m_accel_state.idx - A_ACL0 + KC_ACL0);
+            m_accel_state.idx = 0;
           } else {
+            if (m_accel_state.idx) {
+              mousekey_off(m_accel_state.idx - A_ACL0 + KC_ACL0);
+              m_accel_state.idx = 0;
+            }
             mousekey_on(KC_ACL0 + idx);
-            m_accel_state[idx] = true;
+            m_accel_state.idx = id;
           }
         }
         break;
