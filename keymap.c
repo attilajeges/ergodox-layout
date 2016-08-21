@@ -1037,8 +1037,8 @@ const qk_ucis_symbol_t ucis_symbol_table[] = UCIS_TABLE
 bool process_record_user (uint16_t keycode, keyrecord_t *record) {
 #if KEYLOGGER_ENABLE
   if (log_enable) {
-    xprintf ("KL: col=%d, row=%d\n", record->event.key.col,
-             record->event.key.row);
+    xprintf ("KL: col=%02d, row=%02d, pressed=%d, layer=%s\n", record->event.key.col,
+             record->event.key.row, record->event.pressed, (is_adore) ? "ADORE" : "Dvorak");
   }
 #endif
 
