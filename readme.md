@@ -46,6 +46,7 @@ At its core, this is a Dvorak layout, with some minor changes. The more interest
 * The **Media** and **Hun** layer keys are one-shot.
 * When holding the `Tab`/**Arrow** key, the arrow layer activates while the key is held. Tapping the key produces the normal, `Tab` key. Double-tapping it toggles the **Arrow** layer on until a third tap.
 * Tapping the `:` key once yields `:`, tapping it twice yields `;`.
+* Tapping the `[{(`/`)}]` keys once yields `[` (or `{` when shifted), tapping them twice yields `(`.
 * The **Lead** key allows me to type in a sequence of keys, and trigger some actions:
     - `LEAD l` uses the unicode input method to enter a `λ`.
     - `LEAD s` does a lot of magic to type in a shruggie: `¯\_(ツ)_/¯`
