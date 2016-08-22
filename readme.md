@@ -160,6 +160,7 @@ The keymap default to forcing NKRO, which seems to upset Windows, and except the
 * The `-`/`_` is no longer a tap-dance key.
 * Adjustments were made to the [ADORE](#adore-layer) layer.
 * The mouse acceleration keys on the [Navigation and Media](#navigation-and-media-layer) layer have been turned into toggles: tap them once to turn them on, until tapped again. Tapping an accelerator button will turn all the others off.
+* When the **ARROW** layer is on, the *red* and *blue* LEDs light up now.
 
 ## v1.5 - 2016-08-12
 
