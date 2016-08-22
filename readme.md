@@ -90,6 +90,7 @@ For the layers, the following rules apply:
 * When the [ADORE layer](#adore-layer) is toggled on, LEDs will light up from left to right in a sequence, then turn off. When the layer is toggled off, the LEDs light up and turn off in the other direction. No LEDs are on while the layer is active.
 * When the [Hungarian layer](#hungarian-layer) is active, the *green* and *blue* LEDs are on.
 * When the [Navigation and media layer](#navigation-and-media-layer) is active, the *red* and *green* ones are on.
+* When the **ARROW** layer is active, the *red* and *blue* ones are on.
 * For the [Steno layer](#steno-layer), all LEDs will be turned on.
 
 Unless noted otherwise, the layers use a dim light for the LEDs, while modifiers use a stronger one, and modifiers override any layer preferences. For example, when on the one-handed layer, with the left side active (*red* light blinking), if `Shift` is on, the *red* light will be constantly on.
