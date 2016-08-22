@@ -102,7 +102,11 @@ uint16_t gui_timer = 0;
 uint16_t kf_timers[12];
 
 #if KEYLOGGER_ENABLE
+# ifdef AUTOLOG_ENABLE
+bool log_enable = true;
+# else
 bool log_enable = false;
+# endif
 #endif
 
 bool time_travel = false;
@@ -786,9 +790,6 @@ void matrix_init_user(void) {
   dl = eeconfig_read_default_layer ();
   if (dl == (1UL << ADORE)) {
     is_adore = 1;
-#if ADORE_AUTOLOG
-    log_enable = true;
-#endif
   }
 };
 
@@ -1000,13 +1001,7 @@ void matrix_scan_user(void) {
         ergodox_right_led_2_off ();
         wait_ms (100);
         ergodox_right_led_1_off ();
-#if ADORE_AUTOLOG
-        log_enable = true;
-#endif
       } else {
-#if ADORE_AUTOLOG
-        log_enable = false;
-#endif
         is_adore = 0;
         default_layer_and (0);
         default_layer_or (1UL << BASE);

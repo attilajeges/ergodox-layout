@@ -161,6 +161,7 @@ The keymap default to forcing NKRO, which seems to upset Windows, and except the
 * Adjustments were made to the [ADORE](#adore-layer) layer.
 * The mouse acceleration keys on the [Navigation and Media](#navigation-and-media-layer) layer have been turned into toggles: tap them once to turn them on, until tapped again. Tapping an accelerator button will turn all the others off.
 * When the **ARROW** layer is on, the *red* and *blue* LEDs light up now.
+* The built-in keylogger has been greatly enhanced, it now outputs the pressed state, and the layer (Dvorak or ADORE). As such, the `ADORE_AUTOLOG` option has been removed, instead there is `AUTOLOG_ENABLE` now, which when enabled, makes the keylogger start when the keyboard boots. It defaults to off.
 
 ## v1.5 - 2016-08-12
 
