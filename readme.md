@@ -151,7 +151,9 @@ The keymap default to forcing NKRO, which seems to upset Windows, and except the
 
 # Changelog
 
-## v1.6 - UNRELEASED
+## v1.6
+
+**UNRELEASED**
 
 ### Base layer changes
 
@@ -175,7 +177,9 @@ The keymap default to forcing NKRO, which seems to upset Windows, and except the
 * The built-in keylogger has been greatly enhanced, it now outputs the pressed state, and the layer (Dvorak or ADORE). As such, the `ADORE_AUTOLOG` option has been removed, instead there is `AUTOLOG_ENABLE` now, which when enabled, makes the keylogger start when the keyboard boots. It defaults to off.
 * The heatmap generator received a lot of updates.
 
-## v1.5 - 2016-08-12
+## v1.5
+
+*2016-08-12*
 
 * The **1HAND** layer has been removed.
 * A `Delete` key is now available on the right thumb cluster.
@@ -185,7 +189,9 @@ The keymap default to forcing NKRO, which seems to upset Windows, and except the
 * On the **ARROW** layer, `Backspace` has been replaced by `Enter`.
 * There is some experimental support for entering Unicode symbols.
 
-## v1.4 - 2016-07-29
+## v1.4
+
+*2016-07-29*
 
 * When toggling the key logging on or off, the LEDs will do a little dance.
 * The keylogger is now optional, but enabled by default. Use `KEYLOGGER_ENABLE=no` on the `make` command line to disable it.
@@ -193,14 +199,18 @@ The keymap default to forcing NKRO, which seems to upset Windows, and except the
 * The `-`/`_` key was turned into a tap-dance key too.
 * There is now a way to travel time with the keyboard, toggle the feature on by hitting `LEAD t`.
 
-## v1.3 - 2016-07-06
+## v1.3
+
+*2016-07-06*
 
 * Added support for logging keys, by pressing `LEAD d`. Also included is a tool to generate a [heatmap](#heatmap) out of the logs.
 * The arrow and navigation keys were rearranged again, and now require an additional key being held to activate. See the [base layer](#base-layer) for an image that shows where arrows are.
 * The **experimental** layer has been redone, and is now called [ADORE](#adore-layer), and as such, can be enabled by `LEAD a` now.
 * Switching between Dvorak and ADORE is now persisted into EEPROM, and survives a reboot.
 
-## v1.2 - 2016-06-22
+## v1.2
+
+*2016-06-22*
 
 * The forced NKRO mode can be easily toggled off at compile-time, to make the firmware compatible with [certain operating systems](#using-on-windows).
 * The `:;` key has changed behaviour: to access the `;` symbol, the key needs to be double-tapped, instead of shifted.
@@ -211,7 +221,9 @@ The keymap default to forcing NKRO, which seems to upset Windows, and except the
 * On the **experimental** layer, the `L` and `Q`, and the `K` and `G` keys were swapped.
 * The [Steno](#steno-layer) layer gained a few more `#` and `*` keys, to make it easier on my fingers.
 
-## v1.1 - 2016-06-14
+## v1.1
+
+*2016-06-14*
 
 * The keyboard starts in NKRO mode, bootmagic and other things are disabled.
 * A [Steno](#steno-layer) layer was added, to be used with Plover.
@@ -225,7 +237,9 @@ The keymap default to forcing NKRO, which seems to upset Windows, and except the
     - `:` now inputs `;` when shifted.
 * `ESC` cancels the [Hungarian](#hungarian-layer) layer too, not just modifiers.
 
-## v1.0 - 2016-05-26
+## v1.0
+
+*2016-05-26*
 
 Initial version.
 
