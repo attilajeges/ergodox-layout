@@ -226,6 +226,8 @@ def main(opts):
         (c, r, l) = (int(m.group (2)), int(m.group (1)), m.group (4))
         if restrict_row != -1 and r != restrict_row:
             continue
+        if c in opts.ignore_columns:
+            continue
 
         heatmaps[l].update_log ((c, r))
 
@@ -243,5 +245,7 @@ if __name__ == "__main__":
                          default = -1, help = 'Restrict processing to this row only')
     parser.add_argument ('--dump-interval', dest = 'dump_interval', action = 'store', type = int,
                          default = 100, help = 'Dump stats and heatmap at every Nth event, -1 for dumping at EOF only')
+    parser.add_argument ('--ignore-column', dest = 'ignore_columns', action = 'append', type = int,
+                         default = [], help = 'Ignore the specified columns')
     args = parser.parse_args()
     main(args)
