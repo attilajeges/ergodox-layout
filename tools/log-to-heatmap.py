@@ -94,17 +94,7 @@ class Heatmap(object):
         self.log = {}
         self.total = 0
         self.max_cnt = 0
-
-        with open("%s/heatmap-layout.%s.json" % (dirname(sys.argv[0]), layout), "r") as f:
-            self.base_heatmap = json.load (f)
-
-        self.heatmap = self.base_heatmap
-        ## Reset colors
-        for row in self.coords:
-            for coord in row:
-                if coord != []:
-                    self.set_bg (coord, "#d9dae0")
-        self.base_heatmap = self.heatmap
+        self.layout = layout
 
     def update_log(self, (c, r)):
         if not (c, r) in self.log:
@@ -115,7 +105,15 @@ class Heatmap(object):
             self.max_cnt = self.log[(c, r)]
 
     def get_heatmap(self):
-        self.heatmap = self.base_heatmap
+        with open("%s/heatmap-layout.%s.json" % (dirname(sys.argv[0]), self.layout), "r") as f:
+            self.heatmap = json.load (f)
+
+        ## Reset colors
+        for row in self.coords:
+            for coord in row:
+                if coord != []:
+                    self.set_bg (coord, "#d9dae0")
+
         for (c, r) in self.log:
             coords = self.coord(c, r)
             b, n = coords
