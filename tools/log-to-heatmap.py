@@ -229,7 +229,7 @@ def main(opts):
 
         heatmaps[l].update_log ((c, r))
 
-        if cnt >= 100:
+        if opts.dump_interval != -1 and cnt >= opts.dump_interval:
             cnt = 0
             dump_all(out_dir, heatmaps)
 
@@ -241,5 +241,7 @@ if __name__ == "__main__":
                          help = 'Output directory')
     parser.add_argument ('--row', dest = 'restrict_row', action = 'store', type = int,
                          default = -1, help = 'Restrict processing to this row only')
+    parser.add_argument ('--dump-interval', dest = 'dump_interval', action = 'store', type = int,
+                         default = 100, help = 'Dump stats and heatmap at every Nth event, -1 for dumping at EOF only')
     args = parser.parse_args()
     main(args)
