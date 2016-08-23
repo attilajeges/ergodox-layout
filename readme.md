@@ -116,7 +116,7 @@ This is an experimental feature, and may or may not work reliably.
 
 When the keypress logging functionality is enabled (by `LEAD d`), the keyboard will output a line every time a key is pressed, containing the position of the key in the matrix. This allows one to collect this information, and build analytics over it, such as a heat map, including dead keys too.
 
-Included with the firmware is a small tool that can parse these logs, and create a heatmap that one can import into [KLE][kle]. To use it, simply point `tools/log-to-heatmap.py` to a base layout file (one is included in the `tools/` directory), and the key position log. The latter one can create by running `hid-listen`, and redirecting its output to a file.
+Included with the firmware is a small tool that can parse these logs, and create a heatmap that one can import into [KLE][kle]. To use it, either pipe the output of `hid_listen` into it, or pipe it an already saved log, and it will save the results into files in an output directory (given on the command-line). See the output of `tools/log-to-heatmap.py --help` for more information.
 
  [kle]: http://www.keyboard-layout-editor.com/
 
@@ -162,6 +162,7 @@ The keymap default to forcing NKRO, which seems to upset Windows, and except the
 * The mouse acceleration keys on the [Navigation and Media](#navigation-and-media-layer) layer have been turned into toggles: tap them once to turn them on, until tapped again. Tapping an accelerator button will turn all the others off.
 * When the **ARROW** layer is on, the *red* and *blue* LEDs light up now.
 * The built-in keylogger has been greatly enhanced, it now outputs the pressed state, and the layer (Dvorak or ADORE). As such, the `ADORE_AUTOLOG` option has been removed, instead there is `AUTOLOG_ENABLE` now, which when enabled, makes the keylogger start when the keyboard boots. It defaults to off.
+* The heatmap generator received a lot of updates.
 
 ## v1.5 - 2016-08-12
 
