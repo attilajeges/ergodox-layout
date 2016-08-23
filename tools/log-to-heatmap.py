@@ -3,6 +3,7 @@ import json
 import os
 import sys
 import re
+import argparse
 
 from math import floor
 from os.path import dirname
@@ -204,12 +205,14 @@ def dump_all(out_dir, heatmaps):
         print >>sys.stderr, ""
         print >>sys.stderr, ""
 
-def main(out_dir, restrict_row = None):
+def main(opts):
 
     heatmaps = {"Dvorak": Heatmap("Dvorak"),
                 "ADORE": Heatmap("ADORE")
     }
     cnt = 0
+    restrict_row = opts.restrict_row
+    out_dir = opts.outdir
 
     while True:
         line = sys.stdin.readline()
@@ -221,7 +224,7 @@ def main(out_dir, restrict_row = None):
 
         cnt = cnt + 1
         (c, r, l) = (int(m.group (2)), int(m.group (1)), m.group (4))
-        if restrict_row != None and r != int(restrict_row):
+        if restrict_row != -1 and r != restrict_row:
             continue
 
         heatmaps[l].update_log ((c, r))
@@ -233,9 +236,10 @@ def main(out_dir, restrict_row = None):
     dump_all (out_dir, heatmaps)
 
 if __name__ == "__main__":
-    if len(sys.argv) < 2:
-        print """Log to Heatmap -- creates a heatmap out of keyboard logs
-
-Usage: hid_listen | log-to-heatmap.py out_dir [row]"""
-        sys.exit (1)
-    main(*sys.argv[1:])
+    parser = argparse.ArgumentParser (description = "keylog to heatmap processor")
+    parser.add_argument ('outdir', action = 'store',
+                         help = 'Output directory')
+    parser.add_argument ('--row', dest = 'restrict_row', action = 'store', type = int,
+                         default = -1, help = 'Restrict processing to this row only')
+    args = parser.parse_args()
+    main(args)
