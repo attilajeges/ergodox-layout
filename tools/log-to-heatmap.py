@@ -40,11 +40,6 @@ class Heatmap(object):
             [24, 0], [24,  2], [25,  0], [25,  4], [25,  2], [26,  0], [      ],
         ],
     ]
-    base_heatmap = None
-    heatmap = None
-    log = {}
-    total = 0
-    max_cnt = 0
 
     def set_attr_at(self, block, n, attr, fn, val):
         blk = self.heatmap[block][n]
@@ -95,6 +90,10 @@ class Heatmap(object):
         return "#%02x%02x%02x" % (r, g, b)
 
     def __init__(self, layout):
+        self.log = {}
+        self.total = 0
+        self.max_cnt = 0
+
         with open("%s/heatmap-layout.%s.json" % (dirname(sys.argv[0]), layout), "r") as f:
             self.base_heatmap = json.load (f)
 
@@ -120,6 +119,8 @@ class Heatmap(object):
             coords = self.coord(c, r)
             b, n = coords
             cap = self.max_cnt
+            if cap == 0:
+                cap = 1
             v = float(self.log[(c, r)]) / cap
             self.set_bg (coords, self.heatmap_color (v))
             self.set_tap_info (coords, self.log[(c, r)], self.total)
@@ -153,63 +154,88 @@ class Heatmap(object):
         for f in usage[1]:
             hand_usage[1] = hand_usage[1] + f
 
+        total = self.total
+        if total == 0:
+            total = 1
         stats = {
             "hands": {
                 "left": {
-                    "usage": float(hand_usage[0]) / (self.total) * 100,
+                    "usage": float(hand_usage[0]) / total * 100,
                     "fingers": {
-                        "pinky": 0,
-                        "ring": 0,
-                        "middle": 0,
-                        "index": 0,
-                        "thumb": 0,
+                        "0 - pinky": 0,
+                        "1 - ring": 0,
+                        "2 - middle": 0,
+                        "3 - index": 0,
+                        "4 - thumb": 0,
                     }
                 },
                 "right": {
-                    "usage": float(hand_usage[1]) / (self.total) * 100,
+                    "usage": float(hand_usage[1]) / total * 100,
                     "fingers": {
-                        "thumb": 0,
-                        "index": 0,
-                        "middle": 0,
-                        "ring": 0,
-                        "pinky": 0,
+                        "0 - thumb": 0,
+                        "1 - index": 0,
+                        "2 - middle": 0,
+                        "3 - ring": 0,
+                        "4 - pinky": 0,
                     }
                 },
             }
         }
 
         hmap = ['left', 'right']
-        fmap = ['pinky', 'ring', 'middle', 'index', 'thumb', 'thumb', 'index', 'middle', 'ring', 'pinky']
+        fmap = ['0 - pinky', '1 - ring', '2 - middle', '3 - index', '4 - thumb',
+                '0 - thumb', '1 - index', '2 - middle', '3 - ring', '4 - pinky']
         for hand_idx in range(len(usage)):
             hand = usage[hand_idx]
             for finger_idx in range(len(hand)):
-                stats['hands'][hmap[hand_idx]]['fingers'][fmap[finger_idx + hand_idx * 5]] = float(hand[finger_idx]) / (self.total / 1) * 100
+                stats['hands'][hmap[hand_idx]]['fingers'][fmap[finger_idx + hand_idx * 5]] = float(hand[finger_idx]) / total * 100
         return stats
 
-def main(log_fn, restrict_row = None):
+def dump_all(out_dir, heatmaps):
+    for layer in heatmaps.keys():
+        if len(heatmaps[layer].log) == 0:
+            continue
 
-    heatmap = Heatmap("Dvorak")
+        with open ("%s/%s.json" % (out_dir, layer), "w") as f:
+            json.dump(heatmaps[layer].get_heatmap(), f)
+        print >>sys.stderr, "%s stats:" % (layer)
+        json.dump (heatmaps[layer].get_stats(), sys.stderr,
+                   indent = 4, sort_keys = True)
+        print >>sys.stderr, ""
+        print >>sys.stderr, ""
 
-    with open(log_fn, "r") as f:
-        lines = f.readlines()
+def main(out_dir, restrict_row = None):
 
-    for line in lines:
-        m = re.search ('KL: col=(\d+), row=(\d+)', line)
+    heatmaps = {"Dvorak": Heatmap("Dvorak"),
+                "ADORE": Heatmap("ADORE")
+    }
+    cnt = 0
+
+    while True:
+        line = sys.stdin.readline()
+        if not line:
+            break
+        m = re.search ('KL: col=(\d+), row=(\d+), pressed=(\d+), layer=(.*)', line)
         if not m:
             continue
-        (c, r) = (int(m.group (2)), int(m.group (1)))
+
+        cnt = cnt + 1
+        (c, r, l) = (int(m.group (2)), int(m.group (1)), m.group (4))
         if restrict_row != None and r != int(restrict_row):
             continue
 
-        heatmap.update_log ((c, r))
+        heatmaps[l].update_log ((c, r))
 
-    print json.dumps(heatmap.get_heatmap())
-    print >>sys.stderr, json.dumps(heatmap.get_stats())
+        if cnt >= 100:
+            cnt = 0
+            dump_all(out_dir, heatmaps)
+
+    dump_all (out_dir, heatmaps)
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
         print """Log to Heatmap -- creates a heatmap out of keyboard logs
 
-Usage: log-to-heatmap.py logfile [row] >layout.json"""
+Usage: hid_listen | log-to-heatmap.py out_dir [row]"""
         sys.exit (1)
     main(*sys.argv[1:])
