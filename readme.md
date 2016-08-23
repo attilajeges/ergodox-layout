@@ -153,14 +153,25 @@ The keymap default to forcing NKRO, which seems to upset Windows, and except the
 
 ## v1.6 - UNRELEASED
 
+### Base layer changes
+
 * The parentheses & bracket keys have been merged: tapping them results in `[` or `{` (if it was shifted), double tapping leads to `(`.
-* The `:;` and `-_` keys are now available on the base layer, on their ADORE location, too, just below `[{(`/`]})`.
-* `LEAD u` now starts the symbolic unicode input system, instead of the OS-one.
+* The `:;` and `-_` keys are now available on the base layer, on their [ADORE](#adore-layer) location, too, just below `[{(`/`]})`.
 * The `Apps` key has been replaced by `F12`.
 * The `-`/`_` is no longer a tap-dance key.
-* Adjustments were made to the [ADORE](#adore-layer) layer.
+
+### ADORE layer changes
+
+* Adjustments were made to the [ADORE](#adore-layer) layer, to separate some inconvenient combinations.
+
+### Miscellaneous changes
+
+* `LEAD u` now starts the symbolic unicode input system, instead of the OS-one.
 * The mouse acceleration keys on the [Navigation and Media](#navigation-and-media-layer) layer have been turned into toggles: tap them once to turn them on, until tapped again. Tapping an accelerator button will turn all the others off.
 * When the **ARROW** layer is on, the *red* and *blue* LEDs light up now.
+
+### Heatmap
+
 * The built-in keylogger has been greatly enhanced, it now outputs the pressed state, and the layer (Dvorak or ADORE). As such, the `ADORE_AUTOLOG` option has been removed, instead there is `AUTOLOG_ENABLE` now, which when enabled, makes the keylogger start when the keyboard boots. It defaults to off.
 * The heatmap generator received a lot of updates.
 
