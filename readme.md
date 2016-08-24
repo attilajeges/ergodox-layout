@@ -153,7 +153,7 @@ The keymap default to forcing NKRO, which seems to upset Windows, and except the
 
 ## v1.6
 
-**UNRELEASED**
+*2016-08-24*
 
 ### Base layer changes
 
