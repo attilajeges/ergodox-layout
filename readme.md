@@ -151,14 +151,6 @@ The keymap default to forcing NKRO, which seems to upset Windows, and except the
 
 # Changelog
 
-## v1.7
-
-**UNRELEASED**
-
-### Overall changes
-
-* The number/function key behavior was changed: instead of a long press, one needs to double-tap now to access the function keys.
-
 ## v1.6
 
 *2016-08-24*
