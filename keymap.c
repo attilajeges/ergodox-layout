@@ -33,18 +33,6 @@ enum {
   A_GUI,
   A_MPN,
 
-  // Function / number keys
-  KF_1, // 1, F1
-  KF_2, // 2, F2
-  KF_3, // ...
-  KF_4,
-  KF_5,
-  KF_6,
-  KF_7,
-  KF_8,
-  KF_9,
-  KF_10,
-
   // Application select keys
   APP_SLK, // Slack
   APP_EMCS, // Emacs
@@ -92,7 +80,19 @@ enum {
   CT_CLN = 0,
   CT_TA,
   CT_LBP,
-  CT_RBP
+  CT_RBP,
+
+  // Function / number keys
+  KF_1, // 1, F1
+  KF_2, // 2, F2
+  KF_3, // ...
+  KF_4,
+  KF_5,
+  KF_6,
+  KF_7,
+  KF_8,
+  KF_9,
+  KF_10,
 };
 
 /* States & timers */
@@ -138,22 +138,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [BASE] = KEYMAP(
 // left hand
- M(A_MPN)           ,M(KF_1)     ,M(KF_2)     ,M(KF_3),M(KF_4),M(KF_5),KC_APP
-,KC_GRV             ,KC_QUOT     ,KC_COMM     ,KC_DOT ,KC_P   ,KC_Y   ,TD(CT_LBP)
-,TD(CT_TA)          ,KC_A        ,KC_O        ,KC_E   ,KC_U   ,KC_I
-,KC_MPLY            ,KC_SLSH     ,KC_Q        ,KC_J   ,KC_K   ,KC_X   ,TD(CT_CLN)
-,KC_NO              ,KC_NO       ,KC_NO       ,KC_NO  ,TD(CT_CLN)
+ M(A_MPN)           ,TD(KF_1)    ,TD(KF_2)    ,TD(KF_3),TD(KF_4),TD(KF_5),KC_APP
+,KC_GRV             ,KC_QUOT     ,KC_COMM     ,KC_DOT  ,KC_P    ,KC_Y    ,TD(CT_LBP)
+,TD(CT_TA)          ,KC_A        ,KC_O        ,KC_E    ,KC_U    ,KC_I
+,KC_MPLY            ,KC_SLSH     ,KC_Q        ,KC_J    ,KC_K    ,KC_X    ,TD(CT_CLN)
+,KC_NO              ,KC_NO       ,KC_NO       ,KC_NO   ,TD(CT_CLN)
 
                                                             ,F(F_ALT),F(F_GUI)
                                                                      ,F(F_CTRL)
                                                     ,KC_BSPC,F(F_SFT),KC_ESC
 
                                                                 // right hand
-                                                               ,KC_F12    ,M(KF_6),M(KF_7)   ,M(KF_8),M(KF_9) ,M(KF_10) ,KC_F11
-                                                               ,TD(CT_RBP),KC_F   ,KC_G      ,KC_C   ,KC_R    ,KC_L     ,KC_BSLS
-                                                                          ,KC_D   ,KC_H      ,KC_T   ,KC_N    ,KC_S     ,KC_EQL
-                                                               ,KC_MINS   ,KC_B   ,KC_M      ,KC_W   ,KC_V    ,KC_Z     ,KC_MSTP
-                                                                                  ,KC_MINS   ,KC_NO  ,KC_NO   ,KC_NO    ,KC_NO
+                                                               ,KC_F12    ,TD(KF_6),TD(KF_7)  ,TD(KF_8),TD(KF_9),TD(KF_10),KC_F11
+                                                               ,TD(CT_RBP),KC_F    ,KC_G      ,KC_C    ,KC_R    ,KC_L     ,KC_BSLS
+                                                                          ,KC_D    ,KC_H      ,KC_T    ,KC_N    ,KC_S     ,KC_EQL
+                                                               ,KC_MINS   ,KC_B    ,KC_M      ,KC_W    ,KC_V    ,KC_Z     ,KC_MSTP
+                                                                                   ,KC_MINS   ,KC_NO   ,KC_NO   ,KC_NO    ,KC_NO
 
                                                                ,OSL(NMDIA),KC_DEL
                                                                ,KC_LEAD
@@ -183,22 +183,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [ADORE] = KEYMAP(
 // left hand
- KC_MPLY            ,M(KF_1)     ,M(KF_2)     ,M(KF_3),M(KF_4),M(KF_5),KC_APP
-,KC_GRV             ,KC_Y        ,KC_W        ,KC_G   ,KC_L   ,KC_M   ,TD(CT_LBP)
-,TD(CT_TA)          ,KC_A        ,KC_O        ,KC_E   ,KC_I   ,KC_U
-,KC_NO              ,KC_Z        ,KC_Q        ,KC_QUOT,KC_COMM,KC_DOT ,TD(CT_CLN)
-,KC_NO              ,KC_NO       ,KC_NO       ,KC_NO  ,KC_NO
+ KC_MPLY            ,TD(KF_1)    ,TD(KF_2)    ,TD(KF_3),TD(KF_4),TD(KF_5),KC_APP
+,KC_GRV             ,KC_Y        ,KC_W        ,KC_G    ,KC_L    ,KC_M   ,TD(CT_LBP)
+,TD(CT_TA)          ,KC_A        ,KC_O        ,KC_E    ,KC_I    ,KC_U
+,KC_NO              ,KC_Z        ,KC_Q        ,KC_QUOT ,KC_COMM ,KC_DOT ,TD(CT_CLN)
+,KC_NO              ,KC_NO       ,KC_NO       ,KC_NO   ,KC_NO
 
                                                             ,F(F_ALT),F(F_GUI)
                                                                      ,F(F_CTRL)
                                                     ,KC_BSPC,F(F_SFT),KC_ESC
 
                                                                 // right hand
-                                                               ,KC_F12    ,M(KF_6),M(KF_7),M(KF_8),M(KF_9) ,M(KF_10) ,KC_F11
-                                                               ,TD(CT_RBP),KC_F   ,KC_H   ,KC_C   ,KC_P    ,KC_X     ,KC_BSLS
-                                                                          ,KC_D   ,KC_R   ,KC_T   ,KC_N    ,KC_S     ,KC_EQL
-                                                               ,KC_MINS   ,KC_B   ,KC_K   ,KC_V   ,KC_J    ,KC_SLSH  ,KC_NO
-                                                                                  ,KC_NO  ,KC_NO  ,KC_NO   ,KC_NO    ,KC_NO
+                                                               ,KC_F12    ,TD(KF_6),TD(KF_7),TD(KF_8),TD(KF_9),TD(KF_10),KC_F11
+                                                               ,TD(CT_RBP),KC_F    ,KC_H    ,KC_C    ,KC_P    ,KC_X     ,KC_BSLS
+                                                                          ,KC_D    ,KC_R    ,KC_T    ,KC_N    ,KC_S     ,KC_EQL
+                                                               ,KC_MINS   ,KC_B    ,KC_K    ,KC_V    ,KC_J    ,KC_SLSH  ,KC_NO
+                                                                                   ,KC_NO   ,KC_NO   ,KC_NO   ,KC_NO    ,KC_NO
 
                                                                ,OSL(NMDIA),KC_DEL
                                                                ,F(F_HUN)
@@ -441,36 +441,6 @@ static macro_t *ang_do_hun (keyrecord_t *record, uint16_t accent, uint16_t hun_c
     register_code (KC_LSFT);
 
   return MACRO_NONE;
-}
-
-static bool from_appsel;
-
-static void ang_handle_kf (keyrecord_t *record, uint8_t id)
-{
-  uint8_t code = id - KF_1;
-
-  if (record->event.pressed) {
-    kf_timers[code] = timer_read ();
-  } else {
-    uint8_t kc_base;
-
-    if (from_appsel) {
-      from_appsel = false;
-      return;
-    }
-
-    if (kf_timers[code] && timer_elapsed (kf_timers[code]) > TAPPING_TERM) {
-      // Long press
-      kc_base = KC_F1;
-    } else {
-      kc_base = KC_1;
-    }
-    kf_timers[code] = 0;
-    code += kc_base;
-
-    register_code (code);
-    unregister_code (code);
-  }
 }
 
 static struct {
@@ -730,30 +700,20 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         break;
 
       case APP_SLK:
-        from_appsel = true;
         return MACRODOWN(T(S), T(L), T(A), T(C), T(K), T(ENT), END);
 
       case APP_EMCS:
-        from_appsel = true;
         return MACRODOWN(T(G), T(N), T(U), T(SPC), T(E), T(M), T(A), T(C), T(S), T(SPC), T(2), T(4), T(ENT), END);
 
       case APP_TERM:
-        from_appsel = true;
         return MACRODOWN(T(T), T(E), T(R), T(M), T(I), T(N), T(A), T(L), T(ENT), END);
         break;
 
       case APP_CHRM:
-        from_appsel = true;
         return MACRODOWN(T(C), T(H), T(R), T(O), T(M), T(ENT), END);
 
       case APP_MSIC:
-        from_appsel = true;
         return MACRODOWN(T(R), T(H), T(Y), T(T), T(H), T(M), T(B), T(O), T(X), T(ENT), END);
-
-        /* Function keys */
-      case KF_1 ... KF_10:
-        ang_handle_kf (record, id);
-        break;
       }
 
       return MACRO_NONE;
@@ -843,6 +803,33 @@ static void ang_tap_dance_ta_reset (qk_tap_dance_state_t *state, void *user_data
     layer_off (ARRW);
 }
 
+static void ang_tap_dance_fx_on_finished (qk_tap_dance_state_t *state, void *user_data) {
+  uint8_t code = state->keycode - KF_1;
+  uint8_t kc_base;
+
+  if (state->count == 1)
+    kc_base = KC_1;
+  else
+    kc_base = KC_F1;
+
+  code += kc_base;
+  register_code (code);
+}
+
+
+static void ang_tap_dance_fx_on_reset (qk_tap_dance_state_t *state, void *user_data) {
+  uint8_t code = state->keycode - KF_1;
+  uint8_t kc_base;
+
+  if (state->count == 1)
+    kc_base = KC_1;
+  else
+    kc_base = KC_F1;
+
+  code += kc_base;
+  unregister_code (code);
+}
+
 qk_tap_dance_action_t tap_dance_actions[] = {
    [CT_CLN] = ACTION_TAP_DANCE_DOUBLE (KC_COLN, KC_SCLN)
   ,[CT_TA]  = {
@@ -851,6 +838,16 @@ qk_tap_dance_action_t tap_dance_actions[] = {
    }
   ,[CT_LBP] = ACTION_TAP_DANCE_DOUBLE (KC_LBRC, KC_LPRN)
   ,[CT_RBP] = ACTION_TAP_DANCE_DOUBLE (KC_RBRC, KC_RPRN)
+  ,[KF_1]   = ACTION_TAP_DANCE_FN_ADVANCED (NULL, ang_tap_dance_fx_on_finished, ang_tap_dance_fx_on_reset)
+  ,[KF_2]   = ACTION_TAP_DANCE_FN_ADVANCED (NULL, ang_tap_dance_fx_on_finished, ang_tap_dance_fx_on_reset)
+  ,[KF_3]   = ACTION_TAP_DANCE_FN_ADVANCED (NULL, ang_tap_dance_fx_on_finished, ang_tap_dance_fx_on_reset)
+  ,[KF_4]   = ACTION_TAP_DANCE_FN_ADVANCED (NULL, ang_tap_dance_fx_on_finished, ang_tap_dance_fx_on_reset)
+  ,[KF_5]   = ACTION_TAP_DANCE_FN_ADVANCED (NULL, ang_tap_dance_fx_on_finished, ang_tap_dance_fx_on_reset)
+  ,[KF_6]   = ACTION_TAP_DANCE_FN_ADVANCED (NULL, ang_tap_dance_fx_on_finished, ang_tap_dance_fx_on_reset)
+  ,[KF_7]   = ACTION_TAP_DANCE_FN_ADVANCED (NULL, ang_tap_dance_fx_on_finished, ang_tap_dance_fx_on_reset)
+  ,[KF_8]   = ACTION_TAP_DANCE_FN_ADVANCED (NULL, ang_tap_dance_fx_on_finished, ang_tap_dance_fx_on_reset)
+  ,[KF_9]   = ACTION_TAP_DANCE_FN_ADVANCED (NULL, ang_tap_dance_fx_on_finished, ang_tap_dance_fx_on_reset)
+  ,[KF_10]  = ACTION_TAP_DANCE_FN_ADVANCED (NULL, ang_tap_dance_fx_on_finished, ang_tap_dance_fx_on_reset)
 };
 
 // Runs constantly in the background, in a loop.
