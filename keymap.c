@@ -33,6 +33,10 @@ enum {
   A_GUI,
   A_MPN,
 
+  // TMUX keys
+  A_TMUX,
+  A_TMUXP,
+
   // Application select keys
   APP_SLK, // Slack
   APP_EMCS, // Emacs
@@ -123,8 +127,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |         ~ |   '  |   ,  |   .  |   P  |   Y  |   (  |           |  )   |   F  |   G  |   C  |   R  |  L   | \         |
  * |-----------+------+------+------+------+------|   [  |           |  ]   |------+------+------+------+------+-----------|
  * | Tab/ARROW |   A  |   O  |   E  |   U  |   I  |------|           |------|   D  |   H  |   T  |   N  |  S   | = / Arrow |
- * |-----------+------+------+------+------+------|   :  |           |  -   |------+------+------+------+------+-----------|
- * | Play/Pause|   /  |   Q  |   J  |   K  |   X  |      |           |      |   B  |   M  |   W  |   V  |  Z   |      Stop |
+ * |-----------+------+------+------+------+------| tmux |           | tmux |------+------+------+------+------+-----------|
+ * | Play/Pause|   /  |   Q  |   J  |   K  |   X  |      |           | Pane |   B  |   M  |   W  |   V  |  Z   |      Stop |
  * `-----------+------+------+------+------+-------------'           `-------------+------+------+------+------+-----------'
  *     |       |      |      |      |   :  |                                       |   -  |      |      |      |       |
  *     `-----------------------------------'                                       `-----------------------------------'
@@ -141,7 +145,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  M(A_MPN)           ,TD(KF_1)    ,TD(KF_2)    ,TD(KF_3),TD(KF_4),TD(KF_5),KC_APP
 ,KC_GRV             ,KC_QUOT     ,KC_COMM     ,KC_DOT  ,KC_P    ,KC_Y    ,TD(CT_LBP)
 ,TD(CT_TA)          ,KC_A        ,KC_O        ,KC_E    ,KC_U    ,KC_I
-,KC_MPLY            ,KC_SLSH     ,KC_Q        ,KC_J    ,KC_K    ,KC_X    ,TD(CT_CLN)
+,KC_MPLY            ,KC_SLSH     ,KC_Q        ,KC_J    ,KC_K    ,KC_X    ,M(A_TMUX)
 ,KC_NO              ,KC_NO       ,KC_NO       ,KC_NO   ,TD(CT_CLN)
 
                                                             ,F(F_ALT),F(F_GUI)
@@ -152,7 +156,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                ,KC_F12    ,TD(KF_6),TD(KF_7)  ,TD(KF_8),TD(KF_9),TD(KF_10),KC_F11
                                                                ,TD(CT_RBP),KC_F    ,KC_G      ,KC_C    ,KC_R    ,KC_L     ,KC_BSLS
                                                                           ,KC_D    ,KC_H      ,KC_T    ,KC_N    ,KC_S     ,KC_EQL
-                                                               ,KC_MINS   ,KC_B    ,KC_M      ,KC_W    ,KC_V    ,KC_Z     ,KC_MSTP
+                                                               ,M(A_TMUXP),KC_B    ,KC_M      ,KC_W    ,KC_V    ,KC_Z     ,KC_MSTP
                                                                                    ,KC_MINS   ,KC_NO   ,KC_NO   ,KC_NO    ,KC_NO
 
                                                                ,OSL(NMDIA),KC_DEL
@@ -168,10 +172,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |        `~ |   Y  |   W  |   G  |   L  |   M  |   (  |           |  )   |   F  |   H  |   C  |   P  |  X   | \         |
  * |-----------+------+------+------+------+------|   [  |           |  ]   |------+------+------+------+------+-----------|
  * | Tab/Arrow |   A  |   O  |   E  |   I  |   U  |------|           |------|   D  |   R  |   T  |   N  |  S   | =         |
- * |-----------+------+------+------+------+------|      |           |      |------+------+------+------+------+-----------|
- * |           |   Z  |   Q  |   '  |   ,  |   .  |   :  |           |  -   |   B  |   K  |   V  |   J  |  /   |           |
+ * |-----------+------+------+------+------+------| tmux |           | tmux |------+------+------+------+------+-----------|
+ * |           |   Z  |   Q  |   '  |   ,  |   .  |      |           | pane |   B  |   K  |   V  |   J  |  /   |           |
  * `-----------+------+------+------+------+-------------'           `-------------+------+------+------+------+-----------'
- *     |       |      |      |      |      |                                       |      |      |      |      |       |
+ *     |       |      |      |      |   :  |                                       |   -  |      |      |      |       |
  *     `-----------------------------------'                                       `-----------------------------------'
  *                                         ,-------------.           ,-------------.
  *                                         | LAlt | GUI  |           | MDIA | Del  |
@@ -186,8 +190,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  KC_MPLY            ,TD(KF_1)    ,TD(KF_2)    ,TD(KF_3),TD(KF_4),TD(KF_5),KC_APP
 ,KC_GRV             ,KC_Y        ,KC_W        ,KC_G    ,KC_L    ,KC_M   ,TD(CT_LBP)
 ,TD(CT_TA)          ,KC_A        ,KC_O        ,KC_E    ,KC_I    ,KC_U
-,KC_NO              ,KC_Z        ,KC_Q        ,KC_QUOT ,KC_COMM ,KC_DOT ,TD(CT_CLN)
-,KC_NO              ,KC_NO       ,KC_NO       ,KC_NO   ,KC_NO
+,KC_NO              ,KC_Z        ,KC_Q        ,KC_QUOT ,KC_COMM ,KC_DOT ,M(A_TMUX)
+,KC_NO              ,KC_NO       ,KC_NO       ,KC_NO   ,TD(CT_CLN)
 
                                                             ,F(F_ALT),F(F_GUI)
                                                                      ,F(F_CTRL)
@@ -197,8 +201,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                ,KC_F12    ,TD(KF_6),TD(KF_7),TD(KF_8),TD(KF_9),TD(KF_10),KC_F11
                                                                ,TD(CT_RBP),KC_F    ,KC_H    ,KC_C    ,KC_P    ,KC_X     ,KC_BSLS
                                                                           ,KC_D    ,KC_R    ,KC_T    ,KC_N    ,KC_S     ,KC_EQL
-                                                               ,KC_MINS   ,KC_B    ,KC_K    ,KC_V    ,KC_J    ,KC_SLSH  ,KC_NO
-                                                                                   ,KC_NO   ,KC_NO   ,KC_NO   ,KC_NO    ,KC_NO
+                                                               ,M(A_TMUXP),KC_B    ,KC_K    ,KC_V    ,KC_J    ,KC_SLSH  ,KC_NO
+                                                                                   ,KC_MINS ,KC_NO   ,KC_NO   ,KC_NO    ,KC_NO
 
                                                                ,OSL(NMDIA),KC_DEL
                                                                ,F(F_HUN)
@@ -714,6 +718,13 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 
       case APP_MSIC:
         return MACRODOWN(T(R), T(H), T(Y), T(T), T(H), T(M), T(B), T(O), T(X), T(ENT), END);
+
+        // Tmux keys
+      case A_TMUX:
+        return MACRODOWN(D(LALT), T(SPC), U(LALT), END);
+
+      case A_TMUXP:
+        return MACRODOWN(D(LALT), T(SPC), U(LALT), T(P), END);
       }
 
       return MACRO_NONE;
