@@ -191,6 +191,8 @@ class Heatmap(object):
         return stats
 
 def dump_all(out_dir, heatmaps):
+    sys.stderr.write("\x1b[2J\x1b[H")
+
     for layer in heatmaps.keys():
         if len(heatmaps[layer].log) == 0:
             continue
