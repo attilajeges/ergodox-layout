@@ -161,6 +161,11 @@ The keymap default to forcing NKRO, which seems to upset Windows, and except the
 * The `:`/`;` and `-`/`_` keys were put back to their thumb position on the bottom row, on both the [Base](#base-layer) and [ADORE](#adore-layer) layers.
 * The bottom large keys on the inner side of each half now function as [tmux](http://tmux.github.io/) keys: the left to send the prefix, the right to send the `display-panes` key. The left also doubles as a GNU screen prefix key, and sends `C-a` when double tapped.
 
+### Heatmap
+
+* Fixed a few issues in the finger-stats calculation.
+* The tool now also timestamps and saves all input lines to a logfile, which it loads on start, allowing one to continue the collection after upgrading the tool.
+
 ## v1.6
 
 *2016-08-24*
