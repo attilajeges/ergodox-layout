@@ -133,18 +133,17 @@ class Heatmap(object):
             # right hand
             [0, 0, 0, 0, 0]
         ]
-        finger_map = [0, 0, 1, 2, 3, 4, 4]
+        finger_map = [0, 0, 1, 2, 3, 3, 3, 1, 1, 1, 2, 3, 4, 4]
         for (c, r) in self.log:
             if r == 5: # thumb cluster
                 if c <= 6: # left side
                     usage[0][4] = usage[0][4] + self.log[(c, r)]
                 else:
-                    usage[1][4] = usage[1][4] + self.log[(c, r)]
+                    usage[1][0] = usage[1][0] + self.log[(c, r)]
             else:
                 fc = c
                 hand = 0
                 if fc >= 7:
-                    fc = fc - 7
                     hand = 1
                 fm = finger_map[fc]
                 usage[hand][fm] = usage[hand][fm] + self.log[(c, r)]
