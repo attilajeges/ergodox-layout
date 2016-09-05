@@ -34,7 +34,6 @@ enum {
   A_MPN,
 
   // TMUX keys
-  A_TMUX,
   A_TMUXP,
 
   // Application select keys
@@ -85,6 +84,7 @@ enum {
   CT_TA,
   CT_LBP,
   CT_RBP,
+  CT_TMUX,
 
   // Function / number keys
   KF_1, // 1, F1
@@ -145,7 +145,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  M(A_MPN)           ,TD(KF_1)    ,TD(KF_2)    ,TD(KF_3),TD(KF_4),TD(KF_5),KC_APP
 ,KC_GRV             ,KC_QUOT     ,KC_COMM     ,KC_DOT  ,KC_P    ,KC_Y    ,TD(CT_LBP)
 ,TD(CT_TA)          ,KC_A        ,KC_O        ,KC_E    ,KC_U    ,KC_I
-,KC_MPLY            ,KC_SLSH     ,KC_Q        ,KC_J    ,KC_K    ,KC_X    ,M(A_TMUX)
+,KC_MPLY            ,KC_SLSH     ,KC_Q        ,KC_J    ,KC_K    ,KC_X    ,TD(CT_TMUX)
 ,KC_NO              ,KC_NO       ,KC_NO       ,KC_NO   ,TD(CT_CLN)
 
                                                             ,F(F_ALT),F(F_GUI)
@@ -190,7 +190,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  KC_MPLY            ,TD(KF_1)    ,TD(KF_2)    ,TD(KF_3),TD(KF_4),TD(KF_5),KC_APP
 ,KC_GRV             ,KC_Y        ,KC_W        ,KC_G    ,KC_L    ,KC_M   ,TD(CT_LBP)
 ,TD(CT_TA)          ,KC_A        ,KC_O        ,KC_E    ,KC_I    ,KC_U
-,KC_NO              ,KC_Z        ,KC_Q        ,KC_QUOT ,KC_COMM ,KC_DOT ,M(A_TMUX)
+,KC_NO              ,KC_Z        ,KC_Q        ,KC_QUOT ,KC_COMM ,KC_DOT ,TD(CT_TMUX)
 ,KC_NO              ,KC_NO       ,KC_NO       ,KC_NO   ,TD(CT_CLN)
 
                                                             ,F(F_ALT),F(F_GUI)
@@ -720,9 +720,6 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         return MACRODOWN(T(R), T(H), T(Y), T(T), T(H), T(M), T(B), T(O), T(X), T(ENT), END);
 
         // Tmux keys
-      case A_TMUX:
-        return MACRODOWN(D(LALT), T(SPC), U(LALT), END);
-
       case A_TMUXP:
         return MACRODOWN(D(LALT), T(SPC), U(LALT), T(P), END);
       }
@@ -841,6 +838,20 @@ static void ang_tap_dance_fx_on_reset (qk_tap_dance_state_t *state, void *user_d
   unregister_code (code);
 }
 
+static void ang_tap_dance_tmux_finished (qk_tap_dance_state_t *state, void *user_data) {
+  if (state->count == 1) {
+    register_code(KC_LALT);
+    register_code(KC_SPC);
+    unregister_code(KC_SPC);
+    unregister_code(KC_LALT);
+  } else {
+    register_code(KC_LCTL);
+    register_code(KC_A);
+    unregister_code(KC_A);
+    unregister_code(KC_LCTL);
+  }
+}
+
 qk_tap_dance_action_t tap_dance_actions[] = {
    [CT_CLN] = ACTION_TAP_DANCE_DOUBLE (KC_COLN, KC_SCLN)
   ,[CT_TA]  = {
@@ -849,6 +860,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
    }
   ,[CT_LBP] = ACTION_TAP_DANCE_DOUBLE (KC_LBRC, KC_LPRN)
   ,[CT_RBP] = ACTION_TAP_DANCE_DOUBLE (KC_RBRC, KC_RPRN)
+  ,[CT_TMUX]= ACTION_TAP_DANCE_FN (ang_tap_dance_tmux_finished)
   ,[KF_1]   = ACTION_TAP_DANCE_FN_ADVANCED (NULL, ang_tap_dance_fx_on_finished, ang_tap_dance_fx_on_reset)
   ,[KF_2]   = ACTION_TAP_DANCE_FN_ADVANCED (NULL, ang_tap_dance_fx_on_finished, ang_tap_dance_fx_on_reset)
   ,[KF_3]   = ACTION_TAP_DANCE_FN_ADVANCED (NULL, ang_tap_dance_fx_on_finished, ang_tap_dance_fx_on_reset)
