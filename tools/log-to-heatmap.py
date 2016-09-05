@@ -204,14 +204,46 @@ def dump_all(out_dir, heatmaps):
         print >>sys.stderr, ""
         print >>sys.stderr, ""
 
+def process_line(line, heatmaps, opts, stamped_log = None):
+    restrict_row = opts.restrict_row
+
+    m = re.search ('KL: col=(\d+), row=(\d+), pressed=(\d+), layer=(.*)', line)
+    if not m:
+        return False
+    if stamped_log is not None:
+        if line.startswith("KL:"):
+            print >>stamped_log, "%10.10f %s" % (time.time(), line),
+        else:
+            print >>stamped_log, line,
+
+    (c, r, l) = (int(m.group (2)), int(m.group (1)), m.group (4))
+    if restrict_row != -1 and r != restrict_row:
+        return False
+    if c in opts.ignore_columns:
+        return False
+
+    heatmaps[l].update_log ((c, r))
+
+    return True
+
 def main(opts):
 
     heatmaps = {"Dvorak": Heatmap("Dvorak"),
                 "ADORE": Heatmap("ADORE")
     }
     cnt = 0
-    restrict_row = opts.restrict_row
     out_dir = opts.outdir
+
+    try:
+        with open("%s/stamped-log" % out_dir, "r") as f:
+            while True:
+                line = f.readline()
+                if not line:
+                    break
+                if not process_line(line, heatmaps, opts):
+                    continue
+    except:
+        pass
 
     stamped_log = open ("%s/stamped-log" % (out_dir), "a+")
 
@@ -219,22 +251,10 @@ def main(opts):
         line = sys.stdin.readline()
         if not line:
             break
-        m = re.search ('KL: col=(\d+), row=(\d+), pressed=(\d+), layer=(.*)', line)
-        if not m:
+        if not process_line(line, heatmaps, opts, stamped_log):
             continue
-        if line.startswith("KL:"):
-            print >>stamped_log, "%10.10f %s" % (time.time(), line),
-        else:
-            print >>stamped_log, line,
 
         cnt = cnt + 1
-        (c, r, l) = (int(m.group (2)), int(m.group (1)), m.group (4))
-        if restrict_row != -1 and r != restrict_row:
-            continue
-        if c in opts.ignore_columns:
-            continue
-
-        heatmaps[l].update_log ((c, r))
 
         if opts.dump_interval != -1 and cnt >= opts.dump_interval:
             cnt = 0
