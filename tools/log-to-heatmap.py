@@ -4,6 +4,7 @@ import os
 import sys
 import re
 import argparse
+import time
 
 from math import floor
 from os.path import dirname
@@ -212,6 +213,8 @@ def main(opts):
     restrict_row = opts.restrict_row
     out_dir = opts.outdir
 
+    stamped_log = open ("%s/stamped-log" % (out_dir), "a+")
+
     while True:
         line = sys.stdin.readline()
         if not line:
@@ -219,6 +222,10 @@ def main(opts):
         m = re.search ('KL: col=(\d+), row=(\d+), pressed=(\d+), layer=(.*)', line)
         if not m:
             continue
+        if line.startswith("KL:"):
+            print >>stamped_log, "%10.10f %s" % (time.time(), line),
+        else:
+            print >>stamped_log, line,
 
         cnt = cnt + 1
         (c, r, l) = (int(m.group (2)), int(m.group (1)), m.group (4))
