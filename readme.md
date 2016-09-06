@@ -124,6 +124,10 @@ The generated heatmap looks somewhat like this:
 
  ![Heatmap](images/heatmap.png)
 
+## Layer notification
+
+There is a very small tool in `tools/layer-notify`, that listens to the HID console, looking for layer change events, and pops up a notification for every detected change. It is a very simple tool, mainly serving as an example.
+
 # Building
 
 To make my workflow easier, this layout is maintained in [its own repository][algernon:ez-layout]. To build it, you will need the [QMK][qmk] firmware checked out, and this repo either checked out to something like `keyboards/ergodox_ez/algernon-master`. One way to achieve that is this:
@@ -165,6 +169,10 @@ The keymap default to forcing NKRO, which seems to upset Windows, and except the
 
 * Fixed a few issues in the finger-stats calculation.
 * The tool now also timestamps and saves all input lines to a logfile, which it loads on start, allowing one to continue the collection after upgrading the tool.
+
+### Tools
+
+* Added a new tool, `tools/layer-notify` that listens to layer change events on the HID console, and pops up a notification on layer changes.
 
 ## v1.6
 

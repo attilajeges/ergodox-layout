@@ -886,8 +886,17 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 
 // Runs constantly in the background, in a loop.
 void matrix_scan_user(void) {
+  static uint32_t prev_layer_state;
   uint8_t layer = biton32(layer_state);
   bool is_arrow = false;
+  static char *layer_lookup[] = {"Dvorak", "ADORE", "Arrows", "AppSel", "Hungarian", "Nav/Media", "Plover"};
+
+  if (layer_state != prev_layer_state) {
+    prev_layer_state = layer_state;
+    if (layer_lookup[layer])
+      xprintf("LAYER: %s\n", layer_lookup[layer]);
+  }
+
 
   if (gui_timer && timer_elapsed (gui_timer) > TAPPING_TERM)
     unregister_code (KC_LGUI);
