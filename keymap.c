@@ -33,9 +33,6 @@ enum {
   A_GUI,
   A_MPN,
 
-  // TMUX keys
-  A_TMUXP,
-
   // Application select keys
   APP_SLK, // Slack
   APP_EMCS, // Emacs
@@ -85,6 +82,7 @@ enum {
   CT_LBP,
   CT_RBP,
   CT_TMUX,
+  CT_TPS,
 
   // Function / number keys
   KF_1, // 1, F1
@@ -156,7 +154,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                ,KC_F12    ,TD(KF_6),TD(KF_7)  ,TD(KF_8),TD(KF_9),TD(KF_10),KC_F11
                                                                ,TD(CT_RBP),KC_F    ,KC_G      ,KC_C    ,KC_R    ,KC_L     ,KC_BSLS
                                                                           ,KC_D    ,KC_H      ,KC_T    ,KC_N    ,KC_S     ,KC_EQL
-                                                               ,M(A_TMUXP),KC_B    ,KC_M      ,KC_W    ,KC_V    ,KC_Z     ,KC_MSTP
+                                                               ,TD(CT_TPS),KC_B    ,KC_M      ,KC_W    ,KC_V    ,KC_Z     ,KC_MSTP
                                                                                    ,KC_MINS   ,KC_NO   ,KC_NO   ,KC_NO    ,KC_NO
 
                                                                ,OSL(NMDIA),KC_DEL
@@ -201,7 +199,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                ,KC_F12    ,TD(KF_6),TD(KF_7),TD(KF_8),TD(KF_9),TD(KF_10),KC_F11
                                                                ,TD(CT_RBP),KC_F    ,KC_H    ,KC_C    ,KC_P    ,KC_X     ,KC_BSLS
                                                                           ,KC_D    ,KC_R    ,KC_T    ,KC_N    ,KC_S     ,KC_EQL
-                                                               ,M(A_TMUXP),KC_B    ,KC_K    ,KC_V    ,KC_J    ,KC_SLSH  ,KC_NO
+                                                               ,TD(CT_TPS),KC_B    ,KC_K    ,KC_V    ,KC_J    ,KC_SLSH  ,KC_NO
                                                                                    ,KC_MINS ,KC_NO   ,KC_NO   ,KC_NO    ,KC_NO
 
                                                                ,OSL(NMDIA),KC_DEL
@@ -718,10 +716,6 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 
       case APP_MSIC:
         return MACRODOWN(T(R), T(H), T(Y), T(T), T(H), T(M), T(B), T(O), T(X), T(ENT), END);
-
-        // Tmux keys
-      case A_TMUXP:
-        return MACRODOWN(D(LALT), T(SPC), U(LALT), T(P), END);
       }
 
       return MACRO_NONE;
@@ -852,6 +846,22 @@ static void ang_tap_dance_tmux_finished (qk_tap_dance_state_t *state, void *user
   }
 }
 
+static void ang_tap_dance_tmux_pane_select (qk_tap_dance_state_t *state, void *user_data) {
+  uint8_t kc = KC_P;
+
+  if (state->count >= 2) {
+    kc = KC_Z;
+  }
+  
+  register_code(KC_LALT);
+  register_code(KC_SPC);
+  unregister_code(KC_SPC);
+  unregister_code(KC_LALT);
+
+  register_code(kc);
+  unregister_code(kc);
+}
+
 qk_tap_dance_action_t tap_dance_actions[] = {
    [CT_CLN] = ACTION_TAP_DANCE_DOUBLE (KC_COLN, KC_SCLN)
   ,[CT_TA]  = {
@@ -861,6 +871,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
   ,[CT_LBP] = ACTION_TAP_DANCE_DOUBLE (KC_LBRC, KC_LPRN)
   ,[CT_RBP] = ACTION_TAP_DANCE_DOUBLE (KC_RBRC, KC_RPRN)
   ,[CT_TMUX]= ACTION_TAP_DANCE_FN (ang_tap_dance_tmux_finished)
+  ,[CT_TPS] = ACTION_TAP_DANCE_FN (ang_tap_dance_tmux_pane_select)
   ,[KF_1]   = ACTION_TAP_DANCE_FN_ADVANCED (NULL, ang_tap_dance_fx_on_finished, ang_tap_dance_fx_on_reset)
   ,[KF_2]   = ACTION_TAP_DANCE_FN_ADVANCED (NULL, ang_tap_dance_fx_on_finished, ang_tap_dance_fx_on_reset)
   ,[KF_3]   = ACTION_TAP_DANCE_FN_ADVANCED (NULL, ang_tap_dance_fx_on_finished, ang_tap_dance_fx_on_reset)
