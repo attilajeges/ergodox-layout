@@ -157,6 +157,7 @@ class Heatmap(object):
         if total == 0:
             total = 1
         stats = {
+            "total-keys": total,
             "hands": {
                 "left": {
                     "usage": float(hand_usage[0]) / total * 100,
