@@ -193,6 +193,7 @@ class Heatmap(object):
 
 def dump_all(out_dir, heatmaps):
     sys.stderr.write("\x1b[2J\x1b[H")
+    stats = {}
 
     for layer in heatmaps.keys():
         if len(heatmaps[layer].log) == 0:
@@ -200,11 +201,11 @@ def dump_all(out_dir, heatmaps):
 
         with open ("%s/%s.json" % (out_dir, layer), "w") as f:
             json.dump(heatmaps[layer].get_heatmap(), f)
-        print >>sys.stderr, "%s stats:" % (layer)
-        json.dump (heatmaps[layer].get_stats(), sys.stderr,
-                   indent = 4, sort_keys = True)
-        print >>sys.stderr, ""
-        print >>sys.stderr, ""
+        stats[layer] = heatmaps[layer].get_stats()
+
+    print >>sys.stderr, "Stats:"
+    json.dump (stats, sys.stderr,
+               indent = 4, sort_keys = True)
 
 def process_line(line, heatmaps, opts, stamped_log = None):
     restrict_row = opts.restrict_row
