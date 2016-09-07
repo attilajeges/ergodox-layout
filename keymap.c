@@ -702,20 +702,20 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         break;
 
       case APP_SLK:
-        return MACRODOWN(T(S), T(L), T(A), T(C), T(K), T(ENT), END);
+        return MACRODOWN(I(25), T(S), T(L), T(A), T(C), T(K), T(ENT), END);
 
       case APP_EMCS:
-        return MACRODOWN(T(G), T(N), T(U), T(SPC), T(E), T(M), T(A), T(C), T(S), T(SPC), T(2), T(4), T(ENT), END);
+        return MACRODOWN(I(25), T(G), T(N), T(U), T(SPC), T(E), T(M), T(A), T(C), T(S), T(SPC), T(2), T(4), T(ENT), END);
 
       case APP_TERM:
-        return MACRODOWN(T(T), T(E), T(R), T(M), T(I), T(N), T(A), T(L), T(ENT), END);
+        return MACRODOWN(I(25), T(T), T(E), T(R), T(M), T(I), T(N), T(A), T(L), T(ENT), END);
         break;
 
       case APP_CHRM:
-        return MACRODOWN(T(C), T(H), T(R), T(O), T(M), T(ENT), END);
+        return MACRODOWN(I(25), T(C), T(H), T(R), T(O), T(M), T(ENT), END);
 
       case APP_MSIC:
-        return MACRODOWN(T(R), T(H), T(Y), T(T), T(H), T(M), T(B), T(O), T(X), T(ENT), END);
+        return MACRODOWN(I(25), T(R), T(H), T(Y), T(T), T(H), T(M), T(B), T(O), T(X), T(ENT), END);
       }
 
       return MACRO_NONE;
