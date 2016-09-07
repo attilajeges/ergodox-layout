@@ -8,6 +8,7 @@ import time
 
 from math import floor
 from os.path import dirname
+from subprocess import Popen, PIPE, STDOUT
 
 class Heatmap(object):
     coords = [
@@ -191,7 +192,7 @@ class Heatmap(object):
                 stats['hands'][hmap[hand_idx]]['fingers'][fmap[finger_idx + hand_idx * 5]] = round(float(hand[finger_idx]) / total * 100, 2)
         return stats
 
-def dump_all(out_dir, heatmaps):
+def dump_all(out_dir, heatmaps, with_jq = False):
     sys.stderr.write("\x1b[2J\x1b[H")
     stats = {}
 
@@ -203,9 +204,13 @@ def dump_all(out_dir, heatmaps):
             json.dump(heatmaps[layer].get_heatmap(), f)
         stats[layer] = heatmaps[layer].get_stats()
 
-    print >>sys.stderr, "Stats:"
-    json.dump (stats, sys.stderr,
-               indent = 4, sort_keys = True)
+    if not with_jq:
+        json.dump (stats, sys.stderr,
+                   indent = 4, sort_keys = True)
+    else:
+        data = json.dumps(stats, sort_keys = True)
+        p = Popen(['jq', '-C', '.'], stdout=PIPE, stdin=PIPE, stderr=PIPE)
+        print >>sys.stderr, p.communicate(input=data)[0]
 
 def process_line(line, heatmaps, opts, stamped_log = None):
     restrict_row = opts.restrict_row
@@ -261,9 +266,9 @@ def main(opts):
 
         if opts.dump_interval != -1 and cnt >= opts.dump_interval:
             cnt = 0
-            dump_all(out_dir, heatmaps)
+            dump_all(out_dir, heatmaps, opts.colorize_stats)
 
-    dump_all (out_dir, heatmaps)
+    dump_all (out_dir, heatmaps, opts.colorize_stats)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser (description = "keylog to heatmap processor")
@@ -275,5 +280,7 @@ if __name__ == "__main__":
                          default = 100, help = 'Dump stats and heatmap at every Nth event, -1 for dumping at EOF only')
     parser.add_argument ('--ignore-column', dest = 'ignore_columns', action = 'append', type = int,
                          default = [], help = 'Ignore the specified columns')
+    parser.add_argument ('--colorize-stats', dest = 'colorize_stats', action = 'store_true',
+                         default = False, help = 'Colorize the stats with jq')
     args = parser.parse_args()
     main(args)
