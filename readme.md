@@ -24,6 +24,7 @@ Some of the things in the layout only work when one uses [Spacemacs][spacemacs] 
     - [LED states](#led-states)
 * [Tools](#tools)
     - [Heatmap](#heatmap)
+    - [Layer notification](#layer-notification)
 * [Special features](#special-features)
     - [Unicode Symbol Input](#unicode-symbol-input)
 * [Building](#building)
