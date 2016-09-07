@@ -160,7 +160,7 @@ class Heatmap(object):
             "total-keys": total,
             "hands": {
                 "left": {
-                    "usage": float(hand_usage[0]) / total * 100,
+                    "usage": round(float(hand_usage[0]) / total * 100, 2),
                     "fingers": {
                         "0 - pinky": 0,
                         "1 - ring": 0,
@@ -170,7 +170,7 @@ class Heatmap(object):
                     }
                 },
                 "right": {
-                    "usage": float(hand_usage[1]) / total * 100,
+                    "usage": round(float(hand_usage[1]) / total * 100, 2),
                     "fingers": {
                         "0 - thumb": 0,
                         "1 - index": 0,
@@ -188,7 +188,7 @@ class Heatmap(object):
         for hand_idx in range(len(usage)):
             hand = usage[hand_idx]
             for finger_idx in range(len(hand)):
-                stats['hands'][hmap[hand_idx]]['fingers'][fmap[finger_idx + hand_idx * 5]] = float(hand[finger_idx]) / total * 100
+                stats['hands'][hmap[hand_idx]]['fingers'][fmap[finger_idx + hand_idx * 5]] = round(float(hand[finger_idx]) / total * 100, 2)
         return stats
 
 def dump_all(out_dir, heatmaps):
