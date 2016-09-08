@@ -204,13 +204,14 @@ def dump_all(out_dir, heatmaps, with_jq = False):
             json.dump(heatmaps[layer].get_heatmap(), f)
         stats[layer] = heatmaps[layer].get_stats()
 
-    if not with_jq:
-        json.dump (stats, sys.stderr,
-                   indent = 4, sort_keys = True)
-    else:
-        data = json.dumps(stats, sort_keys = True)
-        p = Popen(['jq', '-C', '.'], stdout=PIPE, stdin=PIPE, stderr=PIPE)
-        print >>sys.stderr, p.communicate(input=data)[0]
+        print >>sys.stderr, "%s = " % layer,
+        if not with_jq:
+            json.dump (stats[layer], sys.stderr,
+                       indent = 4, sort_keys = True)
+        else:
+            data = json.dumps(stats[layer], sort_keys = True)
+            p = Popen(['jq', '-C', '.'], stdout=PIPE, stdin=PIPE, stderr=PIPE)
+            print >>sys.stderr, p.communicate(input=data)[0],
 
 def process_line(line, heatmaps, opts, stamped_log = None):
     restrict_row = opts.restrict_row
