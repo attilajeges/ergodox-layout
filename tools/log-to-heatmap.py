@@ -271,6 +271,8 @@ def main(opts):
     cnt = 0
     out_dir = opts.outdir
 
+    opts.allowed_keys = setup_allowed_keys(opts)
+
     try:
         with open("%s/stamped-log" % out_dir, "r") as f:
             while True:
@@ -283,8 +285,6 @@ def main(opts):
         pass
 
     stamped_log = open ("%s/stamped-log" % (out_dir), "a+")
-
-    opts.allowed_keys = setup_allowed_keys(opts)
 
     while True:
         line = sys.stdin.readline()
