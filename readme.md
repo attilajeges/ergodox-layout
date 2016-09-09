@@ -170,7 +170,8 @@ The keymap default to forcing NKRO, which seems to upset Windows, and except the
 
 * Fixed a few issues in the finger-stats calculation.
 * The tool now also timestamps and saves all input lines to a logfile, which it loads on start, allowing one to continue the collection after upgrading the tool.
-* The heatmap tool can now colorize the stats with the help of the [jq](https://stedolan.github.io/jq/) utility.
+* The heatmap tool will now colorize the stats by default.
+* The periodic stats are now printed in a more compact format.
 
 ### Tools
 

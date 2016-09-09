@@ -9,6 +9,7 @@ import time
 from math import floor
 from os.path import dirname
 from subprocess import Popen, PIPE, STDOUT
+from blessings import Terminal
 
 class Heatmap(object):
     coords = [
@@ -163,38 +164,40 @@ class Heatmap(object):
                 "left": {
                     "usage": round(float(hand_usage[0]) / total * 100, 2),
                     "fingers": {
-                        "0 - pinky": 0,
-                        "1 - ring": 0,
-                        "2 - middle": 0,
-                        "3 - index": 0,
-                        "4 - thumb": 0,
+                        "pinky": 0,
+                        "ring": 0,
+                        "middle": 0,
+                        "index": 0,
+                        "thumb": 0,
                     }
                 },
                 "right": {
                     "usage": round(float(hand_usage[1]) / total * 100, 2),
                     "fingers": {
-                        "0 - thumb": 0,
-                        "1 - index": 0,
-                        "2 - middle": 0,
-                        "3 - ring": 0,
-                        "4 - pinky": 0,
+                        "thumb": 0,
+                        "index": 0,
+                        "middle": 0,
+                        "ring": 0,
+                        "pinky": 0,
                     }
                 },
             }
         }
 
         hmap = ['left', 'right']
-        fmap = ['0 - pinky', '1 - ring', '2 - middle', '3 - index', '4 - thumb',
-                '0 - thumb', '1 - index', '2 - middle', '3 - ring', '4 - pinky']
+        fmap = ['pinky', 'ring', 'middle', 'index', 'thumb',
+                'thumb', 'index', 'middle', 'ring', 'pinky']
         for hand_idx in range(len(usage)):
             hand = usage[hand_idx]
             for finger_idx in range(len(hand)):
                 stats['hands'][hmap[hand_idx]]['fingers'][fmap[finger_idx + hand_idx * 5]] = round(float(hand[finger_idx]) / total * 100, 2)
         return stats
 
-def dump_all(out_dir, heatmaps, with_jq = False):
-    sys.stderr.write("\x1b[2J\x1b[H")
+def dump_all(out_dir, heatmaps):
     stats = {}
+    t = Terminal()
+    t.clear()
+    sys.stdout.write("\x1b[2J\x1b[H")
 
     for layer in heatmaps.keys():
         if len(heatmaps[layer].log) == 0:
@@ -204,14 +207,20 @@ def dump_all(out_dir, heatmaps, with_jq = False):
             json.dump(heatmaps[layer].get_heatmap(), f)
         stats[layer] = heatmaps[layer].get_stats()
 
-        print >>sys.stderr, "%s = " % layer,
-        if not with_jq:
-            json.dump (stats[layer], sys.stderr,
-                       indent = 4, sort_keys = True)
-        else:
-            data = json.dumps(stats[layer], sort_keys = True)
-            p = Popen(['jq', '-C', '.'], stdout=PIPE, stdin=PIPE, stderr=PIPE)
-            print >>sys.stderr, p.communicate(input=data)[0],
+        left = stats[layer]['hands']['left']
+        right = stats[layer]['hands']['right']
+
+        print '{t.bold}{layer}{t.normal} ({total:,} taps):'.format(t=t, layer=layer,
+                                                            total=stats[layer]['total-keys'] / 2)
+        print ('{t.underline}        | ' + \
+               'left ({l[usage]:6.2f}%)  | ' + \
+               'right ({r[usage]:6.2f}%) |{t.normal}').format(t=t, l=left, r=right)
+        print (' {t.bright_magenta}pinky{t.white}  |     {left[pinky]:6.2f}%     |     {right[pinky]:6.2f}%     |\n' + \
+               ' {t.bright_cyan}ring{t.white}   |     {left[ring]:6.2f}%     |     {right[ring]:6.2f}%     |\n' + \
+               ' {t.bright_blue}middle{t.white} |     {left[middle]:6.2f}%     |     {right[middle]:6.2f}%     |\n' + \
+               ' {t.bright_green}index{t.white}  |     {left[index]:6.2f}%     |     {right[index]:6.2f}%     |\n' + \
+               ' {t.bright_red}thumb{t.white}  |     {left[thumb]:6.2f}%     |     {right[thumb]:6.2f}%     |\n' + \
+               '').format(left=left['fingers'], right=right['fingers'], t=t)
 
 def process_line(line, heatmaps, opts, stamped_log = None):
     restrict_row = opts.restrict_row
@@ -267,9 +276,9 @@ def main(opts):
 
         if opts.dump_interval != -1 and cnt >= opts.dump_interval:
             cnt = 0
-            dump_all(out_dir, heatmaps, opts.colorize_stats)
+            dump_all(out_dir, heatmaps)
 
-    dump_all (out_dir, heatmaps, opts.colorize_stats)
+    dump_all (out_dir, heatmaps)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser (description = "keylog to heatmap processor")
@@ -281,7 +290,5 @@ if __name__ == "__main__":
                          default = 100, help = 'Dump stats and heatmap at every Nth event, -1 for dumping at EOF only')
     parser.add_argument ('--ignore-column', dest = 'ignore_columns', action = 'append', type = int,
                          default = [], help = 'Ignore the specified columns')
-    parser.add_argument ('--colorize-stats', dest = 'colorize_stats', action = 'store_true',
-                         default = False, help = 'Colorize the stats with jq')
     args = parser.parse_args()
     main(args)
