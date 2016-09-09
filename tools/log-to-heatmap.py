@@ -1,4 +1,4 @@
-#! /usr/bin/env python
+#! /usr/bin/env python3
 import json
 import os
 import sys
@@ -59,11 +59,13 @@ class Heatmap(object):
     def set_attr(orig, new):
         return new
 
-    def set_bg(self, (block, n), color):
+    def set_bg(self, coords, color):
+        (block, n) = coords
         self.set_attr_at(block, n, "c", self.set_attr, color)
         #self.set_attr_at(block, n, "g", self.set_attr, False)
 
-    def set_tap_info(self, (block, n), count, cap):
+    def set_tap_info(self, coords, count, cap):
+        (block, n) = coords
         def _set_tap_info(o, _count, _cap):
             ns = 4 - o.count ("\n")
             return o + "\n" * ns + "%.02f%%" % (float(_count) / float(_cap) * 100)
@@ -90,8 +92,8 @@ class Heatmap(object):
         g = (colors[idx2][1] - colors[idx1][1]) * fb + colors[idx1][1]
         b = (colors[idx2][2] - colors[idx1][2]) * fb + colors[idx1][2]
 
-        r, g, b = [x * 255 for x in r, g, b]
-        return "#%02x%02x%02x" % (r, g, b)
+        r, g, b = [x * 255 for x in (r, g, b)]
+        return "#%02x%02x%02x" % (int(r), int(g), int(b))
 
     def __init__(self, layout):
         self.log = {}
@@ -99,7 +101,8 @@ class Heatmap(object):
         self.max_cnt = 0
         self.layout = layout
 
-    def update_log(self, (c, r)):
+    def update_log(self, coords):
+        (c, r) = coords
         if not (c, r) in self.log:
             self.log[(c, r)] = 0
         self.log[(c, r)] = self.log[(c, r)] + 1
@@ -210,17 +213,17 @@ def dump_all(out_dir, heatmaps):
         left = stats[layer]['hands']['left']
         right = stats[layer]['hands']['right']
 
-        print '{t.bold}{layer}{t.normal} ({total:,} taps):'.format(t=t, layer=layer,
-                                                            total=stats[layer]['total-keys'] / 2)
-        print ('{t.underline}        | ' + \
-               'left ({l[usage]:6.2f}%)  | ' + \
-               'right ({r[usage]:6.2f}%) |{t.normal}').format(t=t, l=left, r=right)
-        print (' {t.bright_magenta}pinky{t.white}  |     {left[pinky]:6.2f}%     |     {right[pinky]:6.2f}%     |\n' + \
-               ' {t.bright_cyan}ring{t.white}   |     {left[ring]:6.2f}%     |     {right[ring]:6.2f}%     |\n' + \
-               ' {t.bright_blue}middle{t.white} |     {left[middle]:6.2f}%     |     {right[middle]:6.2f}%     |\n' + \
-               ' {t.bright_green}index{t.white}  |     {left[index]:6.2f}%     |     {right[index]:6.2f}%     |\n' + \
-               ' {t.bright_red}thumb{t.white}  |     {left[thumb]:6.2f}%     |     {right[thumb]:6.2f}%     |\n' + \
-               '').format(left=left['fingers'], right=right['fingers'], t=t)
+        print ('{t.bold}{layer}{t.normal} ({total:,} taps):'.format(t=t, layer=layer,
+                                                                    total=stats[layer]['total-keys'] / 2))
+        print (('{t.underline}        | ' + \
+                'left ({l[usage]:6.2f}%)  | ' + \
+                'right ({r[usage]:6.2f}%) |{t.normal}').format(t=t, l=left, r=right))
+        print ((' {t.bright_magenta}pinky{t.white}  |     {left[pinky]:6.2f}%     |     {right[pinky]:6.2f}%     |\n' + \
+                ' {t.bright_cyan}ring{t.white}   |     {left[ring]:6.2f}%     |     {right[ring]:6.2f}%     |\n' + \
+                ' {t.bright_blue}middle{t.white} |     {left[middle]:6.2f}%     |     {right[middle]:6.2f}%     |\n' + \
+                ' {t.bright_green}index{t.white}  |     {left[index]:6.2f}%     |     {right[index]:6.2f}%     |\n' + \
+                ' {t.bright_red}thumb{t.white}  |     {left[thumb]:6.2f}%     |     {right[thumb]:6.2f}%     |\n' + \
+                '').format(left=left['fingers'], right=right['fingers'], t=t))
 
 def process_line(line, heatmaps, opts, stamped_log = None):
     m = re.search ('KL: col=(\d+), row=(\d+), pressed=(\d+), layer=(.*)', line)
@@ -228,9 +231,11 @@ def process_line(line, heatmaps, opts, stamped_log = None):
         return False
     if stamped_log is not None:
         if line.startswith("KL:"):
-            print >>stamped_log, "%10.10f %s" % (time.time(), line),
+            print ("%10.10f %s" % (time.time(), line),
+                   file = stamped_log, end = '')
         else:
-            print >>stamped_log, line,
+            print (line,
+                   file = stamped_log, end = '')
 
     (c, r, l) = (int(m.group (2)), int(m.group (1)), m.group (4))
     if (c, r) not in opts.allowed_keys:
@@ -313,6 +318,7 @@ if __name__ == "__main__":
                          default = [], help = 'Only include key at position (x, y)')
     args = parser.parse_args()
     if len(args.ignore_key) and len(args.only_key):
-        print >>sys.stderr, "--ignore-key and --only-key are mutually exclusive, please only use one of them!"
+        print ("--ignore-key and --only-key are mutually exclusive, please only use one of them!",
+               file = sys.stderr)
         sys.exit(1)
     main(args)
