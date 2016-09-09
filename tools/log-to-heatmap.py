@@ -36,7 +36,7 @@ class Heatmap(object):
         [
             # Row 4
             [20,  0], [20,  2], [19,  0], [18,  0], [19,  2], [], [], [], [],
-            [19,  4], [18,  2], [19,  6], [20,  4], [20,  6],
+            [19,  4], [18,  2], [19,  6], [20,  4], [20,  6], [], [], [], []
         ],
         [
             # Row 5
@@ -223,8 +223,6 @@ def dump_all(out_dir, heatmaps):
                '').format(left=left['fingers'], right=right['fingers'], t=t)
 
 def process_line(line, heatmaps, opts, stamped_log = None):
-    restrict_row = opts.restrict_row
-
     m = re.search ('KL: col=(\d+), row=(\d+), pressed=(\d+), layer=(.*)', line)
     if not m:
         return False
@@ -235,17 +233,38 @@ def process_line(line, heatmaps, opts, stamped_log = None):
             print >>stamped_log, line,
 
     (c, r, l) = (int(m.group (2)), int(m.group (1)), m.group (4))
-    if restrict_row != -1 and r != restrict_row:
-        return False
-    if c in opts.ignore_columns:
+    if (c, r) not in opts.allowed_keys:
         return False
 
     heatmaps[l].update_log ((c, r))
 
     return True
 
-def main(opts):
+def setup_allowed_keys(opts):
+    if len(opts.only_key):
+        incmap={}
+        for v in opts.only_key:
+            m = re.search ('(\d+),(\d+)', v)
+            if not m:
+                continue
+            (c, r) = (int(m.group(1)), int(m.group(2)))
+            incmap[(c, r)] = True
+    else:
+        incmap={}
+        for r in range(0, 6):
+            for c in range(0, 14):
+                incmap[(c, r)] = True
 
+        for v in opts.ignore_key:
+            m = re.search ('(\d+),(\d+)', v)
+            if not m:
+                continue
+            (c, r) = (int(m.group(1)), int(m.group(2)))
+            del(incmap[(c, r)])
+
+    return incmap
+
+def main(opts):
     heatmaps = {"Dvorak": Heatmap("Dvorak"),
                 "ADORE": Heatmap("ADORE")
     }
@@ -264,6 +283,8 @@ def main(opts):
         pass
 
     stamped_log = open ("%s/stamped-log" % (out_dir), "a+")
+
+    opts.allowed_keys = setup_allowed_keys(opts)
 
     while True:
         line = sys.stdin.readline()
@@ -284,11 +305,14 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser (description = "keylog to heatmap processor")
     parser.add_argument ('outdir', action = 'store',
                          help = 'Output directory')
-    parser.add_argument ('--row', dest = 'restrict_row', action = 'store', type = int,
-                         default = -1, help = 'Restrict processing to this row only')
     parser.add_argument ('--dump-interval', dest = 'dump_interval', action = 'store', type = int,
                          default = 100, help = 'Dump stats and heatmap at every Nth event, -1 for dumping at EOF only')
-    parser.add_argument ('--ignore-column', dest = 'ignore_columns', action = 'append', type = int,
-                         default = [], help = 'Ignore the specified columns')
+    parser.add_argument ('--ignore-key', dest = 'ignore_key', action = 'append', type = str,
+                         default = [], help = 'Ignore the key at position (x, y)')
+    parser.add_argument ('--only-key', dest = 'only_key', action = 'append', type = str,
+                         default = [], help = 'Only include key at position (x, y)')
     args = parser.parse_args()
+    if len(args.ignore_key) and len(args.only_key):
+        print >>sys.stderr, "--ignore-key and --only-key are mutually exclusive, please only use one of them!"
+        sys.exit(1)
     main(args)
