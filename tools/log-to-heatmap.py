@@ -276,7 +276,8 @@ def main(opts):
     cnt = 0
     out_dir = opts.outdir
 
-    os.makedirs(out_dir)
+    if not os.path.exists(out_dir):
+        os.makedirs(out_dir)
 
     opts.allowed_keys = setup_allowed_keys(opts)
 
