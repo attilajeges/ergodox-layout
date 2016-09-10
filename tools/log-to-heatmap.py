@@ -202,7 +202,10 @@ def dump_all(out_dir, heatmaps):
     t.clear()
     sys.stdout.write("\x1b[2J\x1b[H")
 
-    for layer in heatmaps.keys():
+    keys = list(heatmaps.keys())
+    keys.sort()
+
+    for layer in keys:
         if len(heatmaps[layer].log) == 0:
             continue
 
