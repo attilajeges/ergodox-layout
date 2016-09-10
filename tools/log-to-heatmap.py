@@ -285,18 +285,22 @@ def main(opts):
 
     opts.allowed_keys = setup_allowed_keys(opts)
 
-    try:
-        with open("%s/stamped-log" % out_dir, "r") as f:
-            while True:
-                line = f.readline()
-                if not line:
-                    break
-                if not process_line(line, heatmaps, opts):
-                    continue
-    except:
-        pass
+    if not opts.one_shot:
 
-    stamped_log = open ("%s/stamped-log" % (out_dir), "a+")
+        try:
+            with open("%s/stamped-log" % out_dir, "r") as f:
+                while True:
+                    line = f.readline()
+                    if not line:
+                        break
+                    if not process_line(line, heatmaps, opts):
+                        continue
+        except:
+            pass
+
+        stamped_log = open ("%s/stamped-log" % (out_dir), "a+")
+    else:
+        stamped_log = None
 
     while True:
         line = sys.stdin.readline()
@@ -307,7 +311,7 @@ def main(opts):
 
         cnt = cnt + 1
 
-        if opts.dump_interval != -1 and cnt >= opts.dump_interval:
+        if opts.dump_interval != -1 and cnt >= opts.dump_interval and not opts.one_shot:
             cnt = 0
             dump_all(out_dir, heatmaps)
 
@@ -323,6 +327,8 @@ if __name__ == "__main__":
                          default = [], help = 'Ignore the key at position (x, y)')
     parser.add_argument ('--only-key', dest = 'only_key', action = 'append', type = str,
                          default = [], help = 'Only include key at position (x, y)')
+    parser.add_argument ('--one-shot', dest = 'one_shot', action = 'store_true',
+                         help = 'Do not load previous data, and do not update it, either.')
     args = parser.parse_args()
     if len(args.ignore_key) and len(args.only_key):
         print ("--ignore-key and --only-key are mutually exclusive, please only use one of them!",
