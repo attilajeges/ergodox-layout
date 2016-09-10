@@ -236,6 +236,7 @@ def process_line(line, heatmaps, opts, stamped_log = None):
         else:
             print (line,
                    file = stamped_log, end = '')
+        stamped_log.flush()
 
     (c, r, l) = (int(m.group (2)), int(m.group (1)), m.group (4))
     if (c, r) not in opts.allowed_keys:
