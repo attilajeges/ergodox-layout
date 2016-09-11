@@ -169,6 +169,7 @@ The keymap default to forcing NKRO, which seems to upset Windows, and except the
 ### ADORE
 
 * The number/symbol row has been rearranged, and they do not function as tap-dance keys anymore.
+* `Y` and `X` have been swapped again.
 
 ### Heatmap
 
