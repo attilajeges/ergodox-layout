@@ -363,7 +363,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 5: Navigation & Media layer
  *
  * ,-----------------------------------------------------.           ,-----------------------------------------------------.
- * | MS Slow   |      |      |      |      |      |ScrLCK|           |ScrLCK|      |      |      |      |      |           |
+ * | MS Slow   |  F9  |  F7  |  F5  |  F3  |  F1  |ScrLCK|           |ScrLCK| F10  |  F2  |  F4  |  F6  |  F8  |           |
  * |-----------+------+------+------+------+-------------|           |------+------+------+------+------+------+-----------|
  * | MS Normal |      | Home |  Up  | PgUp |      |      |           |Scroll|      |MsUpL | MsUp |MsUpR |      |PrintScreen|
  * |-----------+------+------+------+------+------|      |           |  Up  |------+------+------+------+------+-----------|
@@ -383,7 +383,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [NMDIA] = KEYMAP(
 // left hand
- M(A_ACL0)  ,KC_NO       ,KC_NO      ,KC_NO   ,KC_NO   ,KC_NO   ,LGUI(KC_L)
+ M(A_ACL0)  ,KC_F9       ,KC_F7      ,KC_F5   ,KC_F3   ,KC_F1   ,LGUI(KC_L)
 ,M(A_ACL1)  ,KC_NO       ,KC_HOME    ,KC_UP   ,KC_PGUP ,KC_NO   ,KC_NO
 ,M(A_ACL2)  ,KC_NO       ,KC_LEFT    ,KC_DOWN ,KC_RIGHT,KC_NO
 ,KC_MPLY    ,KC_NO       ,KC_END     ,KC_DOWN ,KC_PGDN ,KC_NO   ,KC_NO
@@ -393,7 +393,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                  ,KC_SPC,KC_ENTER,KC_ESC
 
                                                                      // right hand
-                                                                     ,LGUI(KC_L),KC_NO   ,KC_NO   ,KC_NO   ,KC_NO   ,KC_NO    ,KC_NO
+                                                                     ,LGUI(KC_L),KC_F10  ,KC_F2   ,KC_F4   ,KC_F6   ,KC_F8    ,KC_NO
                                                                      ,KC_WH_U   ,KC_NO   ,M(A_MUL),KC_MS_U ,M(A_MUR),KC_NO    ,KC_PSCR
                                                                                 ,KC_NO   ,KC_MS_L ,KC_MS_D ,KC_MS_R ,KC_NO    ,KC_NO
                                                                      ,KC_WH_D   ,KC_NO   ,M(A_MDL),KC_MS_D ,M(A_MDR),KC_NO    ,KC_MSTP
