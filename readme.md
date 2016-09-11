@@ -180,6 +180,7 @@ The keymap default to forcing NKRO, which seems to upset Windows, and except the
 ### Tools
 
 * Added a new tool, `tools/layer-notify` that listens to layer change events on the HID console, and pops up a notification on layer changes.
+* Another new tool, `tools/text-to-log.py` has been added that converts arbitrary text to a keylogger output, which can be fed to the heatmap generator.
 
 ## v1.6
 
