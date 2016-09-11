@@ -61,6 +61,18 @@ enum {
   HU_UE, // Ü
   HU_OEE, // Ő
   HU_UEE, // Ű
+
+  // number/symbol keys
+  A_1, // 1
+  A_2, // 2
+  A_3, // ...
+  A_4,
+  A_5,
+  A_6,
+  A_7,
+  A_8,
+  A_9,
+  A_0,
 };
 
 /* Fn keys */
@@ -112,6 +124,8 @@ bool log_enable = false;
 #endif
 
 bool time_travel = false;
+
+static uint8_t is_adore = 0;
 
 /* The Keymap */
 
@@ -165,7 +179,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 1: Adore layer
  *
  * ,-----------------------------------------------------.           ,-----------------------------------------------------.
- * | Play/Pause| 1 F1 | 2 F2 | 3 F3 | 4 F4 | 5 F5 | Apps |           |  F12 | 6 F6 | 7 F7 | 8 F8 | 9 F9 | 0 F10|       F11 |
+ * | Play/Pause| 9    | 7  @ | 5  * | 3  ^ | 1    | Apps |           |  F12 | 0  % | 2  ! | 4  # | 6  & | 8  $ |       F11 |
  * |-----------+------+------+------+------+-------------|           |------+------+------+------+------+------+-----------|
  * |        `~ |   Y  |   W  |   G  |   L  |   M  |   (  |           |  )   |   F  |   H  |   C  |   P  |  X   | \         |
  * |-----------+------+------+------+------+------|   [  |           |  ]   |------+------+------+------+------+-----------|
@@ -185,7 +199,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [ADORE] = KEYMAP(
 // left hand
- KC_MPLY            ,TD(KF_1)    ,TD(KF_2)    ,TD(KF_3),TD(KF_4),TD(KF_5),KC_APP
+ KC_MPLY            ,M(A_9)      ,M(A_7)      ,M(A_5)  ,M(A_3)  ,M(A_1) ,KC_APP
 ,KC_GRV             ,KC_Y        ,KC_W        ,KC_G    ,KC_L    ,KC_M   ,TD(CT_LBP)
 ,TD(CT_TA)          ,KC_A        ,KC_O        ,KC_E    ,KC_I    ,KC_U
 ,KC_NO              ,KC_Z        ,KC_Q        ,KC_QUOT ,KC_COMM ,KC_DOT ,TD(CT_TMUX)
@@ -196,11 +210,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                     ,KC_BSPC,F(F_SFT),KC_ESC
 
                                                                 // right hand
-                                                               ,KC_F12    ,TD(KF_6),TD(KF_7),TD(KF_8),TD(KF_9),TD(KF_10),KC_F11
-                                                               ,TD(CT_RBP),KC_F    ,KC_H    ,KC_C    ,KC_P    ,KC_X     ,KC_BSLS
-                                                                          ,KC_D    ,KC_R    ,KC_T    ,KC_N    ,KC_S     ,KC_EQL
-                                                               ,TD(CT_TPS),KC_B    ,KC_K    ,KC_V    ,KC_J    ,KC_SLSH  ,KC_NO
-                                                                                   ,KC_MINS ,KC_NO   ,KC_NO   ,KC_NO    ,KC_NO
+                                                               ,KC_F12    ,M(A_0)   ,M(A_2)  ,M(A_4)  ,M(A_6)  ,M(A_8)  ,KC_F11
+                                                               ,TD(CT_RBP),KC_F     ,KC_H    ,KC_C    ,KC_P    ,KC_X    ,KC_BSLS
+                                                                          ,KC_D     ,KC_R    ,KC_T    ,KC_N    ,KC_S    ,KC_EQL
+                                                               ,TD(CT_TPS),KC_B     ,KC_K    ,KC_V    ,KC_J    ,KC_SLSH ,KC_NO
+                                                                                    ,KC_MINS ,KC_NO   ,KC_NO   ,KC_NO   ,KC_NO
 
                                                                ,OSL(NMDIA),KC_DEL
                                                                ,F(F_HUN)
@@ -448,6 +462,62 @@ static macro_t *ang_do_hun (keyrecord_t *record, uint16_t accent, uint16_t hun_c
 static struct {
   uint8_t idx;
 } m_accel_state;
+
+static void ang_handle_num_row(uint8_t id, keyrecord_t *record) {
+  uint8_t kc;
+
+  if (!is_adore) {
+    kc = id - A_1 + KC_1;
+  } else {
+    bool shifted = false;
+
+    if (keyboard_report->mods & MOD_BIT(KC_LSFT) ||
+        ((get_oneshot_mods() & MOD_BIT(KC_LSFT)) && !has_oneshot_mods_timed_out())) {
+      shifted = true;
+    }
+
+    if (!shifted) {
+      kc = id - A_1 + KC_1;
+    } else {
+      switch (id) {
+      case A_1:
+      case A_9:
+        return;
+      case A_7:
+        kc = KC_2;
+        break;
+      case A_5:
+        kc = KC_8;
+        break;
+      case A_3:
+        kc = KC_6;
+        break;
+
+      case A_0:
+        kc = KC_5;
+        break;
+      case A_2:
+        kc = KC_1;
+        break;
+      case A_4:
+        kc = KC_3;
+        break;
+      case A_6:
+        kc = KC_7;
+        break;
+      case A_8:
+        kc = KC_4;
+        break;
+      }
+    }
+  }
+
+  if (record->event.pressed) {
+    register_code (kc);
+  } else {
+    unregister_code (kc);
+  }
+}
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
@@ -716,12 +786,15 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 
       case APP_MSIC:
         return MACRODOWN(I(25), T(R), T(H), T(Y), T(T), T(H), T(M), T(B), T(O), T(X), T(ENT), END);
+
+        // number row and symbols
+      case A_1 ... A_0:
+        ang_handle_num_row(id, record);
+        break;
       }
 
       return MACRO_NONE;
 };
-
-static uint8_t is_adore = 0;
 
 // Runs just one time when the keyboard initializes.
 void matrix_init_user(void) {
