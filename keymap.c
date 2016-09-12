@@ -95,18 +95,6 @@ enum {
   CT_RBP,
   CT_TMUX,
   CT_TPS,
-
-  // Function / number keys
-  KF_1, // 1, F1
-  KF_2, // 2, F2
-  KF_3, // ...
-  KF_4,
-  KF_5,
-  KF_6,
-  KF_7,
-  KF_8,
-  KF_9,
-  KF_10,
 };
 
 /* States & timers */
@@ -154,7 +142,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [BASE] = KEYMAP(
 // left hand
- M(A_MPN)           ,TD(KF_1)    ,TD(KF_2)    ,TD(KF_3),TD(KF_4),TD(KF_5),KC_APP
+ M(A_MPN)           ,M(A_1)      ,M(A_2)      ,M(A_3)  ,M(A_4)  ,M(A_5)  ,KC_APP
 ,KC_GRV             ,KC_QUOT     ,KC_COMM     ,KC_DOT  ,KC_P    ,KC_Y    ,TD(CT_LBP)
 ,TD(CT_TA)          ,KC_A        ,KC_O        ,KC_E    ,KC_U    ,KC_I
 ,KC_MPLY            ,KC_SLSH     ,KC_Q        ,KC_J    ,KC_K    ,KC_X    ,TD(CT_TMUX)
@@ -165,7 +153,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                     ,KC_BSPC,F(F_SFT),KC_ESC
 
                                                                 // right hand
-                                                               ,KC_F12    ,TD(KF_6),TD(KF_7)  ,TD(KF_8),TD(KF_9),TD(KF_10),KC_F11
+                                                               ,KC_F12    ,M(A_6)  ,M(A_7)    ,M(A_8)  ,M(A_9)  ,M(A_0)   ,KC_F11
                                                                ,TD(CT_RBP),KC_F    ,KC_G      ,KC_C    ,KC_R    ,KC_L     ,KC_BSLS
                                                                           ,KC_D    ,KC_H      ,KC_T    ,KC_N    ,KC_S     ,KC_EQL
                                                                ,TD(CT_TPS),KC_B    ,KC_M      ,KC_W    ,KC_V    ,KC_Z     ,KC_MSTP
@@ -878,33 +866,6 @@ static void ang_tap_dance_ta_reset (qk_tap_dance_state_t *state, void *user_data
     layer_off (ARRW);
 }
 
-static void ang_tap_dance_fx_on_finished (qk_tap_dance_state_t *state, void *user_data) {
-  uint8_t code = state->keycode - KF_1;
-  uint8_t kc_base;
-
-  if (state->count == 1)
-    kc_base = KC_1;
-  else
-    kc_base = KC_F1;
-
-  code += kc_base;
-  register_code (code);
-}
-
-
-static void ang_tap_dance_fx_on_reset (qk_tap_dance_state_t *state, void *user_data) {
-  uint8_t code = state->keycode - KF_1;
-  uint8_t kc_base;
-
-  if (state->count == 1)
-    kc_base = KC_1;
-  else
-    kc_base = KC_F1;
-
-  code += kc_base;
-  unregister_code (code);
-}
-
 static void ang_tap_dance_tmux_finished (qk_tap_dance_state_t *state, void *user_data) {
   if (state->count == 1) {
     register_code(KC_LALT);
@@ -945,16 +906,6 @@ qk_tap_dance_action_t tap_dance_actions[] = {
   ,[CT_RBP] = ACTION_TAP_DANCE_DOUBLE (KC_RBRC, KC_RPRN)
   ,[CT_TMUX]= ACTION_TAP_DANCE_FN (ang_tap_dance_tmux_finished)
   ,[CT_TPS] = ACTION_TAP_DANCE_FN (ang_tap_dance_tmux_pane_select)
-  ,[KF_1]   = ACTION_TAP_DANCE_FN_ADVANCED (NULL, ang_tap_dance_fx_on_finished, ang_tap_dance_fx_on_reset)
-  ,[KF_2]   = ACTION_TAP_DANCE_FN_ADVANCED (NULL, ang_tap_dance_fx_on_finished, ang_tap_dance_fx_on_reset)
-  ,[KF_3]   = ACTION_TAP_DANCE_FN_ADVANCED (NULL, ang_tap_dance_fx_on_finished, ang_tap_dance_fx_on_reset)
-  ,[KF_4]   = ACTION_TAP_DANCE_FN_ADVANCED (NULL, ang_tap_dance_fx_on_finished, ang_tap_dance_fx_on_reset)
-  ,[KF_5]   = ACTION_TAP_DANCE_FN_ADVANCED (NULL, ang_tap_dance_fx_on_finished, ang_tap_dance_fx_on_reset)
-  ,[KF_6]   = ACTION_TAP_DANCE_FN_ADVANCED (NULL, ang_tap_dance_fx_on_finished, ang_tap_dance_fx_on_reset)
-  ,[KF_7]   = ACTION_TAP_DANCE_FN_ADVANCED (NULL, ang_tap_dance_fx_on_finished, ang_tap_dance_fx_on_reset)
-  ,[KF_8]   = ACTION_TAP_DANCE_FN_ADVANCED (NULL, ang_tap_dance_fx_on_finished, ang_tap_dance_fx_on_reset)
-  ,[KF_9]   = ACTION_TAP_DANCE_FN_ADVANCED (NULL, ang_tap_dance_fx_on_finished, ang_tap_dance_fx_on_reset)
-  ,[KF_10]  = ACTION_TAP_DANCE_FN_ADVANCED (NULL, ang_tap_dance_fx_on_finished, ang_tap_dance_fx_on_reset)
 };
 
 // Runs constantly in the background, in a loop.
@@ -1194,8 +1145,8 @@ void qk_ucis_symbol_fallback (void) {
   for (uint8_t i = 0; i < qk_ucis_state.count - 1; i++) {
     uint8_t code;
 
-    if (qk_ucis_state.codes[i] > KF_1)
-      code = qk_ucis_state.codes[i] - KF_1 + KC_1;
+    if ((qk_ucis_state.codes[i] >= M(A_1)) && (qk_ucis_state.codes[i] <= M(A_0)))
+      code = qk_ucis_state.codes[i] - M(A_1) + KC_1;
     else
       code = qk_ucis_state.codes[i];
     register_code(code);
