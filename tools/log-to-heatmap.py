@@ -217,7 +217,7 @@ def dump_all(out_dir, heatmaps):
         right = stats[layer]['hands']['right']
 
         print ('{t.bold}{layer}{t.normal} ({total:,} taps):'.format(t=t, layer=layer,
-                                                                    total=stats[layer]['total-keys'] / 2))
+                                                                    total=int(stats[layer]['total-keys'] / 2)))
         print (('{t.underline}        | ' + \
                 'left ({l[usage]:6.2f}%)  | ' + \
                 'right ({r[usage]:6.2f}%) |{t.normal}').format(t=t, l=left, r=right))
