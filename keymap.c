@@ -122,7 +122,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Base Layer
  *
  * ,-----------------------------------------------------.           ,-----------------------------------------------------.
- * | Next/Prev | 1 F1 | 2 F2 | 3 F3 | 4 F4 | 5 F5 | Apps |           |  F12 | 6 F6 | 7 F7 | 8 F8 | 9 F9 | 0 F10|       F11 |
+ * | Next/Prev | 9    | 7  @ | 5  * | 3  ^ | 1    | F11  |           |  F12 | 0  % | 2  ! | 4  # | 6  & | 8  $ |       F11 |
  * |-----------+------+------+------+------+-------------|           |------+------+------+------+------+------+-----------|
  * |         ~ |   '  |   ,  |   .  |   P  |   Y  |   (  |           |  )   |   F  |   G  |   C  |   R  |  L   | \         |
  * |-----------+------+------+------+------+------|   [  |           |  ]   |------+------+------+------+------+-----------|
@@ -142,7 +142,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [BASE] = KEYMAP(
 // left hand
- M(A_MPN)           ,M(A_1)      ,M(A_2)      ,M(A_3)  ,M(A_4)  ,M(A_5)  ,KC_APP
+ M(A_MPN)           ,M(A_9)      ,M(A_7)      ,M(A_5)  ,M(A_3)  ,M(A_1)  ,KC_F11
 ,KC_GRV             ,KC_QUOT     ,KC_COMM     ,KC_DOT  ,KC_P    ,KC_Y    ,TD(CT_LBP)
 ,TD(CT_TA)          ,KC_A        ,KC_O        ,KC_E    ,KC_U    ,KC_I
 ,KC_MPLY            ,KC_SLSH     ,KC_Q        ,KC_J    ,KC_K    ,KC_X    ,TD(CT_TMUX)
@@ -153,7 +153,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                     ,KC_BSPC,F(F_SFT),KC_ESC
 
                                                                 // right hand
-                                                               ,KC_F12    ,M(A_6)  ,M(A_7)    ,M(A_8)  ,M(A_9)  ,M(A_0)   ,KC_F11
+                                                               ,KC_F12    ,M(A_0)  ,M(A_2)    ,M(A_4)  ,M(A_6)  ,M(A_8)   ,KC_APP
                                                                ,TD(CT_RBP),KC_F    ,KC_G      ,KC_C    ,KC_R    ,KC_L     ,KC_BSLS
                                                                           ,KC_D    ,KC_H      ,KC_T    ,KC_N    ,KC_S     ,KC_EQL
                                                                ,TD(CT_TPS),KC_B    ,KC_M      ,KC_W    ,KC_V    ,KC_Z     ,KC_MSTP
@@ -453,50 +453,45 @@ static struct {
 
 static void ang_handle_num_row(uint8_t id, keyrecord_t *record) {
   uint8_t kc;
+  bool shifted = false;
 
-  if (!is_adore) {
+  if (keyboard_report->mods & MOD_BIT(KC_LSFT) ||
+      ((get_oneshot_mods() & MOD_BIT(KC_LSFT)) && !has_oneshot_mods_timed_out())) {
+    shifted = true;
+  }
+
+  if (!shifted) {
     kc = id - A_1 + KC_1;
   } else {
-    bool shifted = false;
+    switch (id) {
+    case A_1:
+    case A_9:
+      return;
+    case A_7:
+      kc = KC_2;
+      break;
+    case A_5:
+      kc = KC_8;
+      break;
+    case A_3:
+      kc = KC_6;
+      break;
 
-    if (keyboard_report->mods & MOD_BIT(KC_LSFT) ||
-        ((get_oneshot_mods() & MOD_BIT(KC_LSFT)) && !has_oneshot_mods_timed_out())) {
-      shifted = true;
-    }
-
-    if (!shifted) {
-      kc = id - A_1 + KC_1;
-    } else {
-      switch (id) {
-      case A_1:
-      case A_9:
-        return;
-      case A_7:
-        kc = KC_2;
-        break;
-      case A_5:
-        kc = KC_8;
-        break;
-      case A_3:
-        kc = KC_6;
-        break;
-
-      case A_0:
-        kc = KC_5;
-        break;
-      case A_2:
-        kc = KC_1;
-        break;
-      case A_4:
-        kc = KC_3;
-        break;
-      case A_6:
-        kc = KC_7;
-        break;
-      case A_8:
-        kc = KC_4;
-        break;
-      }
+    case A_0:
+      kc = KC_5;
+      break;
+    case A_2:
+      kc = KC_1;
+      break;
+    case A_4:
+      kc = KC_3;
+      break;
+    case A_6:
+      kc = KC_7;
+      break;
+    case A_8:
+      kc = KC_4;
+      break;
     }
   }
 
