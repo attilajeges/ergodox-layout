@@ -40,7 +40,7 @@ Some of the things in the layout only work when one uses [Spacemacs][spacemacs] 
 
 At its core, this is a Dvorak layout, with some minor changes. The more interesting parts are how certain keys behave:
 
-* The keys on the number row double as function keys, when held for a bit longer than an usual tap. This allows me to use the function keys without having to switch layers.
+* The number row is the same as in the [ADORE](#adore-layer) layer. The function keys are on the [Navigation and media layer](#navigation-and-media-layer).
 * The `Shift`, `Alt`, and `Control` modifiers are one-shot. When tapped, they are considered active for the next key press only. When double tapped, they toggle on, until a third, single tap sometime later. When held, they act as expected. My usual pattern is that I use these for the next keypress only, so this behaviour is perfect. If I need them held, I'll just double-tap.
 * The `GUI` key is special, because when I double-tap it, it sends `GUI + w`, which pops up an application selector. It also switches to a one-shot layer, where the number row on the left half turns into app selector macros, for the most common things I usually want to switch to. Otherwise it behaves as on a normal layout.
 * The `ESC` key also doubles as a one-shot cancel key: if tapped while any of the one-shot modifiers are in-flight (as in, single-tapped, and not expired yet), it cancels all one-shot modifiers. It also cancels the **Hun** layer, if active. Otherwise it sends the usual keycode.
@@ -162,13 +162,13 @@ The keymap default to forcing NKRO, which seems to upset Windows, and except the
 
 ### Overall changes
 
-* The number/function key behavior was changed: instead of a long press, one needs to double-tap now to access the function keys.
+* The number row has been completely rearranged on both the [Base](#base-layer) and the [ADORE](#adore-layer) layers.
+* The number/function key behavior was changed: function keys are now on the [Navigation and Media layer](#navigation-and-media-layer).
 * The `:`/`;` and `-`/`_` keys were put back to their thumb position on the bottom row, on both the [Base](#base-layer) and [ADORE](#adore-layer) layers.
 * The bottom large keys on the inner side of each half now function as [tmux](http://tmux.github.io/) keys: the left to send the prefix, the right to send the `display-panes` key. The left also doubles as a GNU screen prefix key, and sends `C-a` when double tapped.
 
 ### ADORE
 
-* The number/symbol row has been rearranged, and they do not function as tap-dance keys anymore.
 * `Y` and `X` have been swapped again.
 
 ### Heatmap
