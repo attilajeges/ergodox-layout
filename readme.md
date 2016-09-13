@@ -18,8 +18,6 @@ Some of the things in the layout only work when one uses [Spacemacs][spacemacs] 
 * [Layouts](#layouts)
     - [Base layer](#base-layer)
     - [ADORE layer](#adore-layer)
-    - [Hungarian layer](#hungarian-layer)
-    - [Navigation and media layer](#navigation-and-media-layer)
     - [Steno layer](#steno-layer)
     - [LED states](#led-states)
 * [Tools](#tools)
@@ -40,7 +38,7 @@ Some of the things in the layout only work when one uses [Spacemacs][spacemacs] 
 
 At its core, this is a Dvorak layout, with some minor changes. The more interesting parts are how certain keys behave:
 
-* The number row is the same as in the [ADORE](#adore-layer) layer. The function keys are on the [Navigation and media layer](#navigation-and-media-layer).
+* The number row is the same as in the [ADORE](#adore-layer) layer. The function keys are on the **Media** layer.
 * The `Shift`, `Alt`, and `Control` modifiers are one-shot. When tapped, they are considered active for the next key press only. When double tapped, they toggle on, until a third, single tap sometime later. When held, they act as expected. My usual pattern is that I use these for the next keypress only, so this behaviour is perfect. If I need them held, I'll just double-tap.
 * The `GUI` key is special, because when I double-tap it, it sends `GUI + w`, which pops up an application selector. It also switches to a one-shot layer, where the number row on the left half turns into app selector macros, for the most common things I usually want to switch to. Otherwise it behaves as on a normal layout.
 * The `ESC` key also doubles as a one-shot cancel key: if tapped while any of the one-shot modifiers are in-flight (as in, single-tapped, and not expired yet), it cancels all one-shot modifiers. It also cancels the **Hun** layer, if active. Otherwise it sends the usual keycode.
@@ -58,28 +56,14 @@ At its core, this is a Dvorak layout, with some minor changes. The more interest
     - `LEAD d` toggles logging keypress positions to the HID console.
     - `LEAD t` toggles time travel. Figuring out the current `date` is left as an exercise to the reader.
     - `LEAD u` enters the [Unicode symbol input](#unicode-symbol-input) mode.
+    
+The symbols on the front in the image above have the same color as the key that activates them, with the exception of the **Arrow** layer, which is just black on the front.
 
 ## ADORE layer
 
 [![ADORE layer](images/adore-layer.png)](http://www.keyboard-layout-editor.com/#/gists/45681a17453d235925b6028dd83bf12a)
 
-While using the standard Dvorak layout, I encountered a number of inconveniences, and on this layer, I am playing with ideas to make the layout feel better. Initially, it was based on [Capewell-Dvorak][cpd], but that too, had shortcomings I was not happy with. So now this is something inbetween, with own observations thrown in. How it works out in the long run remains to be seen.
-
- [cpd]: http://www.michaelcapewell.com/projects/keyboard/layout_capewell-dvorak.htm
- 
-Based on a week and a half of typing, the keys were rearranged, and the home row neatly spelled out **ADORE**, that gave the layout its name.
-
-## Hungarian layer
-
-[![Hungarian layer](images/hun-layer.png)](http://www.keyboard-layout-editor.com/#/gists/b160f6ec90d58c127c114c89f66e9dc9)
-
-On this layer, the accented characters are at the same position as their base variant. For some, which can have other diatribes, the long one is on top, short's on bottom. Tapping any of the accented characters takes us back to the base layer.
-
-## Navigation and media layer
-
-[![Navigation and media layer](images/nav-n-media-layer.png)](http://www.keyboard-layout-editor.com/#/gists/c59c453f9fe1a3238ba1494e7e5c6892)
-
-This layer is primarily for navigating with the cursor or the mouse, and some media things.
+My experimental layout, that I keep tweaking. No full description here, because things are very much in flux.
 
 
 ## LED states
@@ -89,8 +73,8 @@ The primary purpose of the LEDs is to show the modifier status, a secondary, to 
 For the layers, the following rules apply:
 
 * When the [ADORE layer](#adore-layer) is toggled on, LEDs will light up from left to right in a sequence, then turn off. When the layer is toggled off, the LEDs light up and turn off in the other direction. No LEDs are on while the layer is active.
-* When the [Hungarian layer](#hungarian-layer) is active, the *green* and *blue* LEDs are on.
-* When the [Navigation and media layer](#navigation-and-media-layer) is active, the *red* and *green* ones are on.
+* When the **Hungarian** layer is active, the *green* and *blue* LEDs are on.
+* When the **Media** layer is active, the *red* and *green* ones are on.
 * When the **ARROW** layer is active, the *red* and *blue* ones are on.
 * For the [Steno layer](#steno-layer), all LEDs will be turned on.
 
@@ -163,13 +147,21 @@ The keymap default to forcing NKRO, which seems to upset Windows, and except the
 ### Overall changes
 
 * The number row has been completely rearranged on both the [Base](#base-layer) and the [ADORE](#adore-layer) layers.
-* The number/function key behavior was changed: function keys are now on the [Navigation and Media layer](#navigation-and-media-layer).
+* The number/function key behavior was changed: function keys are now on the **Media**.
 * The `:`/`;` and `-`/`_` keys were put back to their thumb position on the bottom row, on both the [Base](#base-layer) and [ADORE](#adore-layer) layers.
 * The bottom large keys on the inner side of each half now function as [tmux](http://tmux.github.io/) keys: the left to send the prefix, the right to send the `display-panes` key. The left also doubles as a GNU screen prefix key, and sends `C-a` when double tapped.
 
 ### ADORE
 
 * `Y` and `X` have been swapped again.
+
+### Media/Navigation layer
+
+* The function keys are now on this layer.
+* Mouse keys have been removed.
+* Media start/stop/prev/next have been removed.
+* `Print screen` has been removed.
+* There is only one screen lock key now.
 
 ### Heatmap
 
@@ -201,7 +193,7 @@ The keymap default to forcing NKRO, which seems to upset Windows, and except the
 ### Miscellaneous changes
 
 * `LEAD u` now starts the symbolic unicode input system, instead of the OS-one.
-* The mouse acceleration keys on the [Navigation and Media](#navigation-and-media-layer) layer have been turned into toggles: tap them once to turn them on, until tapped again. Tapping an accelerator button will turn all the others off.
+* The mouse acceleration keys on the **Navigation/Media** layer have been turned into toggles: tap them once to turn them on, until tapped again. Tapping an accelerator button will turn all the others off.
 * When the **ARROW** layer is on, the *red* and *blue* LEDs light up now.
 
 ### Heatmap
@@ -248,7 +240,7 @@ The keymap default to forcing NKRO, which seems to upset Windows, and except the
 * The `:;` key has changed behaviour: to access the `;` symbol, the key needs to be double-tapped, instead of shifted.
 * The `=` and `\` keys were swapped, `=` moved to the home row, on both the [base](#base-layer) and the **experimental** layers.
 * The arrow and navigation keys were redone, they are now more accessible, but the navigation keys require an extra tap to access.
-* The **Emacs** layer is gone, replaced by a simplified [navigation and media](#navigation-and-media-layer) layer.
+* The **Emacs** layer is gone, replaced by a simplified **navigation and media** layer.
 * `LEAD v` types the firmware version, and the keymap version.
 * On the **experimental** layer, the `L` and `Q`, and the `K` and `G` keys were swapped.
 * The [Steno](#steno-layer) layer gained a few more `#` and `*` keys, to make it easier on my fingers.
@@ -267,7 +259,7 @@ The keymap default to forcing NKRO, which seems to upset Windows, and except the
     - `-` on the left half was replaced by `Tab`.
     - `Tab`'s original position is taken by a `Media Next`/`Media Prev` key.
     - `:` now inputs `;` when shifted.
-* `ESC` cancels the [Hungarian](#hungarian-layer) layer too, not just modifiers.
+* `ESC` cancels the **Hungarian** layer too, not just modifiers.
 
 ## v1.0
 
