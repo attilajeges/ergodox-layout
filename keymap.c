@@ -468,6 +468,7 @@ static void ang_handle_num_row(uint8_t id, keyrecord_t *record) {
     switch (id) {
     case A_8:
     case A_9:
+      shifted[idx] = false;
       return;
 
     case A_7:
