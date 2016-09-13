@@ -452,16 +452,18 @@ static struct {
 } m_accel_state;
 
 static void ang_handle_num_row(uint8_t id, keyrecord_t *record) {
+  uint8_t idx = id - A_1;
   uint8_t kc;
-  bool shifted = false;
+  static bool shifted[10];
 
   if (keyboard_report->mods & MOD_BIT(KC_LSFT) ||
       ((get_oneshot_mods() & MOD_BIT(KC_LSFT)) && !has_oneshot_mods_timed_out())) {
-    shifted = true;
+    if (record->event.pressed)
+      shifted[idx] = true;
   }
 
-  if (!shifted) {
-    kc = id - A_1 + KC_1;
+  if (!shifted[idx]) {
+    kc = idx + KC_1;
   } else {
     switch (id) {
     case A_1:
@@ -499,6 +501,7 @@ static void ang_handle_num_row(uint8_t id, keyrecord_t *record) {
     register_code (kc);
   } else {
     unregister_code (kc);
+    shifted[idx] = false;
   }
 }
 
