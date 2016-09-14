@@ -202,6 +202,8 @@ def dump_all(out_dir, heatmaps):
     t.clear()
     sys.stdout.write("\x1b[2J\x1b[H")
 
+    print ('{t.underline}{outdir}{t.normal}\n'.format(t=t, outdir=out_dir))
+
     keys = list(heatmaps.keys())
     keys.sort()
 
