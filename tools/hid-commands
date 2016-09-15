@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 set -e
 
 cmd_wm () {
@@ -50,7 +50,7 @@ while read l; do
 
     cmd="$(echo $l | cut -d: -f2-)"
 
-    if type -t cmd_${cmd} >/dev/null 2>&1; then
+    if type cmd_${cmd} >/dev/null 2>&1; then
         cmd_${cmd}
     fi
 done
