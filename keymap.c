@@ -559,23 +559,28 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         break;
 
       case APP_SLK:
-        uprintf("CMD:appsel_slack\n");
+        if (record->event.pressed)
+          uprintf("CMD:appsel_slack\n");
         break;
 
       case APP_EMCS:
-        uprintf("CMD:appsel_emacs\n");
+        if (record->event.pressed)
+          uprintf("CMD:appsel_emacs\n");
         break;
 
       case APP_TERM:
-        uprintf("CMD:appsel_term\n");
+        if (record->event.pressed)
+          uprintf("CMD:appsel_term\n");
         break;
 
       case APP_CHRM:
-        uprintf("CMD:appsel_chrome\n");
+        if (record->event.pressed)
+          uprintf("CMD:appsel_chrome\n");
         break;
 
       case APP_MSIC:
-        uprintf("CMD:appsel_music\n");
+        if (record->event.pressed)
+          uprintf("CMD:appsel_music\n");
         break;
 
         // number row and symbols
