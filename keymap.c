@@ -828,18 +828,7 @@ void matrix_scan_user(void) {
     }
 
     SEQ_TWO_KEYS (KC_W, KC_M) {
-      register_code (KC_LALT);
-      register_code (KC_F2);
-      unregister_code (KC_F2);
-      unregister_code (KC_LALT);
-
-      wait_ms (1000);
-
-      ang_tap (KC_M, KC_A, KC_X, KC_MINS, KC_F, KC_O, KC_C, KC_U, KC_S, KC_E, KC_D, KC_ENT, 0);
-      register_code (KC_LGUI);
-      register_code (KC_UP);
-      unregister_code (KC_UP);
-      unregister_code (KC_LGUI);
+      uprintf("CMD:wm\n");
     }
 
     SEQ_ONE_KEY (KC_A) {

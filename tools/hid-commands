@@ -1,6 +1,13 @@
 #!/bin/sh
 set -e
 
+cmd_wm () {
+    WIN="$(xdotool getactivewindow)"
+    wmctrl -i -r ${WIN} -b remove,maximized_vert,maximized_horz
+    xdotool windowsize ${WIN} 100% 100%
+    wmctrl -i -r ${WIN} -b add,maximized_vert,maximized_horz
+}
+
 cmd_help () {
     cat <<EOF
 Use the source, Luke!
