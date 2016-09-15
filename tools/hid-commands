@@ -1,0 +1,26 @@
+#!/bin/sh
+set -e
+
+cmd_help () {
+    cat <<EOF
+Use the source, Luke!
+EOF
+}
+
+while read l; do
+    case "$l" in
+        "CMD:"*)
+            ;;
+        *)
+            continue
+            ;;
+    esac
+
+    cmd="$(echo $l | cut -d: -f2-)"
+
+    if type -t cmd_${cmd} >/dev/null 2>&1; then
+        cmd_${cmd}
+    fi
+done
+
+
