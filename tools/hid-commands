@@ -30,7 +30,7 @@ cmd_appsel_term () {
 }
 
 cmd_appsel_chrome () {
-    _cmd_appsel chromium-browser
+    _cmd_appsel chromium
 }
 
 cmd_help () {
