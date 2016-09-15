@@ -50,6 +50,8 @@ while read l; do
 
     cmd="$(echo $l | cut -d: -f2-)"
 
+    echo "Got command: ${cmd}"
+
     if type cmd_${cmd} >/dev/null 2>&1; then
         cmd_${cmd}
     fi
