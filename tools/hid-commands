@@ -14,7 +14,8 @@ _cmd_appsel () {
 }
 
 cmd_appsel_music () {
-    _cmd_appsel rhythmbox
+    wmctrl -x -a rhythmbox || wmctrl -x -a spotify || true
+    xdotool key Escape
 }
 
 cmd_appsel_slack () {
