@@ -8,6 +8,31 @@ cmd_wm () {
     wmctrl -i -r ${WIN} -b add,maximized_vert,maximized_horz
 }
 
+_cmd_appsel () {
+    wmctrl -x -a $1 || true
+    xdotool key Escape
+}
+
+cmd_appsel_music () {
+    _cmd_appsel rhythmbox
+}
+
+cmd_appsel_slack () {
+    _cmd_appsel slack
+}
+
+cmd_appsel_emacs () {
+    _cmd_appsel emacs24
+}
+
+cmd_appsel_term () {
+    _cmd_appsel gnome-terminal
+}
+
+cmd_appsel_chrome () {
+    _cmd_appsel chromium-browser
+}
+
 cmd_help () {
     cat <<EOF
 Use the source, Luke!

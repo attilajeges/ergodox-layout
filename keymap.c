@@ -542,7 +542,6 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
           register_code (KC_LGUI);
           if (record->tap.count && !record->tap.interrupted) {
             if (record->tap.count >= 2) {
-              register_code (KC_W);
               layer_on (APPSEL);
               set_oneshot_layer (APPSEL, ONESHOT_START);
             }
@@ -553,7 +552,6 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         } else {
           if (record->tap.count >= 2)
             {
-              unregister_code (KC_W);
               clear_oneshot_layer_state (ONESHOT_PRESSED);
             }
           gui_timer = timer_read ();
@@ -561,20 +559,24 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         break;
 
       case APP_SLK:
-        return MACRODOWN(I(25), T(S), T(L), T(A), T(C), T(K), T(ENT), END);
+        uprintf("CMD:appsel_slack\n");
+        break;
 
       case APP_EMCS:
-        return MACRODOWN(I(25), T(G), T(N), T(U), T(SPC), T(E), T(M), T(A), T(C), T(S), T(SPC), T(2), T(4), T(ENT), END);
+        uprintf("CMD:appsel_emacs\n");
+        break;
 
       case APP_TERM:
-        return MACRODOWN(I(25), T(T), T(E), T(R), T(M), T(I), T(N), T(A), T(L), T(ENT), END);
+        uprintf("CMD:appsel_term\n");
         break;
 
       case APP_CHRM:
-        return MACRODOWN(I(25), T(C), T(H), T(R), T(O), T(M), T(ENT), END);
+        uprintf("CMD:appsel_chrome\n");
+        break;
 
       case APP_MSIC:
-        return MACRODOWN(I(25), T(R), T(H), T(Y), T(T), T(H), T(M), T(B), T(O), T(X), T(ENT), END);
+        uprintf("CMD:appsel_music\n");
+        break;
 
         // number row and symbols
       case A_1 ... A_0:
