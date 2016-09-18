@@ -152,6 +152,7 @@ The keymap default to forcing NKRO, which seems to upset Windows, and except the
 * The number/function key behavior was changed: function keys are now on the **Media**.
 * The `:`/`;` and `-`/`_` keys were put back to their thumb position on the bottom row, on both the [Base](#base-layer) and [ADORE](#adore-layer) layers.
 * The bottom large keys on the inner side of each half now function as [tmux](http://tmux.github.io/) keys: the left to send the prefix, the right to send the `display-panes` key. The left also doubles as a GNU screen prefix key, and sends `C-a` when double tapped.
+* A number of functions, such as the **AppSel** layer, now require the `hid-commands` tool to be running, with the output of `hid_listen` being piped to it.
 
 ### ADORE
 
@@ -176,6 +177,7 @@ The keymap default to forcing NKRO, which seems to upset Windows, and except the
 
 * Added a new tool, `tools/layer-notify` that listens to layer change events on the HID console, and pops up a notification on layer changes.
 * Another new tool, `tools/text-to-log.py` has been added that converts arbitrary text to a keylogger output, which can be fed to the heatmap generator.
+* A number of features have been moved to the `tools/hid-commands` utility. These generally are OS dependent, and are easier to implement on the software side.
 
 ## v1.6
 
