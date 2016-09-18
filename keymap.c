@@ -542,6 +542,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
           register_code (KC_LGUI);
           if (record->tap.count && !record->tap.interrupted) {
             if (record->tap.count >= 2) {
+              uprintf("CMD:appsel_start\n");
               layer_on (APPSEL);
               set_oneshot_layer (APPSEL, ONESHOT_START);
             }

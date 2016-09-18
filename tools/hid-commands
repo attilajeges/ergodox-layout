@@ -34,6 +34,11 @@ cmd_appsel_chrome () {
     _cmd_appsel chromium
 }
 
+cmd_appsel_start () {
+    notify-send -t 1000 "Please select an application!" -c device -u low \
+                -i /usr/share/icons/Adwaita/24x24/devices/video-display.png
+}
+
 cmd_help () {
     cat <<EOF
 Use the source, Luke!

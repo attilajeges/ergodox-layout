@@ -142,6 +142,14 @@ The keymap default to forcing NKRO, which seems to upset Windows, and except the
 
 # Changelog
 
+## v1.8
+
+**UNRELEASED**
+
+### Tools
+
+* The `hid-commands` tool will now display a notification when the **AppSel** layer is triggered.
+
 ## v1.7
 
 *2016-09-18*
