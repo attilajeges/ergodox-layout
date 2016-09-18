@@ -144,7 +144,7 @@ The keymap default to forcing NKRO, which seems to upset Windows, and except the
 
 ## v1.7
 
-**UNRELEASED**
+*2016-09-18*
 
 ### Overall changes
 
