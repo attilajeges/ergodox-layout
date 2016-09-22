@@ -146,6 +146,10 @@ The keymap default to forcing NKRO, which seems to upset Windows, and except the
 
 **UNRELEASED**
 
+### ADORE
+
+* The `G` and `H` keys have been swapped.
+
 ### Tools
 
 * The `hid-commands` tool will now display a notification when the **AppSel** layer is triggered.
