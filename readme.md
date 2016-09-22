@@ -149,6 +149,10 @@ The keymap default to forcing NKRO, which seems to upset Windows, and except the
 ### ADORE
 
 * The `G` and `H` keys have been swapped.
+* `Y` moved to where `J` was, below `N`.
+* `J` moved to where `/?` was, below `S`.
+* `/?` moved to where `Y` was, above `S`.
+* `~` and `|` swapped sides.
 
 ### Tools
 
