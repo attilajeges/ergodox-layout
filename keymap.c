@@ -157,7 +157,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------.           ,-----------------------------------------------------.
  * | Play/Pause| 9    | 7  @ | 5  * | 3  ^ | 1  $ | F11  |           |  F12 | 0  % | 2  ! | 4  # | 6  & | 8    |      Apps |
  * |-----------+------+------+------+------+-------------|           |------+------+------+------+------+------+-----------|
- * |         \ |   X  |   W  |   H  |   L  |   M  |   (  |           |  )   |   F  |   G  |   C  |   P  |  /   | `~        |
+ * |         \ |   X  |   W  |   C  |   H  |   F  |   (  |           |  )   |   M  |   G  |   L  |   P  |  /   | `~        |
  * |-----------+------+------+------+------+------|   [  |           |  ]   |------+------+------+------+------+-----------|
  * | Tab/Arrow |   A  |   O  |   E  |   I  |   U  |------|           |------|   D  |   R  |   T  |   N  |  S   | =         |
  * |-----------+------+------+------+------+------| tmux |           | tmux |------+------+------+------+------+-----------|
@@ -176,7 +176,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [ADORE] = KEYMAP(
 // left hand
  KC_MPLY            ,M(A_9)      ,M(A_7)      ,M(A_5)  ,M(A_3)  ,M(A_1) ,KC_F11
-,KC_BSLS            ,KC_X        ,KC_W        ,KC_H    ,KC_L    ,KC_M   ,TD(CT_LBP)
+,KC_BSLS            ,KC_X        ,KC_W        ,KC_C    ,KC_H    ,KC_F   ,TD(CT_LBP)
 ,TD(CT_TA)          ,KC_A        ,KC_O        ,KC_E    ,KC_I    ,KC_U
 ,KC_NO              ,KC_Z        ,KC_Q        ,KC_QUOT ,KC_COMM ,KC_DOT ,TD(CT_TMUX)
 ,KC_NO              ,KC_NO       ,KC_NO       ,KC_NO   ,TD(CT_CLN)
@@ -187,7 +187,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
                                                                 // right hand
                                                                ,KC_F12    ,M(A_0)   ,M(A_2)  ,M(A_4)  ,M(A_6)  ,M(A_8)  ,KC_APP
-                                                               ,TD(CT_RBP),KC_F     ,KC_G    ,KC_C    ,KC_P    ,KC_SLSH ,KC_GRV
+                                                               ,TD(CT_RBP),KC_M     ,KC_G    ,KC_L    ,KC_P    ,KC_SLSH ,KC_GRV
                                                                           ,KC_D     ,KC_R    ,KC_T    ,KC_N    ,KC_S    ,KC_EQL
                                                                ,TD(CT_TPS),KC_B     ,KC_K    ,KC_V    ,KC_Y    ,KC_J    ,KC_NO
                                                                                     ,KC_MINS ,KC_NO   ,KC_NO   ,KC_NO   ,KC_NO
