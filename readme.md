@@ -153,6 +153,7 @@ The keymap default to forcing NKRO, which seems to upset Windows, and except the
 ### Tools
 
 * The `hid-commands` tool will now display a notification when the **AppSel** layer is triggered.
+* The `log-to-heatmap.py` tool now treats the innermost keys on the bottom row as thumb keys, as far as statistics are concerned.
 
 ## v1.7
 
