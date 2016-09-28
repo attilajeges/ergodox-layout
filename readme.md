@@ -27,7 +27,7 @@ Some of the things in the layout only work when one uses [Spacemacs][spacemacs] 
     - [Unicode Symbol Input](#unicode-symbol-input)
 * [Building](#building)
     - [Using on Windows](#using-on-windows)
-* [Changelog](https://github.com/algernon/ergodox-layout/blob/master/news.md#readme)
+* [Changelog](https://github.com/algernon/ergodox-layout/blob/master/NEWS.md#readme)
 * [License](#license)
 
 # Layouts
