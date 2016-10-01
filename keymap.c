@@ -808,11 +808,6 @@ void matrix_scan_user(void) {
     }
 #endif
 
-    SEQ_ONE_KEY (KC_Q) {
-      register_code16 (LCTL(KC_1));
-      unregister_code16 (LCTL(KC_1));
-    }
-
     SEQ_ONE_KEY (KC_T) {
       time_travel = !time_travel;
     }
