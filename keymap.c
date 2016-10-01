@@ -788,6 +788,11 @@ void matrix_scan_user(void) {
     leading = false;
     leader_end ();
 
+    SEQ_ONE_KEY (KC_C) {
+      ang_tap (LSFT(KC_C), KC_S, KC_I, KC_L, KC_L, KC_RALT, KC_QUOT, KC_A, KC_M, KC_A, KC_S,
+               KC_S, KC_Z, KC_O, KC_N, KC_Y, KC_K, KC_RALT, KC_QUOT, KC_A, KC_M, 0);
+    }
+
 #if KEYLOGGER_ENABLE
     SEQ_ONE_KEY (KC_D) {
       ergodox_led_all_on();
