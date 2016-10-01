@@ -621,15 +621,15 @@ void matrix_init_user(void) {
 
 LEADER_EXTERNS();
 
-static void ang_tap (uint8_t code, ...) {
-  uint8_t kc = code;
+static void ang_tap (uint16_t code, ...) {
+  uint16_t kc = code;
   va_list ap;
 
   va_start(ap, code);
 
   do {
-    register_code(kc);
-    unregister_code(kc);
+    register_code16(kc);
+    unregister_code16(kc);
     wait_ms(50);
     kc = va_arg(ap, int);
   } while (kc != 0);
