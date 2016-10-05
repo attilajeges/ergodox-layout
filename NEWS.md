@@ -1,3 +1,11 @@
+## v1.9
+
+**UNRELEASED**
+
+### Miscellaneous
+
+* `π` can now be entered with UCIS.
+
 ## v1.8
 
 *2016-10-03*
