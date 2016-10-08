@@ -61,6 +61,9 @@ enum {
   A_8,
   A_9,
   A_0,
+
+  // Fx
+  Fx,
 };
 
 /* Fn keys */
@@ -110,7 +113,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Base Layer
  *
  * ,-----------------------------------------------------.           ,-----------------------------------------------------.
- * | Next/Prev | 9    | 7  @ | 5  * | 3  ^ | 1  $ | F11  |           |  F12 | 0  % | 2  ! | 4  # | 6  & | 8    |    Plover |
+ * | Next/Prev | 9    | 7  @ | 5  * | 3  ^ | 1  $ | F11  |           |  Fx  | 0  % | 2  ! | 4  # | 6  & | 8    |    Plover |
  * |-----------+------+------+------+------+-------------|           |------+------+------+------+------+------+-----------|
  * |         ~ |   '  |   ,  |   .  |   P  |   Y  |   (  |           |  )   |   F  |   G  |   C  |   R  |  L   | \         |
  * |-----------+------+------+------+------+------|   [  |           |  ]   |------+------+------+------+------+-----------|
@@ -141,7 +144,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                     ,KC_BSPC,F(F_SFT),KC_ESC
 
                                                                 // right hand
-                                                               ,KC_F12    ,M(A_0)  ,M(A_2)    ,M(A_4)  ,M(A_6)  ,M(A_8)   ,KC_APP
+                                                               ,M(Fx)     ,M(A_0)  ,M(A_2)    ,M(A_4)  ,M(A_6)  ,M(A_8)   ,KC_APP
                                                                ,TD(CT_RBP),KC_F    ,KC_G      ,KC_C    ,KC_R    ,KC_L     ,KC_BSLS
                                                                           ,KC_D    ,KC_H      ,KC_T    ,KC_N    ,KC_S     ,KC_EQL
                                                                ,TD(CT_TPS),KC_B    ,KC_M      ,KC_W    ,KC_V    ,KC_Z     ,KC_MSTP
@@ -155,7 +158,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 1: Adore layer
  *
  * ,-----------------------------------------------------.           ,-----------------------------------------------------.
- * | Play/Pause| 9    | 7  @ | 5  * | 3  ^ | 1  $ | F11  |           |  F12 | 0  % | 2  ! | 4  # | 6  & | 8    |      Apps |
+ * | Play/Pause| 9    | 7  @ | 5  * | 3  ^ | 1  $ | F11  |           |  Fx  | 0  % | 2  ! | 4  # | 6  & | 8    |      Apps |
  * |-----------+------+------+------+------+-------------|           |------+------+------+------+------+------+-----------|
  * |         \ |   X  |   W  |   C  |   H  |   F  |   (  |           |  )   |   M  |   G  |   L  |   P  |  /   | `~        |
  * |-----------+------+------+------+------+------|   [  |           |  ]   |------+------+------+------+------+-----------|
@@ -186,7 +189,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                     ,KC_BSPC,F(F_SFT),KC_ESC
 
                                                                 // right hand
-                                                               ,KC_F12    ,M(A_0)   ,M(A_2)  ,M(A_4)  ,M(A_6)  ,M(A_8)  ,KC_APP
+                                                               ,M(Fx)     ,M(A_0)   ,M(A_2)  ,M(A_4)  ,M(A_6)  ,M(A_8)  ,KC_APP
                                                                ,TD(CT_RBP),KC_M     ,KC_G    ,KC_L    ,KC_P    ,KC_SLSH ,KC_GRV
                                                                           ,KC_D     ,KC_R    ,KC_T    ,KC_N    ,KC_S    ,KC_EQL
                                                                ,TD(CT_TPS),KC_B     ,KC_K    ,KC_V    ,KC_Y    ,KC_J    ,KC_NO
@@ -339,7 +342,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 5: Navigation & Media layer
  *
  * ,-----------------------------------------------------.           ,-----------------------------------------------------.
- * |           |  F9  |  F7  |  F5  |  F3  |  F1  |      |           |ScrLCK| F10  |  F2  |  F4  |  F6  |  F8  |           |
+ * |           |  F9  |  F7  |  F5  |  F3  |  F1  |ScrLCK|           |      | F10  |  F2  |  F4  |  F6  |  F8  |           |
  * |-----------+------+------+------+------+-------------|           |------+------+------+------+------+------+-----------|
  * |           |      |      |      |      |      |      |           |      |      |      |      |      |      |           |
  * |-----------+------+------+------+------+------|      |           |      |------+------+------+------+------+-----------|
@@ -359,7 +362,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [NMDIA] = KEYMAP(
 // left hand
- KC_NO      ,KC_F9       ,KC_F7      ,KC_F5   ,KC_F3   ,KC_F1   ,KC_NO
+ KC_NO      ,KC_F9       ,KC_F7      ,KC_F5   ,KC_F3   ,KC_F1   ,LGUI(KC_L)
 ,KC_NO      ,KC_NO       ,KC_NO      ,KC_NO   ,KC_NO   ,KC_NO   ,KC_NO
 ,KC_NO      ,KC_NO       ,KC_NO      ,KC_NO   ,KC_NO   ,KC_NO
 ,KC_NO      ,KC_NO       ,KC_NO      ,KC_NO   ,KC_NO   ,KC_NO   ,KC_NO
@@ -369,7 +372,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                  ,KC_NO ,KC_NO   ,KC_TRNS
 
                                                                      // right hand
-                                                                     ,LGUI(KC_L),KC_F10  ,KC_F2   ,KC_F4   ,KC_F6   ,KC_F8    ,KC_NO
+                                                                     ,KC_TRNS   ,KC_F10  ,KC_F2   ,KC_F4   ,KC_F6   ,KC_F8    ,KC_NO
                                                                      ,KC_NO     ,KC_NO   ,KC_NO   ,KC_NO   ,KC_NO   ,KC_NO    ,KC_NO
                                                                                 ,KC_NO   ,KC_NO   ,KC_NO   ,KC_NO   ,KC_NO    ,KC_NO
                                                                      ,KC_NO     ,KC_NO   ,KC_NO   ,KC_NO   ,KC_NO   ,KC_NO    ,KC_NO
@@ -534,6 +537,17 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         return ang_do_hun (record, KC_EQL, KC_O);
       case HU_UEE:
         return ang_do_hun (record, KC_EQL, KC_U);
+        break;
+
+        /* Fx */
+      case Fx:
+        if (record->event.pressed) {
+          set_oneshot_mods (MOD_LALT);
+          layer_on (NMDIA);
+          set_oneshot_layer (NMDIA, ONESHOT_START);
+        } else {
+          clear_oneshot_layer_state (ONESHOT_PRESSED);
+        }
         break;
 
         /* GUI & AppSel */

@@ -2,6 +2,10 @@
 
 **UNRELEASED**
 
+### Overall changes
+
+* `F12` was replaced by an `Fx` key, that activate the **Media** layer as a one-shot layer, and also `Alt` as a one-shot modifier.
+
 ### Miscellaneous
 
 * `π` can now be entered with UCIS.
