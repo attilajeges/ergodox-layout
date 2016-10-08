@@ -1,3 +1,5 @@
+<!-- -*- mode: markdown; fill-column: 8192 -*- -->
+
 ## v1.9
 
 **UNRELEASED**
