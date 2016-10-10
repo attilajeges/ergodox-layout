@@ -37,6 +37,10 @@ cmd_appsel_chrome () {
 }
 
 cmd_appsel_start () {
+    if [ ! -z "${DISABLE_APPSEL_START}" ]; then
+        return
+    fi
+
     APPSEL_START=$(date +%s)
     if [ $APPSEL_START -lt $(expr $LAST_APPSEL_START + 10) ]; then
         return

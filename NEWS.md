@@ -15,6 +15,7 @@
 ### Tools
 
 * The `tools/layer-notify` tool was removed, it was an example, which I don't use.
+* `tools/hid-commands` now looks at the `DISABLE_APPSEL_START` environment value, and does not display an AppSel notification if it is non-empty.
 
 ## v1.8
 
