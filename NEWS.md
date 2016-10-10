@@ -12,6 +12,10 @@
 
 * `π` can now be entered with UCIS.
 
+### Tools
+
+* The `tools/layer-notify` tool was removed, it was an example, which I don't use.
+
 ## v1.8
 
 *2016-10-03*
