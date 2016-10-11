@@ -11,6 +11,7 @@
 ### Miscellaneous
 
 * `π` can now be entered with UCIS.
+* `🐁` can now be entered with UCIS.
 
 ### Tools
 

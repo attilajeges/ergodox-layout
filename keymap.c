@@ -901,7 +901,8 @@ const qk_ucis_symbol_t ucis_symbol_table[] = UCIS_TABLE
  UCIS_SYM("coffee", 0x2615),
  UCIS_SYM("heart", 0x2764),
  UCIS_SYM("bolt", 0x26a1),
- UCIS_SYM("pi", 0x03c0)
+ UCIS_SYM("pi", 0x03c0),
+ UCIS_SYM("mouse", 0x1f401)
 );
 
 bool process_record_user (uint16_t keycode, keyrecord_t *record) {

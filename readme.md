@@ -89,12 +89,7 @@ Unless noted otherwise, the layers use a dim light for the LEDs, while modifiers
 
 Once in the Unicode Symbol Input mode, one is able to type in symbol names, press `Enter` or `Space`, and get the Unicode symbol itself back. When in the mode, a capital `U` is printed first. Once the sequence is finished, all of it is erased by sending enough `Backspace` taps, and the firmware starts the OS-specific unicode input sequence. Then, it looks up the symbol name, and enters the associated code. If it is not found, it will just replay the pressed keycodes.
 
-The currently supported symbols are:
-
-- `snowman`: ☃
-- `kiss`: 😙
-- `rofl`: 🤣
-- `poop`: 💩
+For the list of supported symbols, please see the source.
 
 This is an experimental feature, and may or may not work reliably.
 
