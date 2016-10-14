@@ -50,6 +50,10 @@ cmd_appsel_start () {
                 -i /usr/share/icons/Adwaita/24x24/devices/video-display.png
 }
 
+cmd_reflash () {
+    teensy_loader_cli -v -w ~/src/ext/qmk_firmware/algernon.hex --mcu atmega32u4 || true
+}
+
 cmd_help () {
     cat <<EOF
 Use the source, Luke!
@@ -73,5 +77,3 @@ while read l; do
         cmd_${cmd}
     fi
 done
-
-

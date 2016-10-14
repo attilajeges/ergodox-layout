@@ -8,6 +8,10 @@
 
 * `F12` was replaced by an `Fx` key, that activate the **Media** layer as a one-shot layer, and also `Alt` as a one-shot modifier.
 
+### Base layer changes
+
+* The `Media Stop` key is now a tap-dance key, and resets the device for programming on the fourth tap.
+
 ### Miscellaneous
 
 * `π` can now be entered with UCIS.
@@ -17,6 +21,7 @@
 
 * The `tools/layer-notify` tool was removed, it was an example, which I don't use.
 * `tools/hid-commands` now looks at the `DISABLE_APPSEL_START` environment value, and does not display an AppSel notification if it is non-empty.
+* `tools/hid-commands` will attempt to re-program the keyboard when receiving a `reflash` command.
 
 ## v1.8
 

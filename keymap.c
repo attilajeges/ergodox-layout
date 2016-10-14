@@ -86,6 +86,7 @@ enum {
   CT_RBP,
   CT_TMUX,
   CT_TPS,
+  CT_SR,
 };
 
 /* States & timers */
@@ -103,6 +104,7 @@ bool log_enable = false;
 #endif
 
 bool time_travel = false;
+bool skip_leds = false;
 
 static uint8_t is_adore = 0;
 
@@ -119,7 +121,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |-----------+------+------+------+------+------|   [  |           |  ]   |------+------+------+------+------+-----------|
  * | Tab/ARROW |   A  |   O  |   E  |   U  |   I  |------|           |------|   D  |   H  |   T  |   N  |  S   | = / Arrow |
  * |-----------+------+------+------+------+------| tmux |           | tmux |------+------+------+------+------+-----------|
- * | Play/Pause|   /  |   Q  |   J  |   K  |   X  |      |           | Pane |   B  |   M  |   W  |   V  |  Z   |      Stop |
+ * | Play/Pause|   /  |   Q  |   J  |   K  |   X  |      |           | Pane |   B  |   M  |   W  |   V  |  Z   | Stop/Reset|
  * `-----------+------+------+------+------+-------------'           `-------------+------+------+------+------+-----------'
  *     |       |      |      |      |   :  |                                       |   -  |      |      |      |       |
  *     `-----------------------------------'                                       `-----------------------------------'
@@ -147,7 +149,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                ,M(Fx)     ,M(A_0)  ,M(A_2)    ,M(A_4)  ,M(A_6)  ,M(A_8)   ,KC_APP
                                                                ,TD(CT_RBP),KC_F    ,KC_G      ,KC_C    ,KC_R    ,KC_L     ,KC_BSLS
                                                                           ,KC_D    ,KC_H      ,KC_T    ,KC_N    ,KC_S     ,KC_EQL
-                                                               ,TD(CT_TPS),KC_B    ,KC_M      ,KC_W    ,KC_V    ,KC_Z     ,KC_MSTP
+                                                               ,TD(CT_TPS),KC_B    ,KC_M      ,KC_W    ,KC_V    ,KC_Z     ,TD(CT_SR)
                                                                                    ,KC_MINS   ,KC_NO   ,KC_NO   ,KC_NO    ,KC_NO
 
                                                                ,OSL(NMDIA),KC_DEL
@@ -719,6 +721,56 @@ static void ang_tap_dance_tmux_pane_select (qk_tap_dance_state_t *state, void *u
   unregister_code(kc);
 }
 
+static void
+_td_sr_each (qk_tap_dance_state_t *state, void *user_data) {
+  skip_leds = true;
+
+  switch (state->count) {
+  case 1:
+    ergodox_right_led_3_on ();
+    break;
+  case 2:
+    ergodox_right_led_2_on ();
+    break;
+  case 3:
+    ergodox_right_led_1_on ();
+    break;
+  case 4:
+    ergodox_right_led_3_off ();
+    wait_ms (50);
+    ergodox_right_led_2_off ();
+    wait_ms (50);
+    ergodox_right_led_1_off ();
+    break;
+  }
+}
+
+static void
+_td_sr_finished (qk_tap_dance_state_t *state, void *user_data) {
+  if (state->count == 1) {
+    register_code (KC_MSTP);
+  }
+  if (state->count >= 4) {
+    uprintf("CMD:reflash\n");
+    wait_ms (1000);
+    reset_keyboard ();
+    reset_tap_dance (state);
+  }
+}
+
+static void
+_td_sr_reset (qk_tap_dance_state_t *state, void *user_data) {
+  ergodox_right_led_1_off ();
+  wait_ms (50);
+  ergodox_right_led_2_off ();
+  wait_ms (50);
+  ergodox_right_led_3_off ();
+
+  if (state->count == 1) {
+    unregister_code (KC_MSTP);
+  }
+}
+
 qk_tap_dance_action_t tap_dance_actions[] = {
    [CT_CLN] = ACTION_TAP_DANCE_DOUBLE (KC_COLN, KC_SCLN)
   ,[CT_TA]  = {
@@ -729,6 +781,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
   ,[CT_RBP] = ACTION_TAP_DANCE_DOUBLE (KC_RBRC, KC_RPRN)
   ,[CT_TMUX]= ACTION_TAP_DANCE_FN (ang_tap_dance_tmux_finished)
   ,[CT_TPS] = ACTION_TAP_DANCE_FN (ang_tap_dance_tmux_pane_select)
+  ,[CT_SR]  = ACTION_TAP_DANCE_FN_ADVANCED (_td_sr_each, _td_sr_finished, _td_sr_reset)
 };
 
 // Runs constantly in the background, in a loop.
@@ -739,54 +792,60 @@ void matrix_scan_user(void) {
   if (gui_timer && timer_elapsed (gui_timer) > TAPPING_TERM)
     unregister_code (KC_LGUI);
 
-  if (layer == HUN) {
-    ergodox_right_led_2_on();
-    ergodox_right_led_3_on();
-  } else if (layer == NMDIA) {
-    ergodox_right_led_1_on();
-    ergodox_right_led_2_on();
-  } else if (layer == ADORE) {
-    ergodox_right_led_1_on ();
-    ergodox_right_led_2_on ();
-    ergodox_right_led_3_on ();
+  if (!skip_leds) {
+    if (layer == HUN) {
+      ergodox_right_led_2_on();
+      ergodox_right_led_3_on();
+    } else if (layer == NMDIA) {
+      ergodox_right_led_1_on();
+      ergodox_right_led_2_on();
+    } else if (layer == ADORE) {
+      ergodox_right_led_1_on ();
+      ergodox_right_led_2_on ();
+      ergodox_right_led_3_on ();
 
-    ergodox_right_led_2_set (LED_BRIGHTNESS_HI);
+      ergodox_right_led_2_set (LED_BRIGHTNESS_HI);
+    }
   }
 
   if (layer_state & (1UL << ARRW)) {
-    ergodox_right_led_1_on ();
-    ergodox_right_led_3_on ();
+    if (!skip_leds) {
+      ergodox_right_led_1_on ();
+      ergodox_right_led_3_on ();
+    }
     is_arrow = true;
   }
 
-  if (keyboard_report->mods & MOD_BIT(KC_LSFT) ||
-      ((get_oneshot_mods() & MOD_BIT(KC_LSFT)) && !has_oneshot_mods_timed_out())) {
-    ergodox_right_led_1_set (LED_BRIGHTNESS_HI);
-    ergodox_right_led_1_on ();
-  } else {
-    ergodox_right_led_1_set (LED_BRIGHTNESS_LO);
-    if (layer != NMDIA && layer != ADORE && !is_arrow)
-      ergodox_right_led_1_off ();
-  }
+  if (!skip_leds) {
+    if (keyboard_report->mods & MOD_BIT(KC_LSFT) ||
+        ((get_oneshot_mods() & MOD_BIT(KC_LSFT)) && !has_oneshot_mods_timed_out())) {
+      ergodox_right_led_1_set (LED_BRIGHTNESS_HI);
+      ergodox_right_led_1_on ();
+    } else {
+      ergodox_right_led_1_set (LED_BRIGHTNESS_LO);
+      if (layer != NMDIA && layer != ADORE && !is_arrow)
+        ergodox_right_led_1_off ();
+    }
 
-  if (keyboard_report->mods & MOD_BIT(KC_LALT) ||
-      ((get_oneshot_mods() & MOD_BIT(KC_LALT)) && !has_oneshot_mods_timed_out())) {
-    ergodox_right_led_2_set (LED_BRIGHTNESS_HI);
-    ergodox_right_led_2_on ();
-  } else {
-    ergodox_right_led_2_set (LED_BRIGHTNESS_LO);
-    if (layer != HUN && layer != NMDIA && layer != ADORE)
-      ergodox_right_led_2_off ();
-  }
+    if (keyboard_report->mods & MOD_BIT(KC_LALT) ||
+        ((get_oneshot_mods() & MOD_BIT(KC_LALT)) && !has_oneshot_mods_timed_out())) {
+      ergodox_right_led_2_set (LED_BRIGHTNESS_HI);
+      ergodox_right_led_2_on ();
+    } else {
+      ergodox_right_led_2_set (LED_BRIGHTNESS_LO);
+      if (layer != HUN && layer != NMDIA && layer != ADORE)
+        ergodox_right_led_2_off ();
+    }
 
-  if (keyboard_report->mods & MOD_BIT(KC_LCTRL) ||
-      ((get_oneshot_mods() & MOD_BIT(KC_LCTRL)) && !has_oneshot_mods_timed_out())) {
-    ergodox_right_led_3_set (LED_BRIGHTNESS_HI);
-    ergodox_right_led_3_on ();
-  } else {
-    ergodox_right_led_3_set (LED_BRIGHTNESS_LO);
-    if (layer != HUN && layer != ADORE && !is_arrow)
-      ergodox_right_led_3_off ();
+    if (keyboard_report->mods & MOD_BIT(KC_LCTRL) ||
+        ((get_oneshot_mods() & MOD_BIT(KC_LCTRL)) && !has_oneshot_mods_timed_out())) {
+      ergodox_right_led_3_set (LED_BRIGHTNESS_HI);
+      ergodox_right_led_3_on ();
+    } else {
+      ergodox_right_led_3_set (LED_BRIGHTNESS_LO);
+      if (layer != HUN && layer != ADORE && !is_arrow)
+        ergodox_right_led_3_off ();
+    }
   }
 
   LEADER_DICTIONARY() {
