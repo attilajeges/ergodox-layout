@@ -16,7 +16,7 @@ _cmd_appsel () {
 }
 
 cmd_appsel_music () {
-    wmctrl -x -a rhythmbox || wmctrl -x -a spotify || true
+    wmctrl -x -a rhythmbox || wmctrl -x -a spotify || wmctrl -x -a kodi || true
     xdotool key Escape
 }
 

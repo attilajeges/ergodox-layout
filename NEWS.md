@@ -26,6 +26,7 @@
 * Now looks at the `DISABLE_APPSEL_START` environment value, and does not display an AppSel notification if it is non-empty.
 * Will attempt to re-program the keyboard when receiving a `reflash` command.
 * No longer tries to select Emacs 24 on `APPSEL_EMACS`, rather, it goes for any Emacs.
+* The `APPSEL_MUSIC` command now includes Kodi in the list too, as the last choice.
 
 ## v1.8
 
