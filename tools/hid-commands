@@ -25,7 +25,7 @@ cmd_appsel_slack () {
 }
 
 cmd_appsel_emacs () {
-    _cmd_appsel emacs24
+    _cmd_appsel emacs
 }
 
 cmd_appsel_term () {

@@ -22,6 +22,7 @@
 * The `tools/layer-notify` tool was removed, it was an example, which I don't use.
 * `tools/hid-commands` now looks at the `DISABLE_APPSEL_START` environment value, and does not display an AppSel notification if it is non-empty.
 * `tools/hid-commands` will attempt to re-program the keyboard when receiving a `reflash` command.
+* `tools/hid-commands` no longer tries to select Emacs 24 on `APPSEL_EMACS`, rather, it goes for any Emacs.
 
 ## v1.8
 
