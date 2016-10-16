@@ -2,7 +2,7 @@
 
 ## v1.9
 
-**UNRELEASED**
+*2016-10-16*
 
 ### Overall changes
 
