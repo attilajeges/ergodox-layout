@@ -1,5 +1,13 @@
 <!-- -*- mode: markdown; fill-column: 8192 -*- -->
 
+## v1.10
+
+**UNRELEASED**
+
+### Tools
+
+* `tools/hid-commands` can now find Banshee, and prefers it over Kodi.
+
 ## v1.9
 
 *2016-10-16*
