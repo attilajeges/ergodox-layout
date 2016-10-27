@@ -4,6 +4,10 @@
 
 **UNRELEASED**
 
+### Miscellaneous
+
+* `µ` can now be entered with UCIS.
+
 ### Tools
 
 * `tools/hid-commands` can now find Banshee, and prefers it over Kodi.
