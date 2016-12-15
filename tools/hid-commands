@@ -34,7 +34,7 @@ cmd_appsel_term () {
 }
 
 cmd_appsel_chrome () {
-    _cmd_appsel chromium
+    _cmd_appsel chrom
 }
 
 cmd_appsel_start () {

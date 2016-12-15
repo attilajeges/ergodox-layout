@@ -11,6 +11,7 @@
 ### Tools
 
 * `tools/hid-commands` can now find Banshee, and prefers it over Kodi.
+* `tools/hid-commands` can now find Chrome too, not juts Chromium.
 
 ## v1.9
 
