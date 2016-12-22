@@ -962,7 +962,8 @@ const qk_ucis_symbol_t ucis_symbol_table[] = UCIS_TABLE
  UCIS_SYM("bolt", 0x26a1),
  UCIS_SYM("pi", 0x03c0),
  UCIS_SYM("mouse", 0x1f401),
- UCIS_SYM("micro", 0x00b5)
+ UCIS_SYM("micro", 0x00b5),
+ UCIS_SYM("tm", 0x2122)
 );
 
 bool process_record_user (uint16_t keycode, keyrecord_t *record) {
