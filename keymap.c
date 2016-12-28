@@ -93,8 +93,6 @@ enum {
 
 uint16_t gui_timer = 0;
 
-uint16_t kf_timers[12];
-
 #if KEYLOGGER_ENABLE
 # ifdef AUTOLOG_ENABLE
 bool log_enable = true;
