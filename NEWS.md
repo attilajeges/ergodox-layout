@@ -2,7 +2,7 @@
 
 ## v1.10
 
-**UNRELEASED**
+*2016-12-28*
 
 ### Miscellaneous
 
