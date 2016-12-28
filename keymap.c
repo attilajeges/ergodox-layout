@@ -709,7 +709,7 @@ static void ang_tap_dance_tmux_pane_select (qk_tap_dance_state_t *state, void *u
   if (state->count >= 2) {
     kc = KC_Z;
   }
-  
+
   register_code(KC_LALT);
   register_code(KC_SPC);
   unregister_code(KC_SPC);
