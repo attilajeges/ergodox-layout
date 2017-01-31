@@ -1,5 +1,13 @@
 <!-- -*- mode: markdown; fill-column: 8192 -*- -->
 
+## v1.11
+
+**UNRELEASED**
+
+### Overall changes
+
+* The `$` and `^` symbols on the number row were swapped on both the base and the ADORE layers.
+
 ## v1.10
 
 *2016-12-28*

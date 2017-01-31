@@ -465,10 +465,10 @@ static void ang_handle_num_row(uint8_t id, keyrecord_t *record) {
       kc = KC_8;
       break;
     case A_3:
-      kc = KC_6;
+      kc = KC_4;
       break;
     case A_1:
-      kc = KC_4;
+      kc = KC_6;
       break;
 
     case A_0:
