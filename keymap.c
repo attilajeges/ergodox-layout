@@ -855,6 +855,29 @@ void matrix_scan_user(void) {
                KC_S, KC_Z, KC_O, KC_N, KC_Y, KC_K, KC_RALT, KC_QUOT, KC_A, KC_M, 0);
     }
 
+    SEQ_ONE_KEY (KC_K) {
+      ang_tap (KC_SPC, LSFT(KC_7), KC_SPC, 0);
+      register_code(KC_LCTL);
+      register_code(KC_LSFT);
+      register_code(KC_U);
+      unregister_code(KC_U);
+      unregister_code(KC_LSFT);
+      unregister_code(KC_LCTL);
+      ang_tap (KC_1, KC_F, KC_4, KC_7, KC_6, 0);
+      register_code (KC_ENT);
+      unregister_code (KC_ENT);
+      ang_tap (KC_END, 0);
+      register_code(KC_LCTL);
+      register_code(KC_LSFT);
+      register_code(KC_U);
+      unregister_code(KC_U);
+      unregister_code(KC_LSFT);
+      unregister_code(KC_LCTL);
+      ang_tap (KC_1, KC_F, KC_4, KC_7, KC_6, 0);
+      register_code (KC_SPC);
+      unregister_code (KC_SPC);
+    }
+
     SEQ_ONE_KEY (KC_G) {
       ang_tap (LSFT(KC_G), KC_E, KC_J, KC_G, KC_RALT, KC_EQL, KC_O,
                KC_RALT, KC_EQL, KC_O,
