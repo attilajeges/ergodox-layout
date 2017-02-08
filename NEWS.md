@@ -8,6 +8,10 @@
 
 * The `$` and `^` symbols on the number row were swapped on both the base and the ADORE layers.
 
+### Miscellaneous
+
+* The `👶` symbol can be entered with UCIS.
+
 ## v1.10
 
 *2016-12-28*
