@@ -22,7 +22,8 @@ cmd_appsel_music () {
 }
 
 cmd_appsel_slack () {
-    _cmd_appsel slack
+    wmctrl -x -a slack || wmctrl -x -a Mstdn || true
+    xdotool key Escape
 }
 
 cmd_appsel_emacs () {

@@ -12,6 +12,10 @@
 
 * The `👶` symbol can be entered with UCIS.
 
+### Tools
+
+* `tools/hid-commands` can now find the `Mstdn`, not just `Slack`, as the "Slack"/chat app.
+
 ## v1.10
 
 *2016-12-28*
