@@ -769,14 +769,55 @@ _td_sr_reset (qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
+static void
+_td_brackets_finished (qk_tap_dance_state_t *state, void *user_data) {
+  if (state->count == 1) {
+    if (state->keycode == TD(CT_LBP))
+      register_code16 (KC_LBRC);
+    else
+      register_code16 (KC_RBRC);
+  } else if (state->count == 2) {
+    if (state->keycode == TD(CT_LBP))
+      register_code16 (KC_LPRN);
+    else
+      register_code16 (KC_RPRN);
+  } else if (state->count == 3) {
+    unicode_input_start();
+
+    if (state->keycode == TD(CT_LBP))
+      register_hex (0x300c);
+    else
+      register_hex (0x300d);
+
+    unicode_input_finish();
+  }
+}
+
+static void
+_td_brackets_reset (qk_tap_dance_state_t *state, void *user_data) {
+  if (state->count == 1) {
+    if (state->keycode == TD(CT_LBP))
+      unregister_code16 (KC_LBRC);
+    else
+      unregister_code16 (KC_RBRC);
+  } else if (state->count == 2) {
+    if (state->keycode == TD(CT_LBP))
+      unregister_code16 (KC_LPRN);
+    else
+      unregister_code16 (KC_RPRN);
+  }
+}
+
 qk_tap_dance_action_t tap_dance_actions[] = {
    [CT_CLN] = ACTION_TAP_DANCE_DOUBLE (KC_COLN, KC_SCLN)
   ,[CT_TA]  = {
      .fn = { NULL, ang_tap_dance_ta_finished, ang_tap_dance_ta_reset },
      .user_data = (void *)&((td_ta_state_t) { false, false })
    }
-  ,[CT_LBP] = ACTION_TAP_DANCE_DOUBLE (KC_LBRC, KC_LPRN)
-  ,[CT_RBP] = ACTION_TAP_DANCE_DOUBLE (KC_RBRC, KC_RPRN)
+   //,[CT_LBP] = ACTION_TAP_DANCE_DOUBLE (KC_LBRC, KC_LPRN)
+   //,[CT_RBP] = ACTION_TAP_DANCE_DOUBLE (KC_RBRC, KC_RPRN)
+   ,[CT_LBP] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, _td_brackets_finished, _td_brackets_reset)
+   ,[CT_RBP] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, _td_brackets_finished, _td_brackets_reset)
   ,[CT_TMUX]= ACTION_TAP_DANCE_FN (ang_tap_dance_tmux_finished)
   ,[CT_TPS] = ACTION_TAP_DANCE_FN (ang_tap_dance_tmux_pane_select)
   ,[CT_SR]  = ACTION_TAP_DANCE_FN_ADVANCED (_td_sr_each, _td_sr_finished, _td_sr_reset)
