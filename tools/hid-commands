@@ -35,7 +35,8 @@ cmd_appsel_term () {
 }
 
 cmd_appsel_chrome () {
-    _cmd_appsel chrom
+    wmctrl -x -a chrom || wmctrl -x -a Chrome
+    xdotool key Escape
 }
 
 cmd_appsel_start () {
