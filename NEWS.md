@@ -16,6 +16,7 @@
 ### Tools
 
 * `tools/hid-commands` can now find the `Mstdn`, not just `Slack`, as the "Slack"/chat app.
+* `tools/hid-commands` can now find the Plex web app as a music/media player.
 
 ## v1.10
 
