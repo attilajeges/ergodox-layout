@@ -65,6 +65,10 @@ cmd_appsel_social () {
     xdotool key Escape
 }
 
+cmd_appsel_pwmgr () {
+    _cmd_appsel keepass
+}
+
 cmd_reflash () {
     teensy_loader_cli -v -w ~/src/ext/qmk_firmware/algernon.hex --mcu atmega32u4 || true
 }

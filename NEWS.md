@@ -9,6 +9,7 @@
 * The `$` and `^` symbols on the number row were swapped on both the base and the ADORE layers.
 * The bracket tap-dance keys can now be used to input Japanese brackets, `「` and `」` with a third tap.
 * The second column of the top row on the right side will act as a "Social" application selector on the `AppSel` layer.
+* The third key on the same column will select a password manager.
 
 ### Miscellaneous
 
@@ -19,6 +20,7 @@
 * `tools/hid-commands` can now find the `Mstdn`, not just `Slack`, as the "Slack"/chat app.
 * `tools/hid-commands` can now find the Plex web app as a music/media player.
 * `tools/hid-commands` now understands the "Social" application selector. It raises the `Mstdn` and `Tweetdeck` windows, but keeps focus on the previous window.
+* `tools/hid-commands` is now able to select a password manager (KeePass*).
 
 ## v1.10
 
