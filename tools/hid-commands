@@ -54,6 +54,17 @@ cmd_appsel_start () {
                 -i /usr/share/icons/Adwaita/24x24/devices/video-display.png
 }
 
+cmd_appsel_social () {
+    # Save the current window
+    a=$(xdotool getactivewindow)
+    # Raise & Focus Mstdn & Tweetdeck
+    wmctrl -x -a mstdn; wmctrl -x -a tweetdeck
+    # Focus the previously active window
+    xdotool windowfocus $a; xdotool windowactivate $a
+
+    xdotool key Escape
+}
+
 cmd_reflash () {
     teensy_loader_cli -v -w ~/src/ext/qmk_firmware/algernon.hex --mcu atmega32u4 || true
 }
