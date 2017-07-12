@@ -14,6 +14,7 @@
 ### Miscellaneous
 
 * The `👶` symbol can be entered with UCIS.
+* The `👪` symbol can be entered with UCIS.
 
 ### Tools
 
