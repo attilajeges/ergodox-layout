@@ -36,7 +36,7 @@ cmd_appsel_term () {
 }
 
 cmd_appsel_chrome () {
-    wmctrl -x -a chrom || wmctrl -x -a Chrome
+    wmctrl -x -a chrom || wmctrl -x -a Chrome || true
     xdotool key Escape
 }
 
@@ -58,9 +58,9 @@ cmd_appsel_social () {
     # Save the current window
     a=$(xdotool getactivewindow)
     # Raise & Focus Mstdn & Tweetdeck
-    wmctrl -x -a mstdn; wmctrl -x -a tweetdeck
+    wmctrl -x -a mstdn; wmctrl -x -a tweetdeck || true
     # Focus the previously active window
-    xdotool windowfocus $a; xdotool windowactivate $a
+    xdotool windowfocus $a; xdotool windowactivate $a || true
 
     xdotool key Escape
 }
