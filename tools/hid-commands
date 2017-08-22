@@ -65,6 +65,17 @@ cmd_appsel_social () {
     xdotool key Escape
 }
 
+cmd_appsel_social2 () {
+    # Save the current window
+    a=$(xdotool getactivewindow)
+    # Raise & Focus Viber & Signal
+    wmctrl -x -a Viber; wmctrl -a Signal || true
+    # Focus the previously active window
+    xdotool windowfocus $a; xdotool windowactivate $a || true
+
+    xdotool key Escape
+}
+
 cmd_appsel_pwmgr () {
     _cmd_appsel keepass
 }

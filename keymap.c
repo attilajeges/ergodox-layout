@@ -40,6 +40,7 @@ enum {
   APP_MSIC, // Music
   APP_SOCL, // Social
   APP_PMGR, // Password manager
+  APP_SCL2, // Social #2
 
   // Hungarian layer keys
   HU_AA, // Á
@@ -251,7 +252,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 3: Application select layer
  *
  * ,-----------------------------------------------------.           ,-----------------------------------------------------.
- * |           |Music |Slack |Emacs |Term  |Chrome|      |           |      |Social|PWMgr |      |      |      |           |
+ * |           |Music |Slack |Emacs |Term  |Chrome|      |           |      |Social|PWMgr |Scl2  |      |      |           |
  * |-----------+------+------+------+------+-------------|           |------+------+------+------+------+------+-----------|
  * |           |      |      |      |      |      |      |           |      |      |      |      |      |      |           |
  * |-----------+------+------+------+------+------|      |           |      |------+------+------+------+------+-----------|
@@ -282,16 +283,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                       ,KC_TRNS
                                     ,KC_TRNS ,KC_TRNS ,KC_TRNS
 
-                                                                // right hand
-                                                               ,KC_TRNS ,M(APP_SOCL) ,M(APP_PMGR) ,KC_NO   ,KC_NO   ,KC_NO   ,KC_TRNS
-                                                               ,KC_TRNS ,KC_TRNS     ,KC_TRNS     ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS
-                                                                        ,KC_TRNS     ,KC_TRNS     ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS
-                                                               ,KC_TRNS ,KC_TRNS     ,KC_TRNS     ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS
-                                                                                     ,KC_TRNS     ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS
+                                                               // right hand
+                                                              ,KC_TRNS ,M(APP_SOCL) ,M(APP_PMGR) ,M(APP_SCL2) ,KC_NO   ,KC_NO   ,KC_TRNS
+                                                              ,KC_TRNS ,KC_TRNS     ,KC_TRNS     ,KC_TRNS     ,KC_TRNS ,KC_TRNS ,KC_TRNS
+                                                                       ,KC_TRNS     ,KC_TRNS     ,KC_TRNS     ,KC_TRNS ,KC_TRNS ,KC_TRNS
+                                                              ,KC_TRNS ,KC_TRNS     ,KC_TRNS     ,KC_TRNS     ,KC_TRNS ,KC_TRNS ,KC_TRNS
+                                                                                    ,KC_TRNS     ,KC_TRNS     ,KC_TRNS ,KC_TRNS ,KC_TRNS
 
-                                                               ,KC_TRNS ,KC_TRNS
-                                                               ,KC_TRNS
-                                                               ,KC_TRNS ,KC_TRNS  ,KC_TRNS
+                                                              ,KC_TRNS ,KC_TRNS
+                                                              ,KC_TRNS
+                                                              ,KC_TRNS ,KC_TRNS  ,KC_TRNS
     ),
 
 
@@ -375,8 +376,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
                                                                      // right hand
                                                                      ,KC_TRNS   ,KC_F10  ,KC_F2   ,KC_F4   ,KC_F6   ,KC_F8    ,KC_NO
-                                                                     ,KC_NO     ,KC_NO   ,KC_NO   ,KC_NO   ,KC_NO   ,KC_NO    ,KC_NO
-                                                                                ,KC_NO   ,KC_NO   ,KC_NO   ,KC_NO   ,KC_NO    ,KC_NO
+                                                                     ,KC_NO     ,KC_NO   ,KC_NO   ,KC_UP   ,KC_NO   ,KC_NO    ,KC_NO
+                                                                                ,KC_NO   ,KC_LEFT ,KC_DOWN ,KC_RGHT ,KC_NO    ,KC_NO
                                                                      ,KC_NO     ,KC_NO   ,KC_NO   ,KC_NO   ,KC_NO   ,KC_NO    ,KC_NO
                                                                                          ,KC_NO   ,KC_NO   ,KC_NO   ,KC_NO    ,KC_NO
 
@@ -608,6 +609,11 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
       case APP_PMGR:
         if (record->event.pressed)
           uprintf("CMD:appsel_pwmgr\n");
+        break;
+
+      case APP_SCL2:
+        if (record->event.pressed)
+          uprintf("CMD:appsel_social2\n");
         break;
 
         // number row and symbols

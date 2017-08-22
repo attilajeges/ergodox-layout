@@ -21,6 +21,7 @@
 * `tools/hid-commands` can now find the `Mstdn`, not just `Slack`, as the "Slack"/chat app.
 * `tools/hid-commands` can now find the Plex web app as a music/media player.
 * `tools/hid-commands` now understands the "Social" application selector. It raises the `Mstdn` and `Tweetdeck` windows, but keeps focus on the previous window.
+* `tools/hid-commands` now understands the "Social2" application selector, which raises `Signal` and `Viber`, but keeps focus on the previous window.
 * `tools/hid-commands` is now able to select a password manager (KeePass*).
 
 ## v1.10
