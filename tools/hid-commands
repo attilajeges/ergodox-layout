@@ -58,9 +58,9 @@ cmd_appsel_social () {
     # Save the current window
     a=$(xdotool getactivewindow)
     # Raise & Focus Mstdn & Tweetdeck
-    wmctrl -x -a mstdn; wmctrl -x -a tweetdeck || true
+    wmctrl -x -a mstdn || true; wmctrl -x -a tweetdeck || true
     # Focus the previously active window
-    xdotool windowfocus $a; xdotool windowactivate $a || true
+    xdotool windowfocus $a || true; xdotool windowactivate $a || true
 
     xdotool key Escape
 }
@@ -69,9 +69,9 @@ cmd_appsel_social2 () {
     # Save the current window
     a=$(xdotool getactivewindow)
     # Raise & Focus Viber & Signal
-    wmctrl -x -a Viber; wmctrl -a Signal || true
+    wmctrl -x -a Viber || true; wmctrl -a Signal || true
     # Focus the previously active window
-    xdotool windowfocus $a; xdotool windowactivate $a || true
+    xdotool windowfocus $a || true; xdotool windowactivate $a || true
 
     xdotool key Escape
 }
