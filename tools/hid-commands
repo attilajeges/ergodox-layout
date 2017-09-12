@@ -58,7 +58,7 @@ cmd_appsel_social () {
     # Save the current window
     a=$(xdotool getactivewindow)
     # Raise & Focus Mstdn & Tweetdeck
-    wmctrl -x -a mstdn || true; wmctrl -x -a tweetdeck || true
+    wmctrl -x -a trunk.mad-scientist.club.Google-chrome || true; wmctrl -x -a tweetdeck || true
     # Focus the previously active window
     xdotool windowfocus $a || true; xdotool windowactivate $a || true
 
