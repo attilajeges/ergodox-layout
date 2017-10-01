@@ -6,6 +6,7 @@
 
 ### Overall changes
 
+* Updated to work with QMK master.
 * The `$` and `^` symbols on the number row were swapped on both the base and the ADORE layers.
 * The bracket tap-dance keys can now be used to input Japanese brackets, `「` and `」` with a third tap.
 * The second column of the top row on the right side will act as a "Social" application selector on the `AppSel` layer.

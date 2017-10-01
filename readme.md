@@ -113,7 +113,7 @@ There is a very small tool in `tools/layer-notify`, that listens to the HID cons
 
 # Building
 
-To make my workflow easier, this layout is maintained in [its own repository][algernon:ez-layout]. To build it, you will need the [QMK][qmk] firmware checked out, and this repo either checked out to something like `keyboards/ergodox_ez/algernon-master`. One way to achieve that is this:
+To make my workflow easier, this layout is maintained in [its own repository][algernon:ez-layout]. To build it, you will need the [QMK][qmk] firmware checked out, and this repo either checked out to something like `layouts/community/algernon_master`, or symlinked there. One way to achieve that is this:
 
  [algernon:ez-layout]: https://github.com/algernon/ergodox-layout
  [qmk]: https://github.com/qmk/qmk_firmware
@@ -122,14 +122,14 @@ To make my workflow easier, this layout is maintained in [its own repository][al
 $ git clone https://github.com/qmk/qmk_firmware.git
 $ cd qmk_firmware
 $ git clone https://github.com/algernon/ergodox-layout.git \
-            keyboards/ergodox/keymaps/algernon-master
-$ make keyboard=ergodox keymap=algernon-master
+            layouts/community/ergodox/algernon_master
+$ make ergodox_ez-algernon_master
 ```
 
 From time to time, updates may be submitted back to the QMK repository. If you are reading it there, you can build the firmware like any other firmware included with it (assuming you are in the root directory of the firmware):
 
 ```
-$ make keyboard=ergodox keymap=algernon
+$ make ergodox_ez-algernon
 ```
 
 ## Using on Windows

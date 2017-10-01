@@ -3,7 +3,7 @@
  */
 
 #include <stdarg.h>
-#include "ergodox.h"
+#include QMK_KEYBOARD_H
 #include "led.h"
 #include "debug.h"
 #include "action_layer.h"
@@ -963,7 +963,7 @@ void matrix_scan_user(void) {
     }
 
     SEQ_ONE_KEY (KC_V) {
-      SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ (" QMK_VERSION "/" KEYMAP_VERSION ")");
+      SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ (" QMK_VERSION "/" LAYOUT_ergodox_VERSION ")");
     }
 
     SEQ_ONE_KEY (KC_L) {

@@ -1,7 +1,7 @@
 #ifndef CONFIG_ALGERNON_H
 #define CONFIG_ALGERNON_H
 
-#include "../../config.h"
+#include QMK_KEYBOARD_CONFIG_H
 
 #undef MOUSEKEY_TIME_TO_MAX
 #undef MOUSEKEY_MAX_SPEED
