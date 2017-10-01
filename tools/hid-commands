@@ -10,6 +10,10 @@ cmd_wm () {
     wmctrl -i -r ${WIN} -b add,maximized_vert,maximized_horz
 }
 
+cmd_appsel_helper () {
+    rofi -show window
+}
+
 _cmd_appsel () {
     wmctrl -x -a $1 || true
     xdotool key Escape

@@ -10,6 +10,7 @@
 * The bracket tap-dance keys can now be used to input Japanese brackets, `「` and `」` with a third tap.
 * The second column of the top row on the right side will act as a "Social" application selector on the `AppSel` layer.
 * The third key on the same column will select a password manager.
+* The `GUI` key will now launch `rofi` when triple-tapped.
 
 ### Miscellaneous
 
@@ -23,6 +24,7 @@
 * `tools/hid-commands` now understands the "Social" application selector. It raises the `Mstdn` and `Tweetdeck` windows, but keeps focus on the previous window.
 * `tools/hid-commands` now understands the "Social2" application selector, which raises `Signal` and `Viber`, but keeps focus on the previous window.
 * `tools/hid-commands` is now able to select a password manager (KeePass*).
+* `tools/hid-commands` can now run `rofi` when receiving an `appsel_helper` command (triggered by a triple-tapped `GUI` key).
 
 ## v1.10
 

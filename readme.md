@@ -40,7 +40,7 @@ At its core, this is a Dvorak layout, with some minor changes. The more interest
 
 * The number row is the same as in the [ADORE](#adore-layer) layer. The function keys are on the **Media** layer.
 * The `Shift`, `Alt`, and `Control` modifiers are one-shot. When tapped, they are considered active for the next key press only. When double tapped, they toggle on, until a third, single tap sometime later. When held, they act as expected. My usual pattern is that I use these for the next keypress only, so this behaviour is perfect. If I need them held, I'll just double-tap.
-* The `GUI` key is special, because when I double-tap it, it sends `GUI + w`, which pops up an application selector. It also switches to a one-shot layer, where the number row on the left half turns into app selector macros, for the most common things I usually want to switch to. Otherwise it behaves as on a normal layout.
+* The `GUI` key is special, because while a single tap works as usual, when double-tapped, it turns the number row into an application selector, and when triple tapped, it runs an application selector program on the host.
 * The `ESC` key also doubles as a one-shot cancel key: if tapped while any of the one-shot modifiers are in-flight (as in, single-tapped, and not expired yet), it cancels all one-shot modifiers. It also cancels the **Hun** layer, if active. Otherwise it sends the usual keycode.
 * The **Media** and **Hun** layer keys are one-shot.
 * The **Fx** key is one-shot, and activates the **Media** layer, along with a one-shot `Alt`.
