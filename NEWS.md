@@ -1,5 +1,13 @@
 <!-- -*- mode: markdown; fill-column: 8192 -*- -->
 
+## v1.12
+
+**UNRELEASED**
+
+### Overall changes
+
+* Updated to work with QMK master.
+
 ## v1.11
 
 *2017-10-01*

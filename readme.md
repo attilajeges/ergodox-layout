@@ -123,13 +123,13 @@ $ git clone https://github.com/qmk/qmk_firmware.git
 $ cd qmk_firmware
 $ git clone https://github.com/algernon/ergodox-layout.git \
             layouts/community/ergodox/algernon_master
-$ make ergodox_ez-algernon_master
+$ make ergodox_ez:algernon_master
 ```
 
 From time to time, updates may be submitted back to the QMK repository. If you are reading it there, you can build the firmware like any other firmware included with it (assuming you are in the root directory of the firmware):
 
 ```
-$ make ergodox_ez-algernon
+$ make ergodox_ez:algernon
 ```
 
 ## Using on Windows
