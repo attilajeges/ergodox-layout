@@ -9,7 +9,6 @@
 #include "action_layer.h"
 #include "action_util.h"
 #include "timer.h"
-#include "keymap_plover.h"
 #include "eeconfig.h"
 #include "wait.h"
 #include "version.h"
@@ -23,7 +22,6 @@ enum {
   APPSEL,
   HUN,
   NMDIA,
-  PLVR,
 };
 
 /* Macros */
@@ -32,7 +30,6 @@ enum {
   NONE = 0,
   // Buttons that do extra stuff
   A_GUI,
-  A_PLVR,
   A_MPN,
 
   // Application select keys
@@ -119,7 +116,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Base Layer
  *
  * ,-----------------------------------------------------.           ,-----------------------------------------------------.
- * | Next/Prev | 9    | 7  @ | 5  * | 3  ^ | 1  $ | F11  |           |  Fx  | 0  % | 2  ! | 4  # | 6  & | 8    |    Plover |
+ * | Next/Prev | 9    | 7  @ | 5  * | 3  ^ | 1  $ | F11  |           |  Fx  | 0  % | 2  ! | 4  # | 6  & | 8    |    Apps   |
  * |-----------+------+------+------+------+-------------|           |------+------+------+------+------+------+-----------|
  * |         ~ |   '  |   ,  |   .  |   P  |   Y  |   (  |           |  )   |   F  |   G  |   C  |   R  |  L   | \         |
  * |-----------+------+------+------+------+------|   [  |           |  ]   |------+------+------+------+------+-----------|
@@ -150,7 +147,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                     ,KC_BSPC,F(F_SFT),KC_ESC
 
                                                                 // right hand
-                                                               ,M(Fx)     ,M(A_0)  ,M(A_2)    ,M(A_4)  ,M(A_6)  ,M(A_8)   ,M(A_PLVR)
+                                                               ,M(Fx)     ,M(A_0)  ,M(A_2)    ,M(A_4)  ,M(A_6)  ,M(A_8)   ,KC_APP
                                                                ,TD(CT_RBP),KC_F    ,KC_G      ,KC_C    ,KC_R    ,KC_L     ,KC_BSLS
                                                                           ,KC_D    ,KC_H      ,KC_T    ,KC_N    ,KC_S     ,KC_EQL
                                                                ,TD(CT_TPS),KC_B    ,KC_M      ,KC_W    ,KC_V    ,KC_Z     ,TD(CT_SR)
@@ -164,7 +161,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 1: Adore layer
  *
  * ,-----------------------------------------------------.           ,-----------------------------------------------------.
- * | Play/Pause| 9    | 7  @ | 5  * | 3  ^ | 1  $ | F11  |           |  Fx  | 0  % | 2  ! | 4  # | 6  & | 8    |    Plover |
+ * | Play/Pause| 9    | 7  @ | 5  * | 3  ^ | 1  $ | F11  |           |  Fx  | 0  % | 2  ! | 4  # | 6  & | 8    |    Apps   |
  * |-----------+------+------+------+------+-------------|           |------+------+------+------+------+------+-----------|
  * |         \ |   X  |   W  |   C  |   H  |   F  |   (  |           |  )   |   M  |   G  |   L  |   P  |  /   | `~        |
  * |-----------+------+------+------+------+------|   [  |           |  ]   |------+------+------+------+------+-----------|
@@ -195,7 +192,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                     ,KC_BSPC,F(F_SFT),KC_ESC
 
                                                                 // right hand
-                                                               ,M(Fx)     ,M(A_0)   ,M(A_2)  ,M(A_4)  ,M(A_6)  ,M(A_8)  ,M(A_PLVR)
+                                                               ,M(Fx)     ,M(A_0)   ,M(A_2)  ,M(A_4)  ,M(A_6)  ,M(A_8)  ,KC_APP
                                                                ,TD(CT_RBP),KC_M     ,KC_G    ,KC_L    ,KC_P    ,KC_SLSH ,KC_GRV
                                                                           ,KC_D     ,KC_R    ,KC_T    ,KC_N    ,KC_S    ,KC_EQL
                                                                ,TD(CT_TPS),KC_B     ,KC_K    ,KC_V    ,KC_Y    ,KC_J    ,KC_NO
@@ -388,51 +385,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                      ,KC_NO
                                                                      ,KC_NO     ,KC_NO   ,KC_NO
     ),
-
-/* Keymap 6: Steno for Plover
- *
- * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |  BASE  |
- * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * |        |   #  |   #  |   #  |   #  |   #  |   #  |           |  #   |  #   |  #   |   #  |   #  |  #   |   #    |
- * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        |      |   T  |   P  |   H  |      |------|           |------|      |  F   |   P  |   L  |  T   |   D    |
- * |--------+   S  +------+------+------+   *  |   *  |           |  *   |  *   +------+------+------+------+--------|
- * |        |      |   K  |   W  |   R  |      |      |           |      |      |  R   |   B  |   G  |  S   |   Z    |
- * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   |      |      |      |      |      |                                       |      |      |      |      |      |
- *   `----------------------------------'                                       `----------------------------------'
- *                                        ,-------------.       ,-------------.
- *                                        |      |      |       |      |      |
- *                                 ,------|------|------|       |------+------+------.
- *                                 |      |      |      |       |      |      |      |
- *                                 |   A  |   O  |------|       |------|  E   |  U   |
- *                                 |      |      |      |       |      |      |      |
- *                                 `--------------------'       `--------------------'
- */
-
-[PLVR] = LAYOUT_ergodox(
-// left hand
-KC_NO,  KC_NO,  KC_NO,  KC_NO,   KC_NO,  KC_NO,   KC_NO,
-KC_NO,  PV_NUM, PV_NUM, PV_NUM,  PV_NUM, PV_NUM,  PV_NUM,
-KC_NO,  PV_LS,  PV_LT,  PV_LP,   PV_LH,  PV_STAR,
-KC_NO,  PV_LS,  PV_LK,  PV_LW,   PV_LR,  PV_STAR, PV_STAR,
-KC_NO,  KC_NO,  KC_NO,  KC_NO,   KC_NO,
-                                           KC_NO, KC_NO,
-                                           KC_NO,
-                                           PV_A,  PV_O,  KC_NO,
-
-                                                 // right hand
-                                                 KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   M(A_PLVR),
-                                                 PV_NUM,  PV_NUM,  PV_NUM,  PV_NUM,  PV_NUM,  PV_NUM,  PV_NUM,
-                                                          PV_STAR, PV_RF,   PV_RP,   PV_RL,   PV_RT,   PV_RD,
-                                                 PV_STAR, PV_STAR, PV_RR,   PV_RB,   PV_RG,   PV_RS,   PV_RZ,
-                                                                   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
-                                           KC_NO,      KC_NO,
-                                           KC_NO,
-                                           KC_NO,PV_E, PV_U
- ),
-
 };
 
 const uint16_t PROGMEM fn_actions[] = {
@@ -443,29 +395,6 @@ const uint16_t PROGMEM fn_actions[] = {
   ,[F_ALT]  = ACTION_MODS_ONESHOT (MOD_LALT)
   ,[F_CTRL] = ACTION_MODS_ONESHOT (MOD_LCTL)
 };
-
-static void toggle_steno(int pressed)
-{
-  uint8_t layer = biton32(layer_state);
-
-  if (pressed) {
-    if (layer != PLVR) layer_on(PLVR); else layer_off(PLVR);
-
-    register_code(PV_LP);
-    register_code(PV_LH);
-    register_code(PV_LR);
-    register_code(PV_O);
-    register_code(PV_RL);
-    register_code(PV_RG);
-  } else {
-    unregister_code(PV_LP);
-    unregister_code(PV_LH);
-    unregister_code(PV_LR);
-    unregister_code(PV_O);
-    unregister_code(PV_RL);
-    unregister_code(PV_RG);
-  }
-}
 
 static macro_t *ang_do_hun (keyrecord_t *record, uint16_t accent, uint16_t hun_char)
 {
@@ -611,11 +540,6 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         return ang_do_hun (record, KC_EQL, KC_O);
       case HU_UEE:
         return ang_do_hun (record, KC_EQL, KC_U);
-
-        /* Plover base */
-      case A_PLVR:
-        toggle_steno(record->event.pressed);
-        break;
 
         /* Fx */
       case Fx:
@@ -933,10 +857,6 @@ void matrix_scan_user(void) {
     } else if (layer == NMDIA) {
       ergodox_right_led_1_on();
       ergodox_right_led_2_on();
-    } else if (layer == PLVR) {
-      ergodox_right_led_1_on ();
-      ergodox_right_led_2_on ();
-      ergodox_right_led_3_on ();
     } else if (layer == ADORE) {
       ergodox_right_led_1_on ();
       ergodox_right_led_2_on ();
@@ -961,7 +881,7 @@ void matrix_scan_user(void) {
       ergodox_right_led_1_on ();
     } else {
       ergodox_right_led_1_set (LED_BRIGHTNESS_LO);
-      if (layer != NMDIA && layer != PLVR && layer != ADORE && !is_arrow)
+      if (layer != NMDIA && layer != ADORE && !is_arrow)
         ergodox_right_led_1_off ();
     }
 
@@ -971,7 +891,7 @@ void matrix_scan_user(void) {
       ergodox_right_led_2_on ();
     } else {
       ergodox_right_led_2_set (LED_BRIGHTNESS_LO);
-      if (layer != HUN && layer != NMDIA && layer != PLVR && layer != ADORE)
+      if (layer != HUN && layer != NMDIA && layer != ADORE)
         ergodox_right_led_2_off ();
     }
 
@@ -981,7 +901,7 @@ void matrix_scan_user(void) {
       ergodox_right_led_3_on ();
     } else {
       ergodox_right_led_3_set (LED_BRIGHTNESS_LO);
-      if (layer != HUN && layer != PLVR && layer != ADORE && !is_arrow)
+      if (layer != HUN && layer != ADORE && !is_arrow)
         ergodox_right_led_3_off ();
     }
   }
